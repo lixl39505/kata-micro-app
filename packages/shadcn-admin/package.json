@@ -1,0 +1,34 @@
+{
+  "name": "shadcn-admin",
+  "version": "0.0.0",
+  "description": "基于shadcn-ui和vue3的后端管理框架",
+  "keywords": [
+    "shadcn-ui",
+    "admin",
+    "vue3"
+  ],
+  "author": "july <july@foxmail.com>",
+  "homepage": "https://github.com/pixelsLee/kata-admin-ui#readme",
+  "license": "ISC",
+  "main": "lib/shadcn-admin.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmmirror.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixelsLee/kata-admin-ui.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/shadcn-admin.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/pixelsLee/kata-admin-ui/issues"
+  }
+}
