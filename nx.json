@@ -1,3 +1,20 @@
 {
-  "targetDefaults": {}
+  "$schema": "node_modules/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*"],
+    "prod": ["!{projectRoot}/**/*.spec.tsx"],
+    "production": ["default"]
+  },
+  "targetDefaults": {
+    "build": {
+      "inputs": ["prod", "^prod"],
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "inputs": ["default", "^prod"]
+    },
+    "dev": {
+      "dependsOn": ["^build"]
+    }
+  }
 }

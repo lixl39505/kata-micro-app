@@ -1,6 +1,6 @@
 {
   "name": "shadcn-admin",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "基于shadcn-ui和vue3的后端管理框架",
   "keywords": [
     "shadcn-ui",
