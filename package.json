@@ -7,7 +7,7 @@
     "servers/*"
   ],
   "scripts": {
-    "dev": "lerna run --scope=admin-main-element-plus dev"
+    "dev": "lerna run --scope=admin-main-element-plus dev --stream" 
   },
   "dependencies": {},
   "devDependencies": {
