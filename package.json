@@ -6,6 +6,9 @@
     "apps/*",
     "servers/*"
   ],
+  "scripts": {
+    "dev": "lerna run --scope=admin-main-element-plus dev"
+  },
   "dependencies": {},
   "devDependencies": {
     "lerna": "^8.1.2"
