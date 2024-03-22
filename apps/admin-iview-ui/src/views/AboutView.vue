@@ -4,27 +4,27 @@
   </div>
 </template>
 
-<script>
-import User from '@/api/user';
+<script lang="ts">
+import User from '~/api/user'
 
-export default {
+export default defineComponent({
   data() {
     return {
       username: '',
       password: '',
-    };
+    }
   },
   computed: {},
   created() {
-    this.login();
+    this.login()
   },
   methods: {
     async login() {
-      const res = await User.login(this.username, this.password);
-      console.log(res);
+      const res = await User.login(this.username, this.password)
+      console.log(res)
     },
   },
-};
+})
 </script>
 
 <style lang="less">

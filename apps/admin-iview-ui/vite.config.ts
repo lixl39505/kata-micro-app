@@ -1,11 +1,14 @@
 import { resolve } from 'path'
+import { createRequire } from 'node:module'
 import { defineConfig, loadEnv } from 'vite'
 import vue2 from '@vitejs/plugin-vue2'
 import vueJsx from '@vitejs/plugin-vue2-jsx'
 import legacy from '@vitejs/plugin-legacy'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import { ViewDesignResolver } from './build/resolver'
+import { ElementUiResolver } from 'unplugin-vue-components/resolvers'
+
+const require = createRequire(import.meta.url)
 
 export default defineConfig(({ command, mode }) => {
   const { VITE_PORT, VITE_BASE_URL } = loadEnv(mode, process.cwd())
@@ -20,26 +23,20 @@ export default defineConfig(({ command, mode }) => {
       }),
       AutoImport({
         imports: ['vue', 'vue-router', 'vuex'],
-        resolvers: [ViewDesignResolver()],
+        resolvers: [ElementUiResolver()],
       }),
       Components({
-        resolvers: [ViewDesignResolver()],
+        resolvers: [
+          ElementUiResolver({
+            importStyle: 'sass',
+          }),
+        ],
       }),
     ],
     resolve: {
       alias: {
-        '@': resolve(__dirname, 'src'),
-      },
-    },
-    css: {
-      preprocessorOptions: {
-        less: {
-          modifyVars: {
-            hack: `true; @import (reference) "${resolve('src/style/variables.less')}";`,
-          },
-          math: 'strict',
-          javascriptEnabled: true,
-        },
+        '~': resolve(__dirname, 'src'),
+        vue: require.resolve('vue/dist/vue.esm.js'), // Vite+Vue2时，会强制重定向 vue 到 vue.esm.js，详见 https://github.com/vitejs/vite-plugin-vue2/issues/16#issuecomment-1171891909
       },
     },
     server: {
