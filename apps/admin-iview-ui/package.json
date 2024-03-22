@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "后台模板 Vue2 + iviewUI",
   "main": "main.js",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
@@ -14,6 +13,7 @@
   ],
   "license": "ISC",
   "browserslist": [
+    "IE 11",
     "defaults"
   ],
   "dependencies": {
@@ -24,10 +24,13 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@vitejs/plugin-legacy": "^5.3.2",
     "@vitejs/plugin-vue2": "^2.3.1",
+    "@vitejs/plugin-vue2-jsx": "^1.1.1",
     "autoprefixer": "^10.4.19",
     "less": "^4.2.0",
     "prettier": "^2.8.8",
+    "terser": "^5.29.2",
     "vite": "^5.2.2"
   }
 }
