@@ -2,7 +2,7 @@
   <div>
     <WelcomeItem>
       <template #icon>
-        <DocumentationIcon />
+        <IconDocumentation />
       </template>
       <template #heading>Documentation</template>
 
@@ -13,7 +13,7 @@
 
     <WelcomeItem>
       <template #icon>
-        <ToolingIcon />
+        <IconTooling />
       </template>
       <template #heading>Tooling</template>
 
@@ -33,7 +33,7 @@
 
     <WelcomeItem>
       <template #icon>
-        <EcosystemIcon />
+        <IconEcosystem />
       </template>
       <template #heading>Ecosystem</template>
 
@@ -49,7 +49,7 @@
 
     <WelcomeItem>
       <template #icon>
-        <CommunityIcon />
+        <IconCommunity />
       </template>
       <template #heading>Community</template>
 
@@ -63,7 +63,7 @@
 
     <WelcomeItem>
       <template #icon>
-        <SupportIcon />
+        <IconSupport />
       </template>
       <template #heading>Support Vue</template>
 

@@ -27,7 +27,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less">
+<style lang="scss">
 @media (min-width: 1024px) {
   .about {
     display: flex;

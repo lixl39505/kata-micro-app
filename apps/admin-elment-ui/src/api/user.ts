@@ -1,4 +1,4 @@
-import { post } from '~/utils/request';
+import { post } from '~/utils/request'
 
 export default class User {
   /**
@@ -7,10 +7,10 @@ export default class User {
    * @param {String} password 密码
    * @returns
    */
-  static async login(username, password) {
+  static async login(username: string, password: string) {
     return post('/login', {
       username,
       password,
-    });
+    })
   }
 }
