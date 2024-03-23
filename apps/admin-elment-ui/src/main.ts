@@ -3,7 +3,7 @@ import router from './router'
 import pinia from './stores'
 import App from './App.vue'
 
-import '~/styles/index.css'
+import '~/styles/theme.scss'
 
 new Vue({
   router,

@@ -37,7 +37,7 @@
     "@vue/tsconfig": "^0.5.1",
     "autoprefixer": "^10.4.19",
     "prettier": "^3.2.5",
-    "sass": "^1.72.0",
+    "sass": "~1.32.6",
     "terser": "^5.29.2",
     "typescript": "^5.4.3",
     "unplugin-auto-import": "^0.17.5",
