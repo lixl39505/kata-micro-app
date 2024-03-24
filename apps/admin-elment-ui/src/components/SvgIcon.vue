@@ -1,6 +1,7 @@
 <template>
   <svg class="svgicon" aria-hidden="true">
-    <use :xlink:href="symbolId" :fill="fill" />
+    <title>{{ title }}</title>
+    <use :xlink:href="symbolId" :fill="fill"></use>
   </svg>
 </template>
 
@@ -20,6 +21,10 @@ export default defineComponent({
     },
     fill: {
       type: String,
+    },
+    title: {
+      type: String,
+      default: '',
     },
   },
   setup(props) {

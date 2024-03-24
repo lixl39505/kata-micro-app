@@ -48,7 +48,16 @@
     </ElAside>
     <ElContainer direction="vertical">
       <ElHeader class="header" :height="null">
-        <SvgIcon class="header__icon" :name="isCollapse ? 'indent' : 'indent-left'" @click.native="onIndent"></SvgIcon>
+        <SvgIcon class="header__icon" :name="isCollapse ? 'indent-left' : 'indent'" @click.native="onIndent"></SvgIcon>
+        <div class="header__action-bar">
+          <SvgIcon class="header__icon" title="全屏" name="fullscreen" @click.native="onFullscreen"></SvgIcon>
+          <ElDropdown class="header__lang" @command="onLangChange">
+            <span><SvgIcon class="header__icon" name="lang"></SvgIcon>{{ curLang.text }}</span>
+            <ElDropdownMenu slot="dropdown">
+              <ElDropdownItem v-for="lang in langs" :key="lang.id" :command="lang">{{ lang.text }}</ElDropdownItem>
+            </ElDropdownMenu>
+          </ElDropdown>
+        </div>
       </ElHeader>
       <ElMain>
         <RouterView />
@@ -62,7 +71,17 @@ export default {
 }
 </script>
 <script lang="ts" setup>
+import screenfull from 'screenfull'
+
+let langs = [
+  { id: 'zh', text: '中文' },
+  { id: 'en', text: 'English' },
+]
+
+type Lang = (typeof langs)[0]
+
 const isCollapse = ref(false)
+const curLang = ref<Lang>(langs[0])
 
 function handleOpen(key: string, keyPath: string) {
   console.log(key, keyPath)
@@ -74,6 +93,14 @@ function handleClose(key: string, keyPath: string) {
 
 function onIndent(e: EventTarget) {
   isCollapse.value = !isCollapse.value
+}
+
+function onLangChange(cmd: Lang) {
+  curLang.value = cmd
+}
+
+function onFullscreen() {
+  screenfull.toggle()
 }
 </script>
 <style lang="scss">
@@ -120,9 +147,19 @@ $header-height: 48px;
   &__icon {
     width: 1.5em;
     height: 1.5em;
+    margin-right: 12px;
+    vertical-align: middle;
     &:hover {
       cursor: pointer;
     }
+  }
+  &__action-bar {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__lang {
+    cursor: pointer;
   }
 }
 </style>
