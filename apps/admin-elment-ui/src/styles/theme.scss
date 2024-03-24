@@ -1,7 +1,11 @@
-/* 改变主题色变量 */
+// import theme-chalk vars
+@import 'element-ui/packages/theme-chalk/src/common/var.scss';
+
+// custom theme
 $--color-primary: teal;
 
-/* 改变 icon 字体路径变量，必需 */
-$--font-path: 'element-ui/lib/theme-chalk/fonts';
+// @debug $--color-primary;
+// @debug $--color-white;
 
-@import 'element-ui/packages/theme-chalk/src/index';
+// 改变 icon 字体路径变量，必需
+$--font-path: 'element-ui/lib/theme-chalk/fonts';

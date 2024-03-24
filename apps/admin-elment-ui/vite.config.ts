@@ -39,6 +39,13 @@ export default defineConfig(({ command, mode }) => {
         vue: require.resolve('vue/dist/vue.esm.js'), // Vite+Vue2时，会强制重定向 vue 到 vue.esm.js，详见 https://github.com/vitejs/vite-plugin-vue2/issues/16#issuecomment-1171891909
       },
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "~/styles/theme.scss"; `,
+        },
+      },
+    },
     server: {
       // 端口号
       port: parseInt(VITE_PORT),
