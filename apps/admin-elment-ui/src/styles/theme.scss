@@ -7,5 +7,5 @@ $--color-primary: #ffd04b;
 // 改变 icon 字体路径变量，必需
 $--font-path: 'element-ui/lib/theme-chalk/fonts';
 
-// import theme-chalk vars
+// import theme-chalk vars（必须放最后才能覆盖默认主题）
 @import 'element-ui/packages/theme-chalk/src/common/var.scss';

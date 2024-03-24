@@ -1,10 +1,12 @@
 <template>
   <ElContainer class="main">
     <ElAside :class="['aside', { collapse: isCollapse }]" :width="null">
+      <!-- 顶部Logo -->
       <div :class="['aside__head', { collapse: isCollapse }]">
         <SvgIcon class="aside__logo" name="logo"></SvgIcon>
         <span v-show="!isCollapse">ElementUI Admin</span>
       </div>
+      <!-- 路由菜单 -->
       <ElMenu
         class="aside__menu"
         default-active="1-4-1"
@@ -48,15 +50,20 @@
     </ElAside>
     <ElContainer direction="vertical">
       <ElHeader class="header" :height="null">
+        <!-- 菜单缩进 -->
         <SvgIcon class="header__icon" :name="isCollapse ? 'indent-left' : 'indent'" @click.native="onIndent"></SvgIcon>
+        <!-- 功能区 -->
         <div class="header__action-bar">
+          <!-- 全屏 -->
           <SvgIcon class="header__icon" title="全屏" name="fullscreen" @click.native="onFullscreen"></SvgIcon>
+          <!-- 多语言 -->
           <ElDropdown class="header__lang" @command="onLangChange">
             <span><SvgIcon class="header__icon" name="lang"></SvgIcon>{{ curLang.text }}</span>
             <ElDropdownMenu slot="dropdown">
               <ElDropdownItem v-for="lang in langs" :key="lang.id" :command="lang">{{ lang.text }}</ElDropdownItem>
             </ElDropdownMenu>
           </ElDropdown>
+          <!-- 当前用户 -->
         </div>
       </ElHeader>
       <ElMain>
