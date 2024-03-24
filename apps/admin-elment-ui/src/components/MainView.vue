@@ -1,8 +1,12 @@
 <template>
   <ElContainer class="main">
-    <ElAside class="aside" width="200px">
-      <div class="aside__head" :style="{ height: hdH + 'px' }">Logo</div>
+    <ElAside :class="['aside', { collapse: isCollapse }]" :width="null">
+      <div :class="['aside__head', { collapse: isCollapse }]">
+        <SvgIcon class="aside__logo" name="logo"></SvgIcon>
+        <span v-show="!isCollapse">ElementUI Admin</span>
+      </div>
       <ElMenu
+        class="aside__menu"
         default-active="1-4-1"
         background-color="#545c64"
         text-color="#fff"
@@ -43,7 +47,9 @@
       </ElMenu>
     </ElAside>
     <ElContainer direction="vertical">
-      <ElHeader :height="hdH + 'px'">Header</ElHeader>
+      <ElHeader class="header" :height="null">
+        <SvgIcon class="header__icon" :name="isCollapse ? 'indent' : 'indent-left'" @click.native="onIndent"></SvgIcon>
+      </ElHeader>
       <ElMain>
         <RouterView />
       </ElMain>
@@ -56,7 +62,6 @@ export default {
 }
 </script>
 <script lang="ts" setup>
-const hdH = ref(48)
 const isCollapse = ref(false)
 
 function handleOpen(key: string, keyPath: string) {
@@ -66,17 +71,58 @@ function handleOpen(key: string, keyPath: string) {
 function handleClose(key: string, keyPath: string) {
   console.log(key, keyPath)
 }
+
+function onIndent(e: EventTarget) {
+  isCollapse.value = !isCollapse.value
+}
 </script>
 <style lang="scss">
+$header-height: 48px;
+
 .main {
   height: 100%;
 }
 .aside {
+  width: 200px;
   background: #545c64;
   color: mix($--color-white, $--color-black, 80%);
+  transition:
+    width,
+    0.3s ease-in;
+  &.collapse {
+    width: 64px;
+  }
   &__head {
+    height: $header-height;
+    line-height: $header-height;
     position: sticky;
     padding: 0 20px;
+    &.collapse {
+      width: 64px;
+      padding: 0;
+      text-align: center;
+    }
+  }
+  &__logo {
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: -0.2em;
+    margin-right: 2px;
+  }
+  &__menu {
+    border: 0;
+  }
+}
+.header {
+  height: $header-height;
+  display: flex;
+  align-items: center;
+  &__icon {
+    width: 1.5em;
+    height: 1.5em;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 </style>

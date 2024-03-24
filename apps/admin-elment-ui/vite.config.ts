@@ -7,6 +7,7 @@ import legacy from '@vitejs/plugin-legacy'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementUiResolver } from 'unplugin-vue-components/resolvers'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 const require = createRequire(import.meta.url)
 
@@ -31,6 +32,12 @@ export default defineConfig(({ command, mode }) => {
             importStyle: 'sass',
           }),
         ],
+      }),
+      createSvgIconsPlugin({
+        iconDirs: [resolve(__dirname, 'src/assets/icons')],
+        symbolId: 'icon-[dir]-[name]',
+        inject: 'body-last',
+        customDomId: '__svg__icons__dom__',
       }),
     ],
     resolve: {
@@ -60,7 +67,7 @@ export default defineConfig(({ command, mode }) => {
     },
     build: {
       // 构建后是否生成 source map 文件
-      sourcemap: false,
+      sourcemap: 'hidden',
       //  chunk 大小警告的限制（以 kbs 为单位）
       chunkSizeWarningLimit: 2000,
       // 启用/禁用 gzip 压缩大小报告

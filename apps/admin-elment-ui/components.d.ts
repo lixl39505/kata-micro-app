@@ -43,6 +43,7 @@ declare module 'vue' {
     SideMenu: typeof import('./src/components/main/components/side-menu/side-menu.vue')['default']
     SideMenuItem: typeof import('./src/components/main/components/side-menu/side-menu-item.vue')['default']
     SiderTrigger: typeof import('./src/components/main/components/header-bar/sider-trigger/sider-trigger.vue')['default']
+    SvgIcon: typeof import('./src/components/SvgIcon.vue')['default']
     TagsNav: typeof import('./src/components/main/components/tags-nav/tags-nav.vue')['default']
     TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
     User: typeof import('./src/components/main/components/user/user.vue')['default']
