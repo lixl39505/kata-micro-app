@@ -10,12 +10,17 @@
       <ElMenu
         router
         class="aside__menu"
-        default-active="1-4-1"
+        :default-active="route.fullPath"
         background-color="#545c64"
         text-color="#fff"
         :collapse="isCollapse"
       >
-        <SideMenu v-for="config in menuItems" :key="config.path" :config="config"></SideMenu>
+        <SideMenu
+          v-for="config in menuItems"
+          :key="config.path"
+          :config="config"
+          :activePath="route.fullPath"
+        ></SideMenu>
       </ElMenu>
     </ElAside>
     <ElContainer direction="vertical">
@@ -99,6 +104,7 @@ const user = useUserStore()
 const isCollapse = ref(false)
 const curLang = ref<Lang>(langs[0])
 const router = useRouter()
+const route = useRoute()
 const menuItems = shallowRef<MenuConfig[]>([])
 
 watchEffect(() => {

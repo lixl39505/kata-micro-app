@@ -27,7 +27,7 @@ export default [
         path: 'users',
         meta: {
           title: '用户管理',
-          icon: 'user',
+          icon: 'admin-user',
         },
         component: () => import(`~/views/main/ParentView.vue`),
       },
@@ -35,7 +35,7 @@ export default [
         path: 'roles',
         meta: {
           title: '权限管理',
-          icon: 'role',
+          icon: 'admin-role',
         },
         component: () => import(`~/views/main/ParentView.vue`),
       },
