@@ -36,7 +36,7 @@
           <ElDropdown class="header__lang" @command="onLangChange">
             <span><SvgIcon class="header__icon" name="lang"></SvgIcon>{{ curLang.text }}</span>
             <ElDropdownMenu slot="dropdown">
-              <ElDropdownItem v-for="lang in langs" :key="lang.id" :command="lang">{{ lang.text }}</ElDropdownItem>
+              <ElDropdownItem v-for="lang in app.langs" :key="lang.id" :command="lang">{{ lang.text }}</ElDropdownItem>
             </ElDropdownMenu>
           </ElDropdown>
           <!-- 当前用户 -->
@@ -52,7 +52,7 @@
               ></SvgIcon
             ></span>
             <ElDropdownMenu slot="dropdown">
-              <ElDropdownItem v-for="act in userActions" :key="act.id" :command="act" :divided="act.divided">{{
+              <ElDropdownItem v-for="act in app.userActions" :key="act.id" :command="act" :divided="act.divided">{{
                 act.text
               }}</ElDropdownItem>
             </ElDropdownMenu>
