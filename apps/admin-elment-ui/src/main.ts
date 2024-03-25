@@ -13,3 +13,5 @@ new Vue({
   pinia,
   render: (h) => h(App),
 }).$mount('#app')
+
+// Object.assign(window, { router, pinia })
