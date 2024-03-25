@@ -3,7 +3,7 @@ import type { RouteConfig } from 'vue-router'
 export default [
   {
     path: '/',
-    component: () => import('~/views/MainView.vue'),
+    component: () => import('~/views/main/MainView.vue'),
     children: [
       {
         path: 'index',

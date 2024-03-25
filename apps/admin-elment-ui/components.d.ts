@@ -15,6 +15,7 @@ declare module 'vue' {
     ElButton: typeof import('element-ui/lib/button')['default']
     ElComtainer: typeof import('element-ui/lib/comtainer')['default']
     ElContainer: typeof import('element-ui/lib/container')['default']
+    ElDivider: typeof import('element-ui/lib/divider')['default']
     ElDropdown: typeof import('element-ui/lib/dropdown')['default']
     ElDropdownItem: typeof import('element-ui/lib/dropdown-item')['default']
     ElDropdownMenu: typeof import('element-ui/lib/dropdown-menu')['default']

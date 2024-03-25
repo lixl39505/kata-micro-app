@@ -49,10 +49,11 @@
       </ElMenu>
     </ElAside>
     <ElContainer direction="vertical">
+      <!-- 顶部功能栏 -->
       <ElHeader class="header" :height="null">
         <!-- 菜单缩进 -->
         <SvgIcon class="header__icon" :name="isCollapse ? 'indent-left' : 'indent'" @click.native="onIndent"></SvgIcon>
-        <!-- 功能区 -->
+        <!-- 右侧功能区 -->
         <div class="header__action-bar">
           <!-- 全屏 -->
           <SvgIcon class="header__icon" title="全屏" name="fullscreen" @click.native="onFullscreen"></SvgIcon>
@@ -79,6 +80,10 @@
           </ElDropdown>
         </div>
       </ElHeader>
+      <div class="header__bottom"></div>
+      <!-- 访问栏 -->
+      <VisitedBar></VisitedBar>
+      <!-- 内容区 -->
       <ElMain>
         <RouterView />
       </ElMain>
@@ -92,6 +97,7 @@ export default {
 </script>
 <script lang="ts" setup>
 import screenfull from 'screenfull'
+import VisitedBar from './VisitedBar.vue'
 
 let langs = [
   { id: 'zh' as const, text: '中文' },
@@ -222,6 +228,11 @@ $header-height: 48px;
       left: 2px;
       margin-top: -4px;
     }
+  }
+  &__bottom {
+    height: 1px;
+    width: 100%;
+    background-color: $--border-color-base;
   }
 }
 </style>
