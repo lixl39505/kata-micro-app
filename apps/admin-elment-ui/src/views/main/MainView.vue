@@ -77,42 +77,30 @@ export default {
 <script lang="ts" setup>
 import screenfull from 'screenfull'
 import VisitedBar from './VisitedBar.vue'
-import SideMenu, { MenuConfig } from './SideMenu.vue'
+import SideMenu, { type MenuConfig } from './SideMenu.vue'
 import { useUserStore } from '~/stores/user'
+import { useAppStore, type Cmd } from '~/stores/app'
 import type { RouteRecord } from 'vue-router'
-
-let langs = [
-  { id: 'zh' as const, text: '中文' },
-  { id: 'en' as const, text: 'English' },
-]
-let userActions = [
-  { id: 'profile' as const, text: '修改资料' },
-  { id: 'pwd' as const, text: '修改密码' },
-  { id: 'exit' as const, text: '退出', divided: true },
-]
-
-type Cmd<T> = {
-  id: T
-  text: string
-  divided?: boolean
-}
-type Lang = Cmd<(typeof langs)[number]['id']>
-type UserAction = Cmd<(typeof userActions)[number]['id']>
 
 // states
 const user = useUserStore()
+const app = useAppStore()
 const isCollapse = ref(false)
-const curLang = ref<Lang>(langs[0])
+const curLang = ref<Lang>(app.langs[0])
 const router = useRouter()
 const route = useRoute()
 const menuItems = shallowRef<MenuConfig[]>([])
 
+type Lang = Cmd<typeof app.langs>
+type UserAction = Cmd<typeof app.userActions>
+
+// 显示当前语言
 watchEffect(() => {
-  let i = langs.findIndex((v) => v.id === user.lang)
+  let i = app.langs.findIndex((v) => v.id === user.lang)
 
-  if (i >= 0) curLang.value = langs[i]
+  if (i >= 0) curLang.value = app.langs[i]
 })
-
+// 根据路由构造菜单
 watchEffect(() => {
   let routes = router.getRoutes() as RouteRecord[],
     routesMap: Record<string, MenuConfig> = {}
