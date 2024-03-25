@@ -64,6 +64,19 @@
             </ElDropdownMenu>
           </ElDropdown>
           <!-- 当前用户 -->
+          <ElDropdown class="header__user" @command="onUserAction">
+            <span
+              ><ElAvatar size="small" class="header__user-avatar" src="avatar.png"></ElAvatar>用户名<SvgIcon
+                class="header__user-icon"
+                name="arrowdown"
+              ></SvgIcon
+            ></span>
+            <ElDropdownMenu slot="dropdown">
+              <ElDropdownItem v-for="act in userActions" :key="act.id" :command="act" :divided="act.divided">{{
+                act.text
+              }}</ElDropdownItem>
+            </ElDropdownMenu>
+          </ElDropdown>
         </div>
       </ElHeader>
       <ElMain>
@@ -81,11 +94,22 @@ export default {
 import screenfull from 'screenfull'
 
 let langs = [
-  { id: 'zh', text: '中文' },
-  { id: 'en', text: 'English' },
+  { id: 'zh' as const, text: '中文' },
+  { id: 'en' as const, text: 'English' },
+]
+let userActions = [
+  { id: 'profile' as const, text: '修改资料' },
+  { id: 'pwd' as const, text: '修改密码' },
+  { id: 'exit' as const, text: '退出', divided: true },
 ]
 
-type Lang = (typeof langs)[0]
+type Cmd<T> = {
+  id: T
+  text: string
+  divided?: boolean
+}
+type Lang = Cmd<(typeof langs)[number]['id']>
+type UserAction = Cmd<(typeof userActions)[number]['id']>
 
 const isCollapse = ref(false)
 const curLang = ref<Lang>(langs[0])
@@ -102,12 +126,26 @@ function onIndent(e: EventTarget) {
   isCollapse.value = !isCollapse.value
 }
 
+function onFullscreen() {
+  screenfull.toggle()
+}
+
 function onLangChange(cmd: Lang) {
   curLang.value = cmd
 }
 
-function onFullscreen() {
-  screenfull.toggle()
+function onUserAction(cmd: UserAction) {
+  if (cmd.id === 'profile') {
+    return
+  }
+  if (cmd.id === 'pwd') {
+    return
+  }
+  if (cmd.id === 'exit') {
+    return
+  }
+
+  exhaustiveCheck(cmd.id)
 }
 </script>
 <style lang="scss">
@@ -167,6 +205,23 @@ $header-height: 48px;
   }
   &__lang {
     cursor: pointer;
+    margin-right: 12px;
+  }
+  &__user {
+    position: relative;
+    padding-left: 36px;
+    cursor: pointer;
+    &-icon {
+      width: 0.9em;
+      height: 0.9em;
+      padding-left: 2px;
+      vertical-align: -2px;
+    }
+    &-avatar {
+      position: absolute;
+      left: 2px;
+      margin-top: -4px;
+    }
   }
 }
 </style>

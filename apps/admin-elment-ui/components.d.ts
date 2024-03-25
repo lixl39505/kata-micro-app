@@ -11,6 +11,7 @@ declare module 'vue' {
     copy: typeof import('./src/components/ParentView copy.vue')['default']
     CustomBreadCrumb: typeof import('./src/components/main/components/header-bar/custom-bread-crumb/custom-bread-crumb.vue')['default']
     ElAside: typeof import('element-ui/lib/aside')['default']
+    ElAvatar: typeof import('element-ui/lib/avatar')['default']
     ElButton: typeof import('element-ui/lib/button')['default']
     ElComtainer: typeof import('element-ui/lib/comtainer')['default']
     ElContainer: typeof import('element-ui/lib/container')['default']

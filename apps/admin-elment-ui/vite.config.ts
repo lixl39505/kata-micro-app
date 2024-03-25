@@ -24,6 +24,7 @@ export default defineConfig(({ command, mode }) => {
       }),
       AutoImport({
         imports: ['vue', 'vue-router', 'vuex'],
+        dirs: [resolve(__dirname, 'src/utils')],
         resolvers: [ElementUiResolver()],
       }),
       Components({
