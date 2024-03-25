@@ -37,8 +37,14 @@
           <!-- 当前用户 -->
           <ElDropdown class="header__user" @command="onUserAction">
             <span
-              ><ElAvatar size="small" class="header__user-avatar" :src="user.avatar"></ElAvatar>{{ user.nickname
-              }}<SvgIcon class="header__user-icon" name="arrowdown"></SvgIcon
+              ><ElAvatar size="small" class="header__user-avatar" :src="user.avatar"
+                ><SvgIcon class="header__user-icon" name="noimg"></SvgIcon></ElAvatar
+              >{{ user.nickname
+              }}<SvgIcon
+                class="header__user-icon"
+                style="padding-left: 2px; vertical-align: -2px"
+                name="arrowdown"
+              ></SvgIcon
             ></span>
             <ElDropdownMenu slot="dropdown">
               <ElDropdownItem v-for="act in userActions" :key="act.id" :command="act" :divided="act.divided">{{
@@ -66,9 +72,9 @@ export default {
 <script lang="ts" setup>
 import screenfull from 'screenfull'
 import VisitedBar from './VisitedBar.vue'
-import SideMenu from './SideMenu.vue'
+import SideMenu, { MenuConfig } from './SideMenu.vue'
 import { useUserStore } from '~/stores/user'
-import type { RouteConfig, RouteRecord } from 'vue-router'
+import type { RouteRecord } from 'vue-router'
 
 let langs = [
   { id: 'zh' as const, text: '中文' },
@@ -93,7 +99,7 @@ const user = useUserStore()
 const isCollapse = ref(false)
 const curLang = ref<Lang>(langs[0])
 const router = useRouter()
-const menuItems = shallowRef<RouteConfig[]>([])
+const menuItems = shallowRef<MenuConfig[]>([])
 
 watchEffect(() => {
   let i = langs.findIndex((v) => v.id === user.lang)
@@ -103,7 +109,7 @@ watchEffect(() => {
 
 watchEffect(() => {
   let routes = router.getRoutes() as RouteRecord[],
-    routesMap: Record<string, RouteConfig> = {}
+    routesMap: Record<string, MenuConfig> = {}
 
   routes.forEach((v) => {
     if (!routesMap[v.path]) {
@@ -223,8 +229,6 @@ $header-height: 48px;
     &-icon {
       width: 0.9em;
       height: 0.9em;
-      padding-left: 2px;
-      vertical-align: -2px;
     }
     &-avatar {
       position: absolute;
