@@ -8,44 +8,14 @@
       </div>
       <!-- 路由菜单 -->
       <ElMenu
+        router
         class="aside__menu"
         default-active="1-4-1"
         background-color="#545c64"
         text-color="#fff"
-        @open="handleOpen"
-        @close="handleClose"
         :collapse="isCollapse"
       >
-        <ElSubmenu index="1">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span slot="title">导航一</span>
-          </template>
-          <ElMenuItemGroup>
-            <span slot="title">分组一</span>
-            <ElMenuItem index="1-1">选项1</ElMenuItem>
-            <ElMenuItem index="1-2">选项2</ElMenuItem>
-          </ElMenuItemGroup>
-          <ElMenuItemGroup title="分组2">
-            <ElMenuItem index="1-3">选项3</ElMenuItem>
-          </ElMenuItemGroup>
-          <ElSubmenu index="1-4">
-            <span slot="title">选项4</span>
-            <ElMenuItem index="1-4-1">选项1</ElMenuItem>
-          </ElSubmenu>
-        </ElSubmenu>
-        <ElMenuItem index="2">
-          <i class="el-icon-menu"></i>
-          <span slot="title">导航二</span>
-        </ElMenuItem>
-        <ElMenuItem index="3" disabled>
-          <i class="el-icon-document"></i>
-          <span slot="title">导航三</span>
-        </ElMenuItem>
-        <ElMenuItem index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </ElMenuItem>
+        <SideMenu v-for="config in menuItems" :key="config.path" :config="config"></SideMenu>
       </ElMenu>
     </ElAside>
     <ElContainer direction="vertical">
@@ -54,7 +24,7 @@
         <!-- 菜单缩进 -->
         <SvgIcon class="header__icon" :name="isCollapse ? 'indent-left' : 'indent'" @click.native="onIndent"></SvgIcon>
         <!-- 右侧功能区 -->
-        <div class="header__action-bar">
+        <div v-if="user && user.id" class="header__action-bar">
           <!-- 全屏 -->
           <SvgIcon class="header__icon" title="全屏" name="fullscreen" @click.native="onFullscreen"></SvgIcon>
           <!-- 多语言 -->
@@ -67,10 +37,8 @@
           <!-- 当前用户 -->
           <ElDropdown class="header__user" @command="onUserAction">
             <span
-              ><ElAvatar size="small" class="header__user-avatar" src="avatar.png"></ElAvatar>用户名<SvgIcon
-                class="header__user-icon"
-                name="arrowdown"
-              ></SvgIcon
+              ><ElAvatar size="small" class="header__user-avatar" :src="user.avatar"></ElAvatar>{{ user.nickname
+              }}<SvgIcon class="header__user-icon" name="arrowdown"></SvgIcon
             ></span>
             <ElDropdownMenu slot="dropdown">
               <ElDropdownItem v-for="act in userActions" :key="act.id" :command="act" :divided="act.divided">{{
@@ -98,6 +66,9 @@ export default {
 <script lang="ts" setup>
 import screenfull from 'screenfull'
 import VisitedBar from './VisitedBar.vue'
+import SideMenu from './SideMenu.vue'
+import { useUserStore } from '~/stores/user'
+import type { RouteConfig, RouteRecord } from 'vue-router'
 
 let langs = [
   { id: 'zh' as const, text: '中文' },
@@ -117,16 +88,48 @@ type Cmd<T> = {
 type Lang = Cmd<(typeof langs)[number]['id']>
 type UserAction = Cmd<(typeof userActions)[number]['id']>
 
+// states
+const user = useUserStore()
 const isCollapse = ref(false)
 const curLang = ref<Lang>(langs[0])
+const router = useRouter()
+const menuItems = shallowRef<RouteConfig[]>([])
 
-function handleOpen(key: string, keyPath: string) {
-  console.log(key, keyPath)
-}
+watchEffect(() => {
+  let i = langs.findIndex((v) => v.id === user.lang)
 
-function handleClose(key: string, keyPath: string) {
-  console.log(key, keyPath)
-}
+  if (i >= 0) curLang.value = langs[i]
+})
+
+watchEffect(() => {
+  let routes = router.getRoutes() as RouteRecord[],
+    routesMap: Record<string, RouteConfig> = {}
+
+  routes.forEach((v) => {
+    if (!routesMap[v.path]) {
+      routesMap[v.path] = {
+        path: v.path,
+        name: v.name,
+        meta: v.meta,
+        children: [],
+      }
+    }
+    if (v.parent) {
+      if (!routesMap[v.parent.path]) {
+        routesMap[v.parent.path] = {
+          path: v.parent.path,
+          name: v.parent.name,
+          meta: v.parent.meta,
+          children: [],
+        }
+      }
+      v.meta.parent = routesMap[v.parent.path]
+      routesMap[v.parent.path].children?.push(routesMap[v.path])
+    }
+  })
+  // 只需挂在 main 组件下的路由
+  menuItems.value = Object.values(routesMap).find((v) => v.name === 'main')?.children ?? []
+})
 
 function onIndent(e: EventTarget) {
   isCollapse.value = !isCollapse.value
@@ -137,7 +140,7 @@ function onFullscreen() {
 }
 
 function onLangChange(cmd: Lang) {
-  curLang.value = cmd
+  user.lang = cmd.id
 }
 
 function onUserAction(cmd: UserAction) {

@@ -11,6 +11,8 @@ export const useUserStore = defineStore('user', {
       avatar: '',
       // 角色
       role: 'admin',
+      // 语言设置
+      lang: 'zh',
       // 最近访问
       visited: [],
     }

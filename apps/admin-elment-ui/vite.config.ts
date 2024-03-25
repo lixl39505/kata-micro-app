@@ -23,7 +23,7 @@ export default defineConfig(({ command, mode }) => {
         targets: ['defaults', 'IE 11'],
       }),
       AutoImport({
-        imports: ['vue', 'vue-router', 'vuex'],
+        imports: ['vue', 'vue-router/composables', 'pinia'],
         dirs: [resolve(__dirname, 'src/utils')],
         resolvers: [ElementUiResolver()],
       }),
