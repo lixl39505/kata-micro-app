@@ -42,27 +42,11 @@ export const useUserStore = defineStore('user', {
 })
 
 export function applyUserEffect({ pinia, router }: { pinia: Pinia; router: VueRouter }) {
-  let cid = 1
   // visited 访问记录维护
   router.beforeEach((to, from, next) => {
     const user = useUserStore(pinia)
 
     if (to.matched[0].name === 'main') {
-      // 是否缓存
-      if (to.meta?.keepAlive) {
-        // 附加缓存id，区分页面实例
-        if (!to.query._c) {
-          return next({
-            path: to.path,
-            query: {
-              ...to.query,
-              _c: 'p' + cid++,
-            },
-            params: to.params,
-          })
-        }
-      }
-      // 新增访问记录
       if (user.visited.findIndex((v) => v.fullPath === to.fullPath) < 0) {
         user.visited.push({ ...to })
       }
