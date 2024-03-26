@@ -10,7 +10,7 @@
       <ElMenu
         router
         class="aside__menu"
-        :default-active="route.fullPath"
+        :default-active="route.path"
         background-color="#545c64"
         text-color="#fff"
         :collapse="isCollapse"
@@ -64,7 +64,7 @@
       <VisitedBar></VisitedBar>
       <!-- 内容区 -->
       <ElMain>
-        <KeepAlive :include="user.aliveUrls">
+        <KeepAlive :include="includes">
           <RouterView :key="route.fullPath" />
         </KeepAlive>
       </ElMain>
@@ -92,6 +92,7 @@ const curLang = ref<Lang>(app.langs[0])
 const router = useRouter()
 const route = useRoute()
 const menuItems = shallowRef<MenuConfig[]>([])
+const includes = ref<string[]>([])
 
 type Lang = Cmd<typeof app.langs>
 type UserAction = Cmd<typeof app.userActions>
@@ -107,6 +108,7 @@ watchEffect(() => {
   let routes = router.getRoutes() as RouteRecord[],
     routesMap: Record<string, MenuConfig> = {}
 
+  includes.value = []
   routes.forEach((v) => {
     if (!routesMap[v.path]) {
       routesMap[v.path] = {
@@ -127,6 +129,10 @@ watchEffect(() => {
       }
       v.meta.parent = routesMap[v.parent.path]
       routesMap[v.parent.path].children?.push(routesMap[v.path])
+    }
+    // 加入缓存列表
+    if (v.meta.keepAlive) {
+      v.name && includes.value.push(v.name)
     }
   })
   // 只需挂在 main 组件下的路由

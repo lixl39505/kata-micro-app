@@ -8,7 +8,7 @@ export default [
     children: [
       {
         path: 'index',
-        name: 'home',
+        name: 'Home',
         meta: {
           title: '首页',
           icon: 'home',
@@ -22,10 +22,12 @@ export default [
           icon: 'table',
           keepAlive: true,
         },
+        name: 'CURD',
         component: () => import(`~/views/CURD.vue`),
       },
       {
         path: 'users',
+        name: 'AdminUser',
         meta: {
           title: '用户管理',
           icon: 'admin-user',
@@ -35,6 +37,7 @@ export default [
       },
       {
         path: 'roles',
+        name: 'AdminRole',
         meta: {
           title: '权限管理',
           icon: 'admin-role',
@@ -66,6 +69,7 @@ export default [
                 children: [
                   {
                     path: 't1-1-1-1',
+                    name: 'Level4',
                     meta: {
                       title: '四级菜单',
                     },

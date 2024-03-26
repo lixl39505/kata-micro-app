@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore, type Pinia } from 'pinia'
 import type { Route } from 'vue-router'
 import type VueRouter from 'vue-router'
 
@@ -32,14 +32,20 @@ export const useUserStore = defineStore('user', {
       return state.visited.filter((v) => v.meta?.keepAlive).map((v) => v.fullPath)
     },
   },
-  // actions: {},
+  actions: {
+    // 登出
+    logout() {
+      this.id = this.nickname = this.avatar = this.role = ''
+      this.visited = []
+    },
+  },
 })
 
-export function applyUserEffect({ router }: { router: VueRouter }) {
+export function applyUserEffect({ pinia, router }: { pinia: Pinia; router: VueRouter }) {
   let cid = 1
   // visited 访问记录维护
   router.beforeEach((to, from, next) => {
-    const user = useUserStore()
+    const user = useUserStore(pinia)
 
     if (to.matched[0].name === 'main') {
       // 是否缓存
