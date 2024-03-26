@@ -25,15 +25,7 @@ export default {
 }
 </script>
 <script lang="ts" setup>
-export type MenuConfig = {
-  path: string
-  meta: Record<string | number | symbol, any>
-  children: MenuConfig[]
-  name?: string
-  hash?: string
-  query?: Record<string, string | (string | null)[] | null | undefined>
-  params?: Record<string, string>
-}
+import { type MenuConfig } from '~/stores/user'
 
 defineProps<{
   config: MenuConfig

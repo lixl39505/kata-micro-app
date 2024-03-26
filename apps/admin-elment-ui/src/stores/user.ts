@@ -1,4 +1,13 @@
 import { defineStore } from 'pinia'
+import type { Route } from 'vue-router'
+import type VueRouter from 'vue-router'
+
+export interface MenuConfig {
+  path: string
+  meta: Record<string | number | symbol, any>
+  children: MenuConfig[]
+  name?: string
+}
 
 export const useUserStore = defineStore('user', {
   state: () => {
@@ -14,15 +23,46 @@ export const useUserStore = defineStore('user', {
       // 语言设置
       lang: 'zh',
       // 最近访问
-      visited: [],
+      visited: [] as Route[],
     }
   },
   getters: {
-    // double: (state) => state.count * 2,
-  },
-  actions: {
-    increment() {
-      // this.count++
+    // 根据 url 缓存 router-view
+    aliveUrls: (state) => {
+      return state.visited.filter((v) => v.meta?.keepAlive).map((v) => v.fullPath)
     },
   },
+  // actions: {},
 })
+
+export function applyUserEffect({ router }: { router: VueRouter }) {
+  let cid = 1
+  // visited 访问记录维护
+  router.beforeEach((to, from, next) => {
+    const user = useUserStore()
+
+    if (to.matched[0].name === 'main') {
+      // 是否缓存
+      if (to.meta?.keepAlive) {
+        // 附加缓存id，区分页面实例
+        if (!to.query._c) {
+          return next({
+            path: to.path,
+            query: {
+              ...to.query,
+              _c: 'p' + cid++,
+            },
+            params: to.params,
+          })
+        }
+      }
+      // 新增访问记录
+      if (user.visited.findIndex((v) => v.fullPath === to.fullPath) < 0) {
+        user.visited.push({ ...to })
+      }
+    }
+
+    next()
+  })
+  // 登录验证 TODO
+}

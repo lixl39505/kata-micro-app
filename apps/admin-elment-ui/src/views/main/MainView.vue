@@ -64,7 +64,9 @@
       <VisitedBar></VisitedBar>
       <!-- 内容区 -->
       <ElMain>
-        <RouterView />
+        <KeepAlive :include="user.aliveUrls">
+          <RouterView :key="route.fullPath" />
+        </KeepAlive>
       </ElMain>
     </ElContainer>
   </ElContainer>
@@ -77,8 +79,8 @@ export default {
 <script lang="ts" setup>
 import screenfull from 'screenfull'
 import VisitedBar from './VisitedBar.vue'
-import SideMenu, { type MenuConfig } from './SideMenu.vue'
-import { useUserStore } from '~/stores/user'
+import SideMenu from './SideMenu.vue'
+import { useUserStore, type MenuConfig } from '~/stores/user'
 import { useAppStore, type Cmd } from '~/stores/app'
 import type { RouteRecord } from 'vue-router'
 

@@ -20,24 +20,27 @@ export default [
         meta: {
           title: 'CURD',
           icon: 'table',
+          keepAlive: true,
         },
-        component: () => import(`~/views/main/ParentView.vue`),
+        component: () => import(`~/views/CURD.vue`),
       },
       {
         path: 'users',
         meta: {
           title: '用户管理',
           icon: 'admin-user',
+          keepAlive: true,
         },
-        component: () => import(`~/views/main/ParentView.vue`),
+        component: () => import(`~/views/system/AdminUser.vue`),
       },
       {
         path: 'roles',
         meta: {
           title: '权限管理',
           icon: 'admin-role',
+          keepAlive: true,
         },
-        component: () => import(`~/views/main/ParentView.vue`),
+        component: () => import(`~/views/system/AdminRole.vue`),
       },
       {
         path: 't1',
@@ -45,11 +48,11 @@ export default [
           title: '一级目录',
           icon: 'dir',
         },
-        component: () => import(`~/views/main/ParentView.vue`),
+        component: () => import(`~/views/ParentView.vue`),
         children: [
           {
             path: 't1-1',
-            component: () => import(`~/views/main/ParentView.vue`),
+            component: () => import(`~/views/ParentView.vue`),
             meta: {
               title: '二级目录',
             },
@@ -59,14 +62,14 @@ export default [
                 meta: {
                   title: '三级目录',
                 },
-                component: () => import(`~/views/main/ParentView.vue`),
+                component: () => import(`~/views/ParentView.vue`),
                 children: [
                   {
                     path: 't1-1-1-1',
                     meta: {
                       title: '四级菜单',
                     },
-                    component: () => import(`~/views/main/ParentView.vue`),
+                    component: () => import(`~/views/Level4.vue`),
                   },
                 ],
               },
@@ -79,6 +82,6 @@ export default [
   {
     path: '/login',
     name: 'login',
-    component: () => import(`~/views/main/ParentView.vue`),
+    component: () => import(`~/views/ParentView.vue`),
   },
 ] as RouteConfig[]
