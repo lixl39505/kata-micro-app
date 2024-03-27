@@ -23,6 +23,8 @@ declare global {
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const h: typeof import('vue')['h']
   const inject: typeof import('vue')['inject']
+  const isHomeRoute: typeof import('./src/utils/helper')['isHomeRoute']
+  const isHomepage: typeof import('./src/utils/helper')['isHomepage']
   const isProxy: typeof import('vue')['isProxy']
   const isReactive: typeof import('vue')['isReactive']
   const isReadonly: typeof import('vue')['isReadonly']

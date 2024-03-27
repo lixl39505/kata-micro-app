@@ -6,7 +6,7 @@
     </template>
     <SideMenu v-for="item in config.children" :config="item" :key="item.path" :popperClass="popperClass"></SideMenu>
   </ElSubmenu>
-  <ElMenuItem v-else :index="config.path" @click="onClick">
+  <ElMenuItem v-else :index="config.path">
     <SvgIcon v-if="config.meta.icon" class="side-menu__icon" :name="config.meta.icon"></SvgIcon>
     <span slot="title">{{ config.meta.title }}</span>
   </ElMenuItem>
@@ -23,10 +23,6 @@ defineProps<{
   config: MenuConfig
   popperClass?: string
 }>()
-
-function onClick(e: Event) {
-  console.log(e)
-}
 </script>
 <style lang="scss">
 .side-menu {

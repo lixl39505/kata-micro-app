@@ -7,12 +7,24 @@ import 'virtual:svg-icons-register'
 import 'element-ui/packages/theme-chalk/src/tooltip.scss'
 import 'element-ui/packages/theme-chalk/src/popover.scss'
 import { applyUserEffect } from './stores/user'
+import type VueRouter from 'vue-router'
 
 // element组件全局设置
 Vue.prototype.$ELEMENT = { size: 'small' }
 
 // 安装用户模块相关功能
 applyUserEffect({ pinia, router })
+// Pinia 扩展
+pinia.use(() => {
+  return {
+    router: markRaw(router),
+  }
+})
+declare module 'pinia' {
+  export interface PiniaCustomProperties {
+    router: VueRouter
+  }
+}
 
 new Vue({
   router,

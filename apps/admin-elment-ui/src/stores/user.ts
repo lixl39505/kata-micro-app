@@ -22,12 +22,80 @@ export const useUserStore = defineStore('user', {
       role: 'admin',
       // 语言设置
       lang: 'zh',
-      // 最近访问
+      // 最近访问的路由
       visited: [] as Route[],
     }
   },
   getters: {},
   actions: {
+    // 添加访问路由
+    addVisitedRoute(to: Route) {
+      if (this.visited.findIndex((v) => v.fullPath === to.fullPath) < 0) {
+        this.visited.push({ ...to })
+      }
+    },
+    // 关闭目标路由
+    close(target: Route) {
+      let i = this.visited.findIndex((v) => v.fullPath === target.fullPath)
+
+      this.visited.splice(i, 1)
+      if (target.fullPath === this.router.currentRoute.fullPath) {
+        i = Math.max(0, i - 1)
+        if (this.visited.length > 0) this.router.replace(this.visited[i].fullPath)
+        else this.backHome()
+      }
+    },
+    // 关闭右侧路由
+    closeRight(target: Route) {
+      const current = this.router.currentRoute
+      let n1 = this.visited.findIndex((v) => v.fullPath === target.fullPath)
+      let n2 = this.visited.findIndex((v) => v.fullPath === current.fullPath)
+
+      if (n1 >= 0) {
+        this.visited.splice(n1 + 1, this.visited.length - n1 - 1)
+
+        if (n2 > n1 + 1) this.router.replace(target.fullPath)
+      }
+    },
+    // 关闭其它路由
+    closeOther(target: Route) {
+      const current = this.router.currentRoute
+      let i = this.visited.findIndex((v) => v.fullPath === target.fullPath)
+
+      if (i >= 0) {
+        this.visited = [target]
+
+        if (target.fullPath !== current.fullPath) this.router.replace(target.fullPath)
+      }
+    },
+    // 关闭左侧路由
+    closeLeft(target: Route) {
+      const current = this.router.currentRoute
+      let n1 = this.visited.findIndex((v) => v.fullPath === target.fullPath)
+      let n2 = this.visited.findIndex((v) => v.fullPath === current.fullPath)
+
+      if (n1 >= 0) {
+        this.visited.splice(0, n1)
+
+        if (n2 < n1) this.router.replace(target.fullPath)
+      }
+    },
+    // 关闭所有路由
+    closeAll() {
+      this.visited = []
+      this.backHome()
+    },
+    // 回退到首页
+    backHome() {
+      if (this.visited.findIndex((v) => isHomeRoute(v)) < 0) {
+        let current = this.router.currentRoute
+        // 特殊场景: visited为空，主页 -> 主页
+        if (isHomeRoute(current)) {
+          return this.addVisitedRoute(current)
+        }
+      }
+      this.router.replace('/')
+    },
     // 登出
     logout() {
       this.id = this.nickname = this.avatar = this.role = ''
@@ -42,9 +110,7 @@ export function applyUserEffect({ pinia, router }: { pinia: Pinia; router: VueRo
     const user = useUserStore(pinia)
 
     if (to.matched.length > 1 && to.matched[0].name === 'main') {
-      if (user.visited.findIndex((v) => v.fullPath === to.fullPath) < 0) {
-        user.visited.push({ ...to })
-      }
+      user.addVisitedRoute(to)
     }
 
     next()
