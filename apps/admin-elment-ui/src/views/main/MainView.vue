@@ -22,7 +22,7 @@
         <!-- 菜单缩进 -->
         <SvgIcon class="header__icon" :name="isCollapse ? 'indent-left' : 'indent'" @click.native="onIndent"></SvgIcon>
         <!-- 右侧功能区 -->
-        <div v-if="user && user.id" class="header__action-bar">
+        <div v-if="userInfo.id" class="header__action-bar">
           <!-- 全屏 -->
           <SvgIcon class="header__icon" title="全屏" name="fullscreen" @click.native="onFullscreen"></SvgIcon>
           <!-- 多语言 -->
@@ -35,9 +35,9 @@
           <!-- 当前用户 -->
           <ElDropdown class="header__user" @command="onUserAction">
             <span
-              ><ElAvatar size="small" class="header__user-avatar" :src="user.avatar"
+              ><ElAvatar size="small" class="header__user-avatar" :src="userInfo.avatar"
                 ><SvgIcon class="header__user-icon" name="noimg"></SvgIcon></ElAvatar
-              >{{ user.nickname
+              >{{ userInfo.nickname
               }}<SvgIcon
                 class="header__user-icon"
                 style="padding-left: 2px; vertical-align: -2px"
@@ -76,7 +76,7 @@ import { useAppStore, type Cmd } from '~/stores/app'
 import type { RouteRecord } from 'vue-router'
 
 // states
-const user = useUserStore()
+const { userInfo } = storeToRefs(useUserStore())
 const app = useAppStore()
 const isCollapse = ref(false)
 const curLang = ref<Lang>(app.langs[0])
@@ -89,7 +89,7 @@ type UserAction = Cmd<typeof app.userActions>
 
 // 显示当前语言
 watchEffect(() => {
-  let i = app.langs.findIndex((v) => v.id === user.lang)
+  let i = app.langs.findIndex((v) => v.id === userInfo.value.lang)
 
   if (i >= 0) curLang.value = app.langs[i]
 })
@@ -99,25 +99,28 @@ watchEffect(() => {
     routesMap: Record<string, MenuConfig> = {}
 
   routes.forEach((v) => {
-    if (!routesMap[v.path]) {
-      routesMap[v.path] = {
+    let c = routesMap[v.path],
+      parent: MenuConfig
+    if (!c) {
+      c = routesMap[v.path] = {
         path: v.path,
         name: v.name,
-        meta: v.meta,
+        meta: { ...v.meta }, // meta 需要复制
         children: [],
       }
     }
     if (v.parent) {
-      if (!routesMap[v.parent.path]) {
-        routesMap[v.parent.path] = {
+      parent = routesMap[v.parent.path]
+      if (!parent) {
+        parent = routesMap[v.parent.path] = {
           path: v.parent.path,
           name: v.parent.name,
-          meta: v.parent.meta,
+          meta: { ...v.parent.meta },
           children: [],
         }
       }
-      v.meta.parent = routesMap[v.parent.path]
-      routesMap[v.parent.path].children?.push(routesMap[v.path])
+      c.meta.parent = parent
+      parent.children.push(routesMap[v.path])
     }
   })
   // 只需挂在 main 组件下的路由
@@ -133,7 +136,7 @@ function onFullscreen() {
 }
 
 function onLangChange(cmd: Lang) {
-  user.lang = cmd.id
+  userInfo.value.lang = cmd.id
 }
 
 function onUserAction(cmd: UserAction) {

@@ -1,6 +1,9 @@
 import { defineStore, type Pinia } from 'pinia'
 import type { Route } from 'vue-router'
 import type VueRouter from 'vue-router'
+// @ts-ignore
+import type { RemovableRef } from '@vueuse/core'
+import { useStorage } from '@vueuse/core'
 
 export interface MenuConfig {
   path: string
@@ -11,19 +14,19 @@ export interface MenuConfig {
 
 export const useUserStore = defineStore('user', {
   state: () => {
+    const userInfo = useStorage('userInfo', {
+      id: 'admin', // 用户id
+      nickname: '一夫当关', // 昵称
+      avatar: '', // 头像
+      role: 'admin', // 角色
+      lang: 'zh', // 语言设置
+    })
+    const visited = useStorage('visited', [] as Route[], sessionStorage)
+
     return {
-      // 用户id
-      id: 'admin',
-      // 昵称
-      nickname: '一夫当关',
-      // 头像
-      avatar: '',
-      // 角色
-      role: 'admin',
-      // 语言设置
-      lang: 'zh',
+      userInfo,
       // 最近访问的路由
-      visited: [] as Route[],
+      visited,
     }
   },
   getters: {},
@@ -31,7 +34,8 @@ export const useUserStore = defineStore('user', {
     // 添加访问路由
     addVisitedRoute(to: Route) {
       if (this.visited.findIndex((v) => v.fullPath === to.fullPath) < 0) {
-        this.visited.push({ ...to })
+        // matched 不可序列化，清空
+        this.visited.push({ ...to, matched: [] })
       }
     },
     // 关闭目标路由
@@ -98,7 +102,8 @@ export const useUserStore = defineStore('user', {
     },
     // 登出
     logout() {
-      this.id = this.nickname = this.avatar = this.role = ''
+      sessionStorage.clear()
+      localStorage.clear()
       this.visited = []
     },
   },

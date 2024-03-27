@@ -32,4 +32,6 @@ new Vue({
   render: (h) => h(App),
 }).$mount('#app')
 
-// Object.assign(window, { router, pinia })
+if (import.meta.env.DEV) {
+  Object.assign(window, { router, pinia })
+}

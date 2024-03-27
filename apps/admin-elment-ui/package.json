@@ -22,6 +22,7 @@
     "defaults"
   ],
   "dependencies": {
+    "@vueuse/core": "^10.9.0",
     "axios": "^1.6.8",
     "element-ui": "^2.15.14",
     "pinia": "^2.1.7",
