@@ -22,6 +22,7 @@ declare module 'vue' {
     ElMenu: typeof import('element-ui/lib/menu')['default']
     ElMenuItem: typeof import('element-ui/lib/menu-item')['default']
     ElMenuItemGroup: typeof import('element-ui/lib/menu-item-group')['default']
+    ElPopover: typeof import('element-ui/lib/popover')['default']
     ElSubmenu: typeof import('element-ui/lib/submenu')['default']
     ElSubMenu: typeof import('element-ui/lib/sub-menu')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

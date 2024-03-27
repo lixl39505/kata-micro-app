@@ -12,13 +12,14 @@
       <i class="visited-bar__item-close el-icon-close"></i>
     </div>
     <div
-      v-if="overStats.show"
+      v-show="overStats.show"
       class="visited-over"
       :style="{
         left: overStats.left,
         right: overStats.right,
       }"
     >
+      <div class="visited-over__bridge"></div>
       <div class="visited-over__title">{{ overStats.title }}</div>
       <div class="visited-over__title">{{ overStats.fullpath }}</div>
     </div>
@@ -32,11 +33,11 @@ const router = useRouter()
 const route = useRoute()
 const user = useUserStore()
 const overStats = reactive({
-  show: true,
+  show: false,
   left: 'auto',
   right: 'auto',
-  title: '用户管理用户管理用户管理用户管理',
-  fullpath: '/admin-user?asdfasdf=qw23423&123jlksdf=234234#sdfjlskdjglk',
+  title: '',
+  fullpath: '',
 })
 
 function onItemClick(item: Route) {
@@ -56,7 +57,7 @@ function onItemEnter(e: Event, item: Route, index: number) {
   let barWidth = $bar.value?.offsetWidth || 0,
     itemWidth = (e.currentTarget as HTMLElement).offsetWidth,
     remain = barWidth - index * itemWidth,
-    popWidth = 100 * 1.2
+    popWidth = 100 * 1.5
 
   // 延迟提示路由信息
   if (!overTimer) {
@@ -91,7 +92,6 @@ $bar-item-width: 100px;
   line-height: $bar-line-height;
   border-bottom: 1px solid $--border-color-base;
   font-size: 12px;
-
   &__item {
     display: flex;
     flex: 0 1 $bar-item-width;
@@ -131,11 +131,23 @@ $bar-item-width: 100px;
   line-height: 24px;
   top: $bar-line-height + 6px;
   background-color: #fff;
-  width: $bar-item-width * 1.2;
+  width: $bar-item-width * 1.5;
   border: 1px solid $--border-color-base;
   border-radius: 4px;
   box-shadow:
     $--border-color-base 1px 1px 1px,
     $--border-color-base -0.5px 0.5px 0.5px;
+  &__bridge {
+    position: absolute;
+    height: 10px;
+    left: 0;
+    top: -10px;
+    width: 100%;
+  }
+  &__title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 </style>
