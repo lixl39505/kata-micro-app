@@ -76,7 +76,8 @@ import { useAppStore, type Cmd } from '~/stores/app'
 import type { RouteRecord } from 'vue-router'
 
 // states
-const { userInfo } = storeToRefs(useUserStore())
+const user = useUserStore()
+const { userInfo } = storeToRefs(user)
 const app = useAppStore()
 const isCollapse = ref(false)
 const curLang = ref<Lang>(app.langs[0])
@@ -147,7 +148,7 @@ function onUserAction(cmd: UserAction) {
     return
   }
   if (cmd.id === 'exit') {
-    return
+    return user.logout()
   }
 
   exhaustiveCheck(cmd.id)

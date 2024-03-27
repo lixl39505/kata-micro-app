@@ -5,6 +5,8 @@ import type VueRouter from 'vue-router'
 import type { RemovableRef } from '@vueuse/core'
 import { useStorage } from '@vueuse/core'
 
+const LOGIN_PAGE_NAME = 'login'
+
 export interface MenuConfig {
   path: string
   meta: Record<string | number | symbol, any>
@@ -15,10 +17,10 @@ export interface MenuConfig {
 export const useUserStore = defineStore('user', {
   state: () => {
     const userInfo = useStorage('userInfo', {
-      id: 'admin', // 用户id
-      nickname: '一夫当关', // 昵称
+      id: '', // 用户id
+      nickname: '', // 昵称
       avatar: '', // 头像
-      role: 'admin', // 角色
+      role: '', // 角色
       lang: 'zh', // 语言设置
     })
     const visited = useStorage('visited', [] as Route[], sessionStorage)
@@ -100,16 +102,59 @@ export const useUserStore = defineStore('user', {
       }
       this.router.replace('/')
     },
+    // 登录
+    async login({ username, pwd }: { username: string; pwd: string }) {
+      const userInfo = await Promise.resolve({
+        id: '233',
+        nickname: '瓮中捉鳖',
+        avatar: '',
+        role: 'admin',
+        lang: 'zh',
+      })
+      Object.assign(this.userInfo, userInfo)
+    },
     // 登出
     logout() {
       sessionStorage.clear()
       localStorage.clear()
       this.visited = []
+      this.router.push({ name: LOGIN_PAGE_NAME })
     },
   },
 })
 
 export function applyUserEffect({ pinia, router }: { pinia: Pinia; router: VueRouter }) {
+  // 登录验证
+  router.beforeEach((to, from, next) => {
+    const user = useUserStore(pinia)
+    const refer = useStorage('refer', '')
+    // 无需登录
+    if (to.meta?.auth === false) return next()
+    // 拒绝登录
+    const denied = () => {
+      // 移除凭证
+      // setPassport(null)
+      // 记录还原信息
+      if (to.name !== LOGIN_PAGE_NAME) {
+        refer.value = to.fullPath
+      }
+      // 要求登录
+      next({
+        name: LOGIN_PAGE_NAME,
+      })
+    }
+    let passport = user.userInfo.id // 是否登录
+    // 未登录
+    if (!passport) denied()
+    // 已登录、进入登录页
+    else if (passport && to.name === LOGIN_PAGE_NAME) next('/')
+    // 已登录、进入非登录页
+    else {
+      // [Optional] 获取用户权限...
+      next()
+    }
+  })
+
   // visited 访问记录维护
   router.beforeEach((to, from, next) => {
     const user = useUserStore(pinia)
@@ -120,5 +165,4 @@ export function applyUserEffect({ pinia, router }: { pinia: Pinia; router: VueRo
 
     next()
   })
-  // 登录验证 TODO
 }

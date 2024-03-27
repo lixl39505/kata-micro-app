@@ -13,6 +13,7 @@ export default [
         meta: {
           title: '首页',
           icon: 'home',
+          auth: true,
         },
         component: () => import('~/views/Home.vue'),
       },
@@ -21,6 +22,7 @@ export default [
         meta: {
           title: 'CURD',
           icon: 'table',
+          auth: true,
           keepAlive: true,
         },
         name: 'CURD',
@@ -32,6 +34,7 @@ export default [
         meta: {
           title: '用户管理',
           icon: 'admin-user',
+          auth: true,
           keepAlive: true,
         },
         component: () => import(`~/views/system/AdminUser.vue`),
@@ -41,6 +44,7 @@ export default [
         name: 'AdminRole',
         meta: {
           title: '权限管理',
+          auth: true,
           icon: 'admin-role',
           keepAlive: true,
         },
@@ -73,6 +77,7 @@ export default [
                     name: 'Level4',
                     meta: {
                       title: '四级菜单',
+                      auth: false,
                     },
                     component: () => import(`~/views/Level4.vue`),
                   },
@@ -87,6 +92,9 @@ export default [
   {
     path: '/login',
     name: 'login',
-    component: () => import(`~/views/ParentView.vue`),
+    meta: {
+      auth: false,
+    },
+    component: () => import(`~/views/Login.vue`),
   },
 ] as RouteConfig[]
