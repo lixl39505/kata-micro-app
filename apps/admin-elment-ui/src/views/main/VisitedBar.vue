@@ -1,13 +1,26 @@
 <template>
-  <div class="visited-bar">
+  <div class="visited-bar" ref="$bar" @mouseleave="onBarLeave">
     <div
       v-for="(item, i) in user.visited"
       :key="item.fullPath"
       :class="['visited-bar__item', { active: route.fullPath === item.fullPath }]"
-      @click="onItemClick(item, i)"
+      @click="onItemClick(item)"
+      @mouseenter="onItemEnter($event, item, i)"
+      @mouseleave="onItemLeave"
     >
       <span class="visited-bar__item-title">{{ item.meta?.title }}</span>
       <i class="visited-bar__item-close el-icon-close"></i>
+    </div>
+    <div
+      v-if="overStats.show"
+      class="visited-over"
+      :style="{
+        left: overStats.left,
+        right: overStats.right,
+      }"
+    >
+      <div class="visited-over__title">{{ overStats.title }}</div>
+      <div class="visited-over__title">{{ overStats.fullpath }}</div>
     </div>
   </div>
 </template>
@@ -18,22 +31,70 @@ import { useUserStore } from '~/stores/user'
 const router = useRouter()
 const route = useRoute()
 const user = useUserStore()
+const overStats = reactive({
+  show: true,
+  left: 'auto',
+  right: 'auto',
+  title: '用户管理用户管理用户管理用户管理',
+  fullpath: '/admin-user?asdfasdf=qw23423&123jlksdf=234234#sdfjlskdjglk',
+})
 
-function onItemClick(item: Route, i: number) {
+function onItemClick(item: Route) {
   router.push(item.fullPath)
 }
+let overTimer: number
+let $bar = ref<HTMLElement>()
+
+function onBarLeave() {
+  overStats.show = false
+}
+function onItemLeave() {
+  overTimer && clearTimeout(overTimer)
+  overTimer = 0
+}
+function onItemEnter(e: Event, item: Route, index: number) {
+  let barWidth = $bar.value?.offsetWidth || 0,
+    itemWidth = (e.currentTarget as HTMLElement).offsetWidth,
+    remain = barWidth - index * itemWidth,
+    popWidth = 100 * 1.2
+
+  // 延迟提示路由信息
+  if (!overTimer) {
+    overTimer = setTimeout(() => {
+      overStats.show = true
+    }, 800)
+  }
+  // 右侧空间不足
+  if (remain < popWidth) {
+    overStats.left = 'auto'
+    overStats.right = '4px'
+  } else {
+    overStats.left = index * itemWidth + 'px'
+    overStats.right = 'auto'
+  }
+  overStats.title = item.meta?.title || ''
+  overStats.fullpath = item.fullPath
+}
+// clear
+onBeforeUnmount(() => {
+  if (overTimer) clearTimeout(overTimer)
+})
 </script>
 <style lang="scss">
+$bar-line-height: 32px;
+$bar-item-width: 100px;
+
 .visited-bar {
+  position: relative;
   display: flex;
   flex-wrap: nowrap;
-  line-height: 32px;
+  line-height: $bar-line-height;
   border-bottom: 1px solid $--border-color-base;
   font-size: 12px;
 
   &__item {
     display: flex;
-    flex: 0 1 100px;
+    flex: 0 1 $bar-item-width;
     align-items: center;
     box-sizing: border-box;
     min-width: 24px + 1px;
@@ -61,5 +122,20 @@ function onItemClick(item: Route, i: number) {
       }
     }
   }
+}
+
+.visited-over {
+  box-sizing: border-box;
+  position: absolute;
+  padding: 6px 16px;
+  line-height: 24px;
+  top: $bar-line-height + 6px;
+  background-color: #fff;
+  width: $bar-item-width * 1.2;
+  border: 1px solid $--border-color-base;
+  border-radius: 4px;
+  box-shadow:
+    $--border-color-base 1px 1px 1px,
+    $--border-color-base -0.5px 0.5px 0.5px;
 }
 </style>
