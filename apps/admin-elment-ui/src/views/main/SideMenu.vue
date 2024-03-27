@@ -1,22 +1,14 @@
 <template>
-  <ElSubmenu v-if="config.children.length" :index="config.path">
+  <ElSubmenu v-if="config.children.length" :index="config.path" :popperClass="popperClass">
     <template slot="title">
-      <SvgIcon
-        v-if="config.meta.icon"
-        :name="config.meta.icon"
-        :class="['side-menu__icon', { active: activePath === config.path }]"
-      ></SvgIcon>
+      <SvgIcon v-if="config.meta.icon" :name="config.meta.icon" class="side-menu__icon"></SvgIcon>
       <span>{{ config.meta.title }}</span>
     </template>
-    <SideMenu v-for="item in config.children" :config="item" :key="item.path" :activePath="activePath"></SideMenu>
+    <SideMenu v-for="item in config.children" :config="item" :key="item.path" :popperClass="popperClass"></SideMenu>
   </ElSubmenu>
-  <ElMenuItem v-else :index="config.path">
-    <SvgIcon
-      v-if="config.meta.icon"
-      :class="['side-menu__icon', { active: activePath === config.path }]"
-      :name="config.meta.icon"
-    ></SvgIcon>
-    <span>{{ config.meta.title }}</span>
+  <ElMenuItem v-else :index="config.path" @click="onClick">
+    <SvgIcon v-if="config.meta.icon" class="side-menu__icon" :name="config.meta.icon"></SvgIcon>
+    <span slot="title">{{ config.meta.title }}</span>
   </ElMenuItem>
 </template>
 <script lang="ts">
@@ -29,20 +21,19 @@ import { type MenuConfig } from '~/stores/user'
 
 defineProps<{
   config: MenuConfig
-  activePath?: string
+  popperClass?: string
 }>()
+
+function onClick(e: Event) {
+  console.log(e)
+}
 </script>
 <style lang="scss">
 .side-menu {
   &__icon {
-    fill: #fff;
     width: 1.5em;
     height: 1.5em;
     margin-right: 4px;
-
-    &.active {
-      fill: $--color-primary;
-    }
   }
 }
 </style>

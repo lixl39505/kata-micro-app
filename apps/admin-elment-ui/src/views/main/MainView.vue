@@ -7,19 +7,12 @@
         <span v-show="!isCollapse">ElementUI Admin</span>
       </div>
       <!-- 路由菜单 -->
-      <ElMenu
-        router
-        class="aside__menu"
-        :default-active="route.path"
-        background-color="#545c64"
-        text-color="#fff"
-        :collapse="isCollapse"
-      >
+      <ElMenu router class="aside__menu" :default-active="route.path" :collapse="isCollapse">
         <SideMenu
           v-for="config in menuItems"
           :key="config.path"
           :config="config"
-          :activePath="route.fullPath"
+          popperClass="aside__menu-popper"
         ></SideMenu>
       </ElMenu>
     </ElAside>
@@ -159,20 +152,52 @@ function onUserAction(cmd: UserAction) {
 </script>
 <style lang="scss">
 $header-height: 48px;
+$color-menu: #e6e4e4;
+$color-menu-bg: #545c64;
+
+@mixin menu-color-override {
+  .el-menu,
+  .el-menu-item,
+  .el-submenu__title,
+  .el-submenu {
+    color: $color-menu;
+    background-color: $color-menu-bg;
+  }
+  .el-menu--popup {
+    padding: 0;
+  }
+  .el-menu-item:hover,
+  .el-submenu__title:hover {
+    background-color: mix($--color-primary, #fff, 85%);
+  }
+  .el-menu-item.is-active {
+    background-color: $--color-primary;
+  }
+}
 
 .main {
   height: 100%;
 }
 .aside {
   width: 200px;
-  background: #545c64;
-  color: mix($--color-white, $--color-black, 80%);
+  color: $color-menu;
+  background: $color-menu-bg;
   transition:
     width,
     0.3s ease-in;
+
+  // menu color overrides
+  .svgicon {
+    fill: $color-menu;
+  }
+  @include menu-color-override;
+  &__menu-popper {
+    @include menu-color-override;
+  }
   &.collapse {
     width: 64px;
   }
+
   &__head {
     height: $header-height;
     line-height: $header-height;

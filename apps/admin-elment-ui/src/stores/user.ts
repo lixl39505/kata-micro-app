@@ -26,12 +26,7 @@ export const useUserStore = defineStore('user', {
       visited: [] as Route[],
     }
   },
-  getters: {
-    // 根据 url 缓存 router-view
-    aliveUrls: (state) => {
-      return state.visited.filter((v) => v.meta?.keepAlive).map((v) => v.fullPath)
-    },
-  },
+  getters: {},
   actions: {
     // 登出
     logout() {
@@ -46,7 +41,7 @@ export function applyUserEffect({ pinia, router }: { pinia: Pinia; router: VueRo
   router.beforeEach((to, from, next) => {
     const user = useUserStore(pinia)
 
-    if (to.matched[0].name === 'main') {
+    if (to.matched.length > 1 && to.matched[0].name === 'main') {
       if (user.visited.findIndex((v) => v.fullPath === to.fullPath) < 0) {
         user.visited.push({ ...to })
       }

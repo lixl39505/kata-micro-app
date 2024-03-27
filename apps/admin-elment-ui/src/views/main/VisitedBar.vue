@@ -1,7 +1,7 @@
 <template>
   <div class="visited-bar">
     <div v-for="(item, i) in user.visited" :key="item.fullPath" class="visited-bar__item" @click="onItemClick(item, i)">
-      <span>{{ item.meta?.title }}</span>
+      <span class="visited-bar__item-title">{{ item.meta?.title }}</span>
       <i class="visited-bar__item-close el-icon-close"></i>
     </div>
   </div>
@@ -20,24 +20,25 @@ function onItemClick(item: Route, i: number) {
 <style lang="scss">
 .visited-bar {
   display: flex;
+  flex-wrap: nowrap;
   line-height: 32px;
   border-bottom: 1px solid $--border-color-base;
+  font-size: 12px;
 
   &__item {
-    box-sizing: border-box;
-    position: relative;
-    flex: 0 1 150px;
-    min-width: 20px;
-    padding-right: 20px;
-    text-overflow: clip;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    flex: 0 1 100px;
     fill: $--color-text-primary;
-    font-size: $--font-size-base;
     cursor: pointer;
+    &-title {
+      flex: 1 1 0;
+      white-space: nowrap;
+      overflow: hidden;
+    }
     &-close {
-      position: absolute;
-      top: 50%;
-      right: 2px;
-      margin-top: -6px;
+      flex: 0 0 20px;
     }
   }
 }

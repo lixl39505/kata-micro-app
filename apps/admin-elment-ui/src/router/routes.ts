@@ -3,6 +3,7 @@ import type { RouteConfig } from 'vue-router'
 export default [
   {
     path: '/',
+    redirect: '/index',
     name: 'main',
     component: () => import('~/views/main/MainView.vue'),
     children: [
