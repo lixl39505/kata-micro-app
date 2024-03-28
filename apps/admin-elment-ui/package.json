@@ -2,21 +2,21 @@
   "name": "admin-elment-ui",
   "version": "1.0.0",
   "description": "后台模板 Vue2 + iviewUI",
+  "keywords": [
+    "vue2",
+    "iview-admin"
+  ],
+  "license": "ISC",
   "type": "module",
   "main": "src/main.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
   },
-  "keywords": [
-    "vue2",
-    "iview-admin"
-  ],
   "engines": {
     "node": ">=18.12.5",
     "yarn": ">=1.22.19"
   },
-  "license": "ISC",
   "browserslist": [
     "IE 11",
     "defaults"

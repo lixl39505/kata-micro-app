@@ -2,7 +2,7 @@
   <ElMenu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen" @close="handleClose">
     <ElSubMenu index="1">
       <template #title>
-        <ElIcon><location /></ElIcon>
+        <ElIcon><IconEpLocation /></ElIcon>
         <span>Navigator One</span>
       </template>
       <ElMenuItemGroup>
@@ -19,23 +19,26 @@
       </ElSubMenu>
     </ElSubMenu>
     <ElMenuItem index="2">
-      <ElIcon><icon-menu /></ElIcon>
+      <ElIcon><IconEpMenu /></ElIcon>
       <template #title>Navigator Two</template>
     </ElMenuItem>
     <ElMenuItem index="3" disabled>
-      <ElIcon><document /></ElIcon>
+      <ElIcon><IconEpDocument /></ElIcon>
       <template #title>Navigator Three</template>
     </ElMenuItem>
     <ElMenuItem index="4">
-      <ElIcon><setting /></ElIcon>
+      <ElIcon><IconEpSetting /></ElIcon>
       <template #title>Navigator Four</template>
+    </ElMenuItem>
+    <ElMenuItem index="5">
+      <ElIcon><IconMyHome></IconMyHome></ElIcon>
+      <template #title>My Icon</template>
     </ElMenuItem>
   </ElMenu>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { Location, Document, Menu as IconMenu, Setting } from '@element-plus/icons-vue'
 
 const isCollapse = ref(true)
 const handleOpen = (key: string, keyPath: string[]) => {

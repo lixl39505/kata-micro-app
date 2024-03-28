@@ -2,7 +2,9 @@ import path from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
@@ -29,7 +31,22 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    Icons({
+      compiler: 'vue3',
+      customCollections: {
+        // 本地 svg 图标
+        my: FileSystemIconLoader(path.join(pathSrc, 'assets/icons'), (svg) => svg.replace(/^<svg /, '<svg fill="currentColor" ')),
+      },
+      iconCustomizer(collection, icon, props) {
+        // customize all icons in this collection
+        if (collection === 'my') {
+          props.width = ''
+          props.height = ''
+        }
+      },
+    }),
     AutoImport({
+      imports: ['vue', 'vue-router', 'pinia'],
       resolvers: [ElementPlusResolver()],
     }),
     Components({
@@ -38,6 +55,12 @@ export default defineConfig({
       // allow auto import and register components used in markdown
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       resolvers: [
+        // 自动引入图标组件
+        IconsResolver({
+          prefix: 'icon', // <icon-collection-name>
+          customCollections: ['my'],
+        }),
+
         ElementPlusResolver({
           importStyle: 'sass',
         }),

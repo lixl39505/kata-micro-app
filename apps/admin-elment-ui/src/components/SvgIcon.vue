@@ -21,6 +21,7 @@ export default defineComponent({
     },
     fill: {
       type: String,
+      default: 'currentColor',
     },
     title: {
       type: String,
