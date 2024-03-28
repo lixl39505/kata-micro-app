@@ -2,12 +2,12 @@ import Vue from 'vue'
 import router from './router'
 import pinia from './stores'
 import App from './App.vue'
+import { applyUserEffect } from './stores/user'
+import type VueRouter from 'vue-router'
 import 'virtual:svg-icons-register'
 // 全局组件样式
 import 'element-ui/packages/theme-chalk/src/tooltip.scss'
 import 'element-ui/packages/theme-chalk/src/popover.scss'
-import { applyUserEffect } from './stores/user'
-import type VueRouter from 'vue-router'
 
 // element组件全局设置
 Vue.prototype.$ELEMENT = { size: 'small' }
