@@ -165,10 +165,10 @@ $color-menu-bg: #545c64;
   }
   .el-menu-item:hover,
   .el-submenu__title:hover {
-    background-color: mix($--color-primary, #fff, 85%);
+    background-color: mix($color-primary, #fff, 85%);
   }
   .el-menu-item.is-active {
-    background-color: $--color-primary;
+    background-color: $color-primary;
   }
 }
 
@@ -253,7 +253,7 @@ $color-menu-bg: #545c64;
   &__bottom {
     height: 1px;
     width: 100%;
-    background-color: $--border-color-base;
+    background-color: $border-color-light;
   }
 }
 </style>

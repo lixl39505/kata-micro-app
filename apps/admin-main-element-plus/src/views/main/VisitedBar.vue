@@ -148,7 +148,7 @@ $bar-item-width: 100px;
   display: flex;
   flex-wrap: nowrap;
   line-height: $bar-line-height;
-  border-bottom: 1px solid $--border-color-base;
+  border-bottom: 1px solid $border-color-light;
   font-size: 12px;
   &__item {
     display: flex;
@@ -156,15 +156,15 @@ $bar-item-width: 100px;
     align-items: center;
     box-sizing: border-box;
     min-width: 24px + 1px;
-    border-right: 1px solid $--border-color-base;
-    fill: $--color-text-primary;
+    border-right: 1px solid $border-color-light;
+    fill: $color-text-primary;
     cursor: pointer;
     &:hover {
-      color: mix($--color-primary, #fff, 85%);
+      color: mix($color-primary, #fff, 85%);
     }
     &.active {
       color: #fff;
-      background: $--color-primary;
+      background: $color-primary;
     }
     &-title {
       flex: 1 1 0;
@@ -191,7 +191,7 @@ $bar-item-width: 100px;
   top: $bar-line-height + 6px;
   background-color: #fff;
   width: $bar-item-width * 1.5;
-  border: 1px solid $--border-color-base;
+  border: 1px solid $border-color-light;
   border-radius: 4px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   &__bridge {
@@ -220,7 +220,7 @@ $bar-item-width: 100px;
     box-sizing: border-box;
     display: inline-block;
     padding: 8px 0;
-    border: 1px solid $--border-color-base;
+    border: 1px solid $border-color-light;
     border-radius: 4px;
     background: #fff;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
@@ -231,7 +231,7 @@ $bar-item-width: 100px;
       font-size: 12px;
       cursor: pointer;
       &:hover {
-        background: mix($--color-primary, #fff, 50%);
+        background: mix($color-primary, #fff, 50%);
       }
     }
   }

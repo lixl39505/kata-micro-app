@@ -1,0 +1,14 @@
+@use './element/index.scss' as *;
+@forward './element/index.scss';
+
+// @debug $border-color;
+// @debug $color-primary;
+$border-color-light: map-get(
+  $map: $border-color,
+  $key: 'light',
+);
+
+$color-text-primary: map-get(
+  $map: $text-color,
+  $key: 'primary',
+);
