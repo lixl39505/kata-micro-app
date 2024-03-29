@@ -1,18 +1,18 @@
-import path from 'path'
+import path, { resolve } from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
-import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import Unocss from 'unocss/vite'
 import { presetAttributify, presetIcons, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss'
 
-const pathSrc = path.resolve(__dirname, 'src')
+const pathSrc = resolve(__dirname, 'src')
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -37,13 +37,6 @@ export default defineConfig({
         // 本地 svg 图标
         my: FileSystemIconLoader(path.join(pathSrc, 'assets/icons'), (svg) => svg.replace(/^<svg /, '<svg fill="currentColor" ')),
       },
-      iconCustomizer(collection, icon, props) {
-        // customize all icons in this collection
-        if (collection === 'my') {
-          props.width = ''
-          props.height = ''
-        }
-      },
     }),
     AutoImport({
       imports: ['vue', 'vue-router', 'pinia'],
@@ -56,19 +49,24 @@ export default defineConfig({
       // allow auto import and register components used in markdown
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       resolvers: [
-        // 自动引入图标组件
+        // element-plus 组件
+        ElementPlusResolver({
+          importStyle: 'sass',
+        }),
+        // iconify 组件
         IconsResolver({
           prefix: 'icon', // <icon-collection-name>
           customCollections: ['my'],
         }),
-
-        ElementPlusResolver({
-          importStyle: 'sass',
-        }),
       ],
-      dts: 'src/components.d.ts',
     }),
-
+    // 动态 svg-icon
+    createSvgIconsPlugin({
+      iconDirs: [resolve(__dirname, 'src/assets/icons')],
+      symbolId: 'icon-[dir]-[name]',
+      inject: 'body-last',
+      customDomId: '__svg__icons__dom__',
+    }),
     // https://github.com/antfu/unocss
     // see unocss.config.ts for config
     Unocss({

@@ -7,11 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    BaseHeader: typeof import('./components/layouts/BaseHeader.vue')['default']
-    BaseSide: typeof import('./components/layouts/BaseSide.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
+    ElForm: typeof import('element-plus/es')['ElForm']
+    ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMenu: typeof import('element-plus/es')['ElMenu']
@@ -20,18 +20,8 @@ declare module 'vue' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTag: typeof import('element-plus/es')['ElTag']
-    HelloWorld: typeof import('./components/HelloWorld.vue')['default']
-    IconElDocument: typeof import('~icons/el/document')['default']
-    IconElLocation: typeof import('~icons/el/location')['default']
-    IconElMenu: typeof import('~icons/el/menu')['default']
-    IconElSetting: typeof import('~icons/el/setting')['default']
-    IconEpDocument: typeof import('~icons/ep/document')['default']
-    IconEpLocation: typeof import('~icons/ep/location')['default']
-    IconEpMenu: typeof import('~icons/ep/menu')['default']
-    IconEpSetting: typeof import('~icons/ep/setting')['default']
-    IconMyHome: typeof import('~icons/my/home')['default']
-    Logos: typeof import('./components/Logos.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SvgIcon: typeof import('./src/components/SvgIcon.vue')['default']
   }
 }

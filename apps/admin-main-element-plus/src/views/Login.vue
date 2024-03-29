@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ElForm, type FormItemRule } from 'element-plus'
+import { type FormItemRule } from 'element-plus'
 import { useSessionStorage } from '@vueuse/core'
 import { useUserStore } from '~/stores/user'
 
@@ -28,7 +28,7 @@ const m = reactive({
   pwd: '',
   pwd2: '',
 })
-const form = ref<InstanceType<typeof ElForm> | null>(null)
+const form = ref<InstanceType<AutoComponentInstance['ElForm']> | null>(null)
 // 验证规则
 const checkUsername: FormItemRule['validator'] = (rule, value, callback) => {
   if (value.length < 6) {

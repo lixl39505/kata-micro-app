@@ -1,7 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "types": ["unplugin-icons/types/vue"],
-  "include": ["auto-imports.d.ts", "env.d.ts", "src/**/*", "src/**/*.vue"],
+  "types": ["unplugin-icons/types/vue", "element-plus/global"],
+  "include": ["auto-imports.d.ts", "components.d.ts", "auto-component-instance.d.ts", "env.d.ts", "src/**/*", "src/**/*.vue"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
@@ -12,4 +12,3 @@
     }
   }
 }
-
