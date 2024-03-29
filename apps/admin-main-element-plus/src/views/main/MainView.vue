@@ -13,7 +13,7 @@
     </ElAside>
     <ElContainer direction="vertical">
       <!-- 顶部功能栏 -->
-      <ElHeader class="header" :height="null">
+      <ElHeader class="header">
         <!-- 菜单缩进 -->
         <SvgIcon class="header__icon" :name="isCollapse ? 'indent-left' : 'indent'" @click.native="onIndent"></SvgIcon>
         <!-- 右侧功能区 -->
@@ -23,9 +23,11 @@
           <!-- 多语言 -->
           <ElDropdown class="header__lang" @command="onLangChange">
             <span><SvgIcon class="header__icon" name="lang"></SvgIcon>{{ curLang.text }}</span>
-            <ElDropdownMenu slot="dropdown">
-              <ElDropdownItem v-for="lang in app.langs" :key="lang.id" :command="lang">{{ lang.text }}</ElDropdownItem>
-            </ElDropdownMenu>
+            <template #dropdown>
+              <ElDropdownMenu>
+                <ElDropdownItem v-for="lang in app.langs" :key="lang.id" :command="lang">{{ lang.text }}</ElDropdownItem>
+              </ElDropdownMenu>
+            </template>
           </ElDropdown>
           <!-- 当前用户 -->
           <ElDropdown class="header__user" @command="onUserAction">
@@ -35,11 +37,13 @@
               >{{ userInfo.nickname
               }}<SvgIcon class="header__user-icon" style="padding-left: 2px; vertical-align: -2px" name="arrowdown"></SvgIcon
             ></span>
-            <ElDropdownMenu slot="dropdown">
-              <ElDropdownItem v-for="act in app.userActions" :key="act.id" :command="act" :divided="act.divided">{{
-                act.text
-              }}</ElDropdownItem>
-            </ElDropdownMenu>
+            <template #dropdown>
+              <ElDropdownMenu>
+                <ElDropdownItem v-for="act in app.userActions" :key="act.id" :command="act" :divided="act.divided">{{
+                  act.text
+                }}</ElDropdownItem>
+              </ElDropdownMenu>
+            </template>
           </ElDropdown>
         </div>
       </ElHeader>
@@ -55,7 +59,6 @@
 </template>
 <script lang="ts">
 import 'virtual:svg-icons-register'
-import type { RouteLocation } from 'vue-router'
 
 export default {
   name: 'MainView',
@@ -233,6 +236,7 @@ $color-menu-bg: #545c64;
   &__action-bar {
     flex: 1;
     display: flex;
+    align-items: center;
     justify-content: flex-end;
   }
   &__lang {

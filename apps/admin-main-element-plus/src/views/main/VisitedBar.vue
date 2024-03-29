@@ -10,7 +10,7 @@
       @contextmenu.prevent="onItemContextmenu($event, item, i)"
     >
       <span class="visited-bar__item-title">{{ item.meta?.title }}</span>
-      <i class="visited-bar__item-close el-icon-circle-close" @click.stop="onItemClose(item, i)"></i>
+      <ElIcon class="visited-bar__item-close" @click.native.stop="onItemClose(item, i)"><IconEpCircleClose /></ElIcon>
     </div>
     <!-- Route Card -->
     <div
