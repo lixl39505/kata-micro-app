@@ -10,7 +10,7 @@ export interface MenuConfig {
   path: string
   meta: Record<string | number | symbol, any>
   children: MenuConfig[]
-  name?: string | symbol
+  name?: string | symbol | null
 }
 
 export const useUserStore = defineStore('user', {

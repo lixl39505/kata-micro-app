@@ -55,6 +55,7 @@
 </template>
 <script lang="ts">
 import 'virtual:svg-icons-register'
+import type { RouteLocation } from 'vue-router'
 
 export default {
   name: 'MainView',
@@ -66,7 +67,7 @@ import VisitedBar from './VisitedBar.vue'
 import SideMenu from './SideMenu.vue'
 import { useUserStore, type MenuConfig } from '~/stores/user'
 import { useAppStore, type Cmd } from '~/stores/app'
-import type { RouteRecord } from 'vue-router'
+import type { RouteRecord, RouteRecordRaw } from 'vue-router'
 
 // states
 const user = useUserStore()
@@ -89,36 +90,38 @@ watchEffect(() => {
 })
 // 根据路由构造菜单
 watchEffect(() => {
-  let routes = router.getRoutes() as RouteRecord[],
-    routesMap: Record<string, MenuConfig> = {}
+  let routes = router.getRoutes() as RouteRecord[]
 
-  routes.forEach((v) => {
-    let c = routesMap[v.path],
-      parent: MenuConfig
-    if (!c) {
-      c = routesMap[v.path] = {
-        path: v.path,
+  const buildMenus = (routes: RouteRecordRaw[], parent: MenuConfig) => {
+    return routes.map((v) => {
+      let fullPath = parent.path
+      if (v.path.startsWith('/')) fullPath = v.path
+      else if (fullPath.endsWith('/')) fullPath += v.path
+      else fullPath += '/' + v.path
+
+      let menu: MenuConfig = {
+        path: fullPath,
         name: v.name,
-        meta: { ...v.meta }, // meta 需要复制
+        meta: { ...v.meta }, // meta 需要复制,
         children: [],
       }
-    }
-    // if (v.parent) {
-    //   parent = routesMap[v.parent.path]
-    //   if (!parent) {
-    //     parent = routesMap[v.parent.path] = {
-    //       path: v.parent.path,
-    //       name: v.parent.name,
-    //       meta: { ...v.parent.meta },
-    //       children: [],
-    //     }
-    //   }
-    //   c.meta.parent = parent
-    //   parent.children.push(routesMap[v.path])
-    // }
-  })
-  // 只需挂在 main 组件下的路由
-  menuItems.value = Object.values(routesMap).find((v) => v.name === 'main')?.children ?? []
+
+      if (v.children && v.children.length) menu.children = buildMenus(v.children, menu)
+
+      return menu
+    })
+  }
+
+  let main = routes.find((v) => v.name === 'main')
+  if (main) {
+    menuItems.value = buildMenus(main.children, {
+      path: main.path,
+      meta: main.meta,
+      children: [],
+    })
+  } else {
+    menuItems.value = []
+  }
 })
 
 function onIndent(e: EventTarget) {
@@ -153,21 +156,21 @@ $color-menu: #e6e4e4;
 $color-menu-bg: #545c64;
 
 @mixin menu-color-override {
-  .el-menu,
-  .el-menu-item,
-  .el-submenu__title,
-  .el-submenu {
+  .ep-menu,
+  .ep-menu-item,
+  .ep-sub-menu__title,
+  .ep-sub-menu {
     color: $color-menu;
     background-color: $color-menu-bg;
   }
-  .el-menu--popup {
+  .ep-menu--popup {
     padding: 0;
   }
-  .el-menu-item:hover,
-  .el-submenu__title:hover {
+  .ep-menu-item:hover,
+  .ep-sub-menu__title:hover {
     background-color: mix($color-primary, #fff, 85%);
   }
-  .el-menu-item.is-active {
+  .ep-menu-item.is-active {
     background-color: $color-primary;
   }
 }

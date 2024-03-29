@@ -1,5 +1,5 @@
 <template>
-  <div class="curd">
+  <div class="lv4">
     <h1>Level4</h1>
   </div>
 </template>

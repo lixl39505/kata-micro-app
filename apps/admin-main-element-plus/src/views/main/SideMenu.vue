@@ -1,6 +1,6 @@
 <template>
   <ElSubMenu v-if="config.children.length" :index="config.path" :popperClass="popperClass">
-    <template slot="title">
+    <template #title>
       <SvgIcon v-if="config.meta.icon" :name="config.meta.icon" class="side-menu__icon"></SvgIcon>
       <span>{{ config.meta.title }}</span>
     </template>
@@ -8,7 +8,9 @@
   </ElSubMenu>
   <ElMenuItem v-else :index="config.path">
     <SvgIcon v-if="config.meta.icon" class="side-menu__icon" :name="config.meta.icon"></SvgIcon>
-    <span slot="title">{{ config.meta.title }}</span>
+    <template #title>
+      <span>{{ config.meta.title }}</span>
+    </template>
   </ElMenuItem>
 </template>
 <script lang="ts">
