@@ -58,8 +58,6 @@
   </ElContainer>
 </template>
 <script lang="ts">
-import 'virtual:svg-icons-register'
-
 export default {
   name: 'MainView',
 }
@@ -71,7 +69,7 @@ import SideMenu from './SideMenu.vue'
 import { useUserStore, type MenuConfig } from '~/stores/user'
 import { useAppStore, type Cmd } from '~/stores/app'
 import type { RouteRecord, RouteRecordRaw } from 'vue-router'
-
+import 'virtual:svg-icons-register'
 // states
 const user = useUserStore()
 const { userInfo } = storeToRefs(user)

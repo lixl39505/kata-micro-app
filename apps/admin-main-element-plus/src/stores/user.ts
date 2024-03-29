@@ -116,8 +116,9 @@ export const useUserStore = defineStore('user', {
     logout() {
       sessionStorage.clear()
       localStorage.clear()
-      this.visited = []
-      this.router.push({ name: LOGIN_PAGE_NAME })
+      this.router.push({ name: LOGIN_PAGE_NAME }).then(() => {
+        this.visited = []
+      })
     },
   },
 })
