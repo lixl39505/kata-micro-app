@@ -59,7 +59,7 @@ export const useUserStore = defineStore('user', {
       if (n1 >= 0) {
         this.visited.splice(n1 + 1, this.visited.length - n1 - 1)
 
-        if (n2 > n1 + 1) this.router.replace(target.fullPath)
+        if (n2 > n1) this.router.replace(target.fullPath)
       }
     },
     // 关闭其它路由

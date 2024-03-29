@@ -1,6 +1,6 @@
 <template>
   <ElContainer class="main">
-    <ElAside :class="['aside', { collapse: isCollapse }]" :width="null">
+    <ElAside :class="['aside', { collapse: isCollapse }]">
       <!-- 顶部Logo -->
       <div :class="['aside__head', { collapse: isCollapse }]">
         <SvgIcon class="aside__logo" name="logo"></SvgIcon>
