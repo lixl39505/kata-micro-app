@@ -10,7 +10,6 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import Unocss from 'unocss/vite'
-import { presetAttributify, presetIcons, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss'
 
 const pathSrc = resolve(__dirname, 'src')
 
@@ -68,17 +67,6 @@ export default defineConfig({
       customDomId: '__svg__icons__dom__',
     }),
     // https://github.com/antfu/unocss
-    // see unocss.config.ts for config
-    Unocss({
-      presets: [
-        presetUno(),
-        presetAttributify(),
-        presetIcons({
-          scale: 1.2,
-          warn: true,
-        }),
-      ],
-      transformers: [transformerDirectives(), transformerVariantGroup()],
-    }),
+    Unocss(),
   ],
 })
