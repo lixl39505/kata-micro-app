@@ -1,7 +1,5 @@
 packages:
   - 'apps/*'
   - 'packages/*'
-  - 'servers/*'
-  # - 'components/**'
   # exclude packages that are inside test directories
   - '!**/test/**'
