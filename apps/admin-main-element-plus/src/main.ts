@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-
+import WujieVue from 'wujie-vue3'
 import { router } from './router'
 import { pinia, injectRouter } from './stores'
 import App from './App.vue'
@@ -17,4 +17,5 @@ applyUserEffect({ pinia, router })
 
 app.use(router)
 app.use(pinia)
+app.use(WujieVue)
 app.mount('#app')
