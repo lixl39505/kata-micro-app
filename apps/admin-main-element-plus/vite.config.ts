@@ -1,5 +1,5 @@
 import path, { resolve } from 'path'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -14,59 +14,68 @@ import Unocss from 'unocss/vite'
 const pathSrc = resolve(__dirname, 'src')
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  resolve: {
-    alias: {
-      '~/': `${pathSrc}/`,
+export default defineConfig(({ command, mode }) => {
+  const { VITE_PORT, VITE_BASE_URL } = loadEnv(mode, process.cwd())
+
+  return {
+    base: VITE_BASE_URL,
+    server: {
+      // 端口号
+      port: parseInt(VITE_PORT),
     },
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "~/styles/theme.scss" as *;`,
+    resolve: {
+      alias: {
+        '~/': `${pathSrc}/`,
       },
     },
-  },
-  plugins: [
-    vue(),
-    vueJsx(),
-    Icons({
-      compiler: 'vue3',
-      customCollections: {
-        // 本地 svg 图标
-        my: FileSystemIconLoader(path.join(pathSrc, 'assets/icons'), (svg) => svg.replace(/^<svg /, '<svg fill="currentColor" ')),
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "~/styles/theme.scss" as *;`,
+        },
       },
-    }),
-    AutoImport({
-      imports: ['vue', 'vue-router', 'pinia'],
-      dirs: [path.join(pathSrc, 'utils')],
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      // allow auto load markdown components under `./src/components/`
-      extensions: ['vue', 'md'],
-      // allow auto import and register components used in markdown
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-      resolvers: [
-        // element-plus 组件
-        ElementPlusResolver({
-          importStyle: 'sass',
-        }),
-        // iconify 组件
-        IconsResolver({
-          prefix: 'icon', // <icon-collection-name>
-          customCollections: ['my'],
-        }),
-      ],
-    }),
-    // 动态 svg-icon
-    createSvgIconsPlugin({
-      iconDirs: [resolve(__dirname, 'src/assets/icons')],
-      symbolId: 'icon-[dir]-[name]',
-      inject: 'body-last',
-      customDomId: '__svg__icons__dom__',
-    }),
-    // https://github.com/antfu/unocss
-    Unocss(),
-  ],
+    },
+    plugins: [
+      vue(),
+      vueJsx(),
+      Icons({
+        compiler: 'vue3',
+        customCollections: {
+          // 本地 svg 图标
+          my: FileSystemIconLoader(path.join(pathSrc, 'assets/icons'), (svg) => svg.replace(/^<svg /, '<svg fill="currentColor" ')),
+        },
+      }),
+      AutoImport({
+        imports: ['vue', 'vue-router', 'pinia'],
+        dirs: [path.join(pathSrc, 'utils')],
+        resolvers: [ElementPlusResolver()],
+      }),
+      Components({
+        // allow auto load markdown components under `./src/components/`
+        extensions: ['vue', 'md'],
+        // allow auto import and register components used in markdown
+        include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+        resolvers: [
+          // element-plus 组件
+          ElementPlusResolver({
+            importStyle: 'sass',
+          }),
+          // iconify 组件
+          IconsResolver({
+            prefix: 'icon', // <icon-collection-name>
+            customCollections: ['my'],
+          }),
+        ],
+      }),
+      // 动态 svg-icon
+      createSvgIconsPlugin({
+        iconDirs: [resolve(__dirname, 'src/assets/icons')],
+        symbolId: 'icon-[dir]-[name]',
+        inject: 'body-last',
+        customDomId: '__svg__icons__dom__',
+      }),
+      // https://github.com/antfu/unocss
+      Unocss(),
+    ],
+  }
 })

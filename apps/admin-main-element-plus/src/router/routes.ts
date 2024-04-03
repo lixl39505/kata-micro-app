@@ -90,6 +90,34 @@ export default [
     ],
   },
   {
+    path: '/v2',
+    name: 'v2',
+    component: () => import('~/views/main/MainView.vue'),
+    children: [
+      {
+        path: 'index',
+        name: 'v2Index',
+        meta: {
+          title: 'v2-首页',
+          icon: 'home',
+          auth: true,
+        },
+        component: () => import('~/views/SubAppV2.vue'),
+      },
+      {
+        path: 'curd',
+        name: 'v2CURD',
+        meta: {
+          title: 'v2CURD',
+          icon: 'table',
+          auth: true,
+          keepAlive: true,
+        },
+        component: () => import('~/views/SubAppV2.vue'),
+      },
+    ],
+  },
+  {
     path: '/login',
     name: 'login',
     meta: {

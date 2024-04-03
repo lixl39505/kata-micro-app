@@ -16,6 +16,31 @@ export default defineConfig(({ command, mode }) => {
 
   return {
     base: VITE_BASE_URL,
+    server: {
+      // 端口号
+      port: parseInt(VITE_PORT),
+      // 监听所有地址
+      host: '0.0.0.0',
+      // 服务启动时是否自动打开浏览器
+      open: true,
+      // 允许跨域
+      cors: true,
+      // 自定义代理规则
+      proxy: {},
+    },
+    resolve: {
+      alias: {
+        '~': resolve(__dirname, 'src'),
+        vue: require.resolve('vue/dist/vue.esm.js'), // Vite+Vue2时，会强制重定向 vue 到 vue.esm.js，详见 https://github.com/vitejs/vite-plugin-vue2/issues/16#issuecomment-1171891909
+      },
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "~/styles/theme.scss"; `,
+        },
+      },
+    },
     plugins: [
       vue2(),
       vueJsx(),
@@ -41,31 +66,6 @@ export default defineConfig(({ command, mode }) => {
         customDomId: '__svg__icons__dom__',
       }),
     ],
-    resolve: {
-      alias: {
-        '~': resolve(__dirname, 'src'),
-        vue: require.resolve('vue/dist/vue.esm.js'), // Vite+Vue2时，会强制重定向 vue 到 vue.esm.js，详见 https://github.com/vitejs/vite-plugin-vue2/issues/16#issuecomment-1171891909
-      },
-    },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@import "~/styles/theme.scss"; `,
-        },
-      },
-    },
-    server: {
-      // 端口号
-      port: parseInt(VITE_PORT),
-      // 监听所有地址
-      host: '0.0.0.0',
-      // 服务启动时是否自动打开浏览器
-      open: true,
-      // 允许跨域
-      cors: true,
-      // 自定义代理规则
-      proxy: {},
-    },
     build: {
       // 构建后是否生成 source map 文件
       sourcemap: 'hidden',

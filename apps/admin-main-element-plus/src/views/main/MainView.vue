@@ -113,16 +113,18 @@ watchEffect(() => {
     })
   }
 
-  let main = routes.find((v) => v.name === 'main')
-  if (main) {
-    menuItems.value = buildMenus(main.children, {
-      path: main.path,
-      meta: main.meta,
-      children: [],
-    })
-  } else {
-    menuItems.value = []
-  }
+  menuItems.value = routes
+    .filter((v) => v.name === 'main' || v.name === 'v2')
+    .reduce((acc: MenuConfig[], v) => {
+      acc.push(
+        ...buildMenus(v.children, {
+          path: v.path,
+          meta: v.meta,
+          children: [],
+        })
+      )
+      return acc
+    }, [])
 })
 
 function onIndent(e: EventTarget) {
@@ -183,7 +185,9 @@ $color-menu-bg: #545c64;
   width: 200px;
   color: $color-menu;
   background: $color-menu-bg;
-  transition: width, 0.3s ease-in;
+  transition:
+    width,
+    0.3s ease-in;
 
   // menu color overrides
   .svgicon {

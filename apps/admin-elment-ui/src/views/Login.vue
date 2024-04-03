@@ -31,8 +31,8 @@ const m = reactive({
 const form = ref<ElForm>()
 // 验证规则
 const checkUsername: AsyncValidator<string, typeof m> = (rule, value, callback) => {
-  if (value.length < 6) {
-    return callback(new Error('用户名不能少于6位'))
+  if (value.length < 1) {
+    return callback(new Error('用户名不能为空'))
   }
   callback()
 }
