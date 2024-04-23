@@ -1,6 +1,6 @@
 {
   "name": "root",
   "scripts": {
-    "dev": "pnpm run -F=admin-main-element-plus dev"
+    "dev:admin": "pnpm run -F=admin-* dev"
   }
 }
