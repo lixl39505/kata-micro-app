@@ -124,8 +124,10 @@ watchEffect(() => {
       parent.children.push(routesMap[v.path])
     }
   })
-  // 只需挂在 main 组件下的路由
-  menuItems.value = Object.values(routesMap).find((v) => v.name === 'main')?.children ?? []
+  // 筛选
+  menuItems.value = Object.values(routesMap)
+    .filter((v) => v.name === 'main' || v.name === 'v3')
+    .reduce((acc: MenuConfig[], v) => acc.concat(v.children), [])
 })
 
 function onIndent(e: EventTarget) {

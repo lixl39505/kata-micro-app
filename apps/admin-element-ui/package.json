@@ -28,7 +28,8 @@
     "pinia": "^2.1.7",
     "screenfull": "^6.0.2",
     "vue": "^2.7.14",
-    "vue-router": "^3.6.5"
+    "vue-router": "^3.6.5",
+    "wujie-vue2": "^1.0.22"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.2",

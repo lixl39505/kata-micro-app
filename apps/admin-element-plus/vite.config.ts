@@ -24,6 +24,14 @@ export default defineConfig(({ command, mode }) => {
     server: {
       // 端口号
       port: parseInt(VITE_PORT),
+      // 监听所有地址
+      host: '0.0.0.0',
+      // 服务启动时是否自动打开浏览器
+      open: true,
+      // 允许跨域
+      cors: true,
+      // 自定义代理规则
+      proxy: {},
     },
     define: {
       VITE_APP_NAME: JSON.stringify(pkgJson.name),

@@ -19,3 +19,12 @@ app.use(router)
 app.use(pinia)
 app.use(WujieVue)
 app.mount('#app')
+
+// 微服务通信
+let name = 'v3'
+window.$wujie?.bus.$on(`${name}:routeChange`, (path: string) => router.replace({ path }))
+
+// DevTest
+if (import.meta.env.DEV) {
+  Object.assign(window, { router, pinia })
+}

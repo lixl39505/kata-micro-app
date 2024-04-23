@@ -87,6 +87,82 @@ importers:
         specifier: ^2.0.7
         version: 2.0.14(typescript@5.4.5)
 
+  apps/admin-element-ui:
+    dependencies:
+      '@vueuse/core':
+        specifier: ^10.9.0
+        version: 10.9.0(vue@2.7.16)
+      axios:
+        specifier: ^1.6.8
+        version: 1.6.8
+      element-ui:
+        specifier: ^2.15.14
+        version: 2.15.14(vue@2.7.16)
+      pinia:
+        specifier: ^2.1.7
+        version: 2.1.7(typescript@5.4.5)(vue@2.7.16)
+      screenfull:
+        specifier: ^6.0.2
+        version: 6.0.2
+      vue:
+        specifier: ^2.7.14
+        version: 2.7.16
+      vue-router:
+        specifier: ^3.6.5
+        version: 3.6.5(vue@2.7.16)
+      wujie-vue2:
+        specifier: ^1.0.22
+        version: 1.0.22(vue@2.7.16)
+    devDependencies:
+      '@tsconfig/node20':
+        specifier: ^20.1.2
+        version: 20.1.4
+      '@types/node':
+        specifier: ^20.11.30
+        version: 20.12.7
+      '@vitejs/plugin-legacy':
+        specifier: ^5.3.2
+        version: 5.3.2(terser@5.30.4)(vite@5.2.10(@types/node@20.12.7)(sass@1.32.13)(terser@5.30.4))
+      '@vitejs/plugin-vue2':
+        specifier: ^2.3.1
+        version: 2.3.1(vite@5.2.10(@types/node@20.12.7)(sass@1.32.13)(terser@5.30.4))(vue@2.7.16)
+      '@vitejs/plugin-vue2-jsx':
+        specifier: ^1.1.1
+        version: 1.1.1(rollup@4.16.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.32.13)(terser@5.30.4))(vue@2.7.16)
+      '@vue/tsconfig':
+        specifier: ^0.5.1
+        version: 0.5.1
+      autoprefixer:
+        specifier: ^10.4.19
+        version: 10.4.19(postcss@5.2.18)
+      prettier:
+        specifier: ^3.2.5
+        version: 3.2.5
+      sass:
+        specifier: ~1.32.6
+        version: 1.32.13
+      terser:
+        specifier: ^5.29.2
+        version: 5.30.4
+      typescript:
+        specifier: ^5.4.3
+        version: 5.4.5
+      unplugin-auto-import:
+        specifier: ^0.17.5
+        version: 0.17.5(@vueuse/core@10.9.0(vue@2.7.16))(rollup@4.16.2)
+      unplugin-vue-components:
+        specifier: ^0.26.0
+        version: 0.26.0(@babel/parser@7.24.4)(rollup@4.16.2)(vue@2.7.16)
+      vite:
+        specifier: ^5.2.2
+        version: 5.2.10(@types/node@20.12.7)(sass@1.32.13)(terser@5.30.4)
+      vite-plugin-svg-icons:
+        specifier: ^2.0.1
+        version: 2.0.1(vite@5.2.10(@types/node@20.12.7)(sass@1.32.13)(terser@5.30.4))
+      vue-tsc:
+        specifier: ^2.0.7
+        version: 2.0.14(typescript@5.4.5)
+
   apps/admin-elment-ui:
     dependencies:
       '@vueuse/core':
@@ -3391,6 +3467,11 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+
+  wujie-vue2@1.0.22:
+    resolution: {integrity: sha512-G+5B4y4C6NwYy31QL9pR5m+1BvQWSmgbQzFQdLEAJhFydS9dizQAgNK1VPfCBxSXM3jz2xfQz75WpE4aX4Jqdw==}
+    peerDependencies:
+      vue: ^2.6.0
 
   wujie-vue3@1.0.22:
     resolution: {integrity: sha512-/FD52+3rEg4vQb6EhSq+V9WMhaHYyVliUsVDBIzePcX0yUsep+4oC8r3EmyeS2dfEl3DCmMwLz5MnBGL3c4Msw==}
@@ -7147,6 +7228,11 @@ snapshots:
       strip-ansi: 6.0.1
 
   ws@8.16.0: {}
+
+  wujie-vue2@1.0.22(vue@2.7.16):
+    dependencies:
+      vue: 2.7.16
+      wujie: 1.0.22
 
   wujie-vue3@1.0.22(vue@3.4.24(typescript@5.4.5)):
     dependencies:

@@ -97,4 +97,32 @@ export default [
     },
     component: () => import(`~/views/Login.vue`),
   },
+  {
+    path: '/v3',
+    name: 'v3',
+    component: () => import('~/views/main/MainView.vue'),
+    children: [
+      {
+        path: 'index',
+        name: 'v3Index',
+        meta: {
+          title: 'v3-首页',
+          icon: 'home',
+          auth: true,
+        },
+        component: () => import('~/views/SubAppV3.vue'),
+      },
+      {
+        path: 'curd',
+        name: 'v3CURD',
+        meta: {
+          title: 'v3CURD',
+          icon: 'table',
+          auth: true,
+          keepAlive: true,
+        },
+        component: () => import('~/views/SubAppV3.vue'),
+      },
+    ],
+  },
 ] as RouteConfig[]
