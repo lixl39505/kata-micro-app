@@ -105,8 +105,8 @@ export const useUserStore = defineStore('user', {
     // 登录
     async login({ username, pwd }: { username: string; pwd: string }) {
       const userInfo = await Promise.resolve({
-        id: '233',
-        nickname: '瓮中捉鳖',
+        id: import.meta.env.VITE_PORT,
+        nickname: '火中取栗',
         avatar: '',
         role: 'admin',
         lang: 'zh',
