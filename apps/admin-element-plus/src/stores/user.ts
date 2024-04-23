@@ -1,8 +1,7 @@
 import { defineStore, type Pinia } from 'pinia'
 import type { RouteLocationNormalized, Router } from 'vue-router'
 // @ts-ignore
-import type { RemovableRef } from '@vueuse/core'
-import { useStorage } from '@vueuse/core'
+import { useSessionStorage } from '@vueuse/core'
 
 const LOGIN_PAGE_NAME = 'login'
 
@@ -15,14 +14,14 @@ export interface MenuConfig {
 
 export const useUserStore = defineStore('user', {
   state: () => {
-    const userInfo = useStorage('userInfo', {
+    const userInfo = useSessionStorage('userInfo', {
       id: '', // 用户id
       nickname: '', // 昵称
       avatar: '', // 头像
       role: '', // 角色
       lang: 'zh', // 语言设置
     })
-    const visited = useStorage('visited', [] as RouteLocationNormalized[], sessionStorage)
+    const visited = useSessionStorage('visited', [] as RouteLocationNormalized[])
 
     return {
       userInfo,
@@ -127,7 +126,7 @@ export function applyUserEffect({ pinia, router }: { pinia: Pinia; router: Route
   // 登录验证
   router.beforeEach((to, from, next) => {
     const user = useUserStore(pinia)
-    const refer = useStorage('refer', '')
+    const refer = useSessionStorage('refer', '')
     // 无需登录
     if (to.meta?.auth === false) return next()
     // 拒绝登录
