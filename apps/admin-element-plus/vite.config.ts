@@ -1,4 +1,5 @@
-import path, { resolve } from 'path'
+import path, { resolve } from 'node:path'
+import fs from 'node:fs'
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -12,6 +13,7 @@ import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import Unocss from 'unocss/vite'
 
 const pathSrc = resolve(__dirname, 'src')
+const pkgJson = JSON.parse(fs.readFileSync('./package.json', { encoding: 'utf-8' }))
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -22,6 +24,9 @@ export default defineConfig(({ command, mode }) => {
     server: {
       // 端口号
       port: parseInt(VITE_PORT),
+    },
+    define: {
+      VITE_APP_NAME: JSON.stringify(pkgJson.name),
     },
     resolve: {
       alias: {
@@ -42,7 +47,9 @@ export default defineConfig(({ command, mode }) => {
         compiler: 'vue3',
         customCollections: {
           // 本地 svg 图标
-          my: FileSystemIconLoader(path.join(pathSrc, 'assets/icons'), (svg) => svg.replace(/^<svg /, '<svg fill="currentColor" ')),
+          my: FileSystemIconLoader(path.join(pathSrc, 'assets/icons'), (svg) =>
+            svg.replace(/^<svg /, '<svg fill="currentColor" '),
+          ),
         },
       }),
       AutoImport({

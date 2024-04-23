@@ -10,6 +10,7 @@ import { ElementUiResolver } from 'unplugin-vue-components/resolvers'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 const require = createRequire(import.meta.url)
+const pkgJson = require('./package.json')
 
 export default defineConfig(({ command, mode }) => {
   const { PORT, VITE_BASE_URL } = loadEnv(mode, process.cwd())
@@ -27,6 +28,9 @@ export default defineConfig(({ command, mode }) => {
       cors: true,
       // 自定义代理规则
       proxy: {},
+    },
+    define: {
+      VITE_APP_NAME: JSON.stringify(pkgJson.name),
     },
     resolve: {
       alias: {
