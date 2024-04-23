@@ -65,8 +65,8 @@ function onSubmit() {
     .then(() => user.login({ username: m.username, pwd: m.pwd }))
     .then(() => {
       if (refer.value) {
-        refer.value = ''
         router.push(refer.value)
+        refer.value = ''
       } else {
         router.push('/')
       }
