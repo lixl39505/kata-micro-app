@@ -66,7 +66,6 @@ function onSubmit() {
     .then(() => {
       if (refer.value) {
         router.push(refer.value)
-        refer.value = ''
       } else {
         router.push('/')
       }
