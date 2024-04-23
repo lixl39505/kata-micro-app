@@ -35,3 +35,7 @@ new Vue({
 if (import.meta.env.DEV) {
   Object.assign(window, { router, pinia })
 }
+
+// 微服务通信
+let name = 'v2'
+window.$wujie?.bus.$on(`${name}:routeChange`, (path: string) => router.replace({ path }))
