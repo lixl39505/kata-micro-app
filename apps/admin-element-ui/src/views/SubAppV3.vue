@@ -13,7 +13,7 @@ let url = ref(`${import.meta.env.VITE_V3_URL}${path}`)
 
 function patchElementHook(element: HTMLElement, iframeWindow: Window) {
   if (element.nodeName === 'STYLE') {
-    // 修复 :root 样式失效问题，见 https://github.com/Tencent/wujie/issues/434
+    // 修复 :root 样式失效问题，见 https://github.com/Tencent/wujie/issues/434#issuecomment-1614089196
     element.insertAdjacentElement = function (_position, ele) {
       return iframeWindow.document.head.appendChild(ele)
     }
