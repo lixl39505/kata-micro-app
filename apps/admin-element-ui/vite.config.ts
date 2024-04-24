@@ -13,13 +13,13 @@ const require = createRequire(import.meta.url)
 const pkgJson = require('./package.json')
 
 export default defineConfig(({ command, mode }) => {
-  const { PORT, VITE_BASE_URL } = loadEnv(mode, process.cwd())
+  const { VITE_PORT, VITE_BASE_URL } = loadEnv(mode, process.cwd())
 
   return {
     base: VITE_BASE_URL,
     server: {
       // 端口号
-      port: parseInt(PORT),
+      port: parseInt(VITE_PORT),
       // 监听所有地址
       host: '0.0.0.0',
       // 服务启动时是否自动打开浏览器
