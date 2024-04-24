@@ -6,7 +6,9 @@ import App from './App.vue'
 import { applyUserEffect } from './stores/user'
 import type VueRouter from 'vue-router'
 import 'virtual:svg-icons-register'
-// 全局组件样式
+
+// global styles
+import '~/styles/base.scss'
 import 'element-ui/packages/theme-chalk/src/tooltip.scss'
 import 'element-ui/packages/theme-chalk/src/popover.scss'
 

@@ -5,7 +5,7 @@ import { pinia, injectRouter } from './stores'
 import App from './App.vue'
 import { applyUserEffect } from './stores/user'
 
-import '~/styles/index.scss'
+import '~/styles/base.scss'
 import 'uno.css'
 // If you want to use ElMessage, import it.
 import 'element-plus/theme-chalk/src/message.scss'
