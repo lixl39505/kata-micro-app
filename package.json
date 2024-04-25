@@ -2,5 +2,10 @@
   "name": "root",
   "scripts": {
     "dev:admin": "pnpm run -F=admin-* dev"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "element-ui@2.15.14": "patches/element-ui@2.15.14.patch"
+    }
   }
 }
