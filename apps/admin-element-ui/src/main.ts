@@ -11,6 +11,8 @@ import 'virtual:svg-icons-register'
 import '~/styles/base.scss'
 import 'element-ui/packages/theme-chalk/src/tooltip.scss'
 import 'element-ui/packages/theme-chalk/src/popover.scss'
+import 'element-ui/packages/theme-chalk/src/message.scss'
+import 'element-ui/packages/theme-chalk/src/notification.scss'
 
 // element组件全局设置
 Vue.prototype.$ELEMENT = { size: 'small' }
