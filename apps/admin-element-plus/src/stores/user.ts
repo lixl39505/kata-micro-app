@@ -10,6 +10,13 @@ export interface MenuConfig {
   children: MenuConfig[]
   name?: string | symbol | null
 }
+export interface UserInfo {
+  id: string
+  nickname: string
+  avatar: string
+  role: string
+  lang: string
+}
 
 export const useUserStore = defineStore('user', {
   state: () => {
@@ -99,6 +106,11 @@ export const useUserStore = defineStore('user', {
       }
       this.router.replace('/')
     },
+    // 更新 userInfo
+    setUserInfo(info: UserInfo) {
+      this.userInfo = info
+      Cookies.set('passport', JSON.stringify(info))
+    },
     // 登录
     async login({ username, pwd }: { username: string; pwd: string }) {
       const userInfo = await Promise.resolve({
@@ -108,8 +120,7 @@ export const useUserStore = defineStore('user', {
         role: 'admin',
         lang: 'zh',
       })
-      Object.assign(this.userInfo, userInfo)
-      Cookies.set('passport', JSON.stringify(userInfo))
+      this.setUserInfo(userInfo)
     },
     // 登出
     logout() {
