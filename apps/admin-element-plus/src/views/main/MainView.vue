@@ -4,7 +4,7 @@
       <!-- 顶部Logo -->
       <div :class="['aside__head', { collapse: isCollapse }]">
         <SvgIcon class="aside__logo" name="logo"></SvgIcon>
-        <span v-show="!isCollapse">ElementUI Admin</span>
+        <span v-show="!isCollapse">Element Plus</span>
       </div>
       <!-- 路由菜单 -->
       <ElMenu router class="aside__menu" :default-active="route.path" :collapse="isCollapse">
@@ -208,9 +208,6 @@ $color-menu-bg: #545c64;
     0.3s ease-in;
 
   // menu color overrides
-  .svgicon {
-    fill: $color-menu;
-  }
   @include menu-color-override;
   &__menu-popper {
     @include menu-color-override;
@@ -235,6 +232,7 @@ $color-menu-bg: #545c64;
     height: 1.2em;
     vertical-align: -0.2em;
     margin-right: 2px;
+    fill: $color-primary;
   }
   &__menu {
     border: 0;

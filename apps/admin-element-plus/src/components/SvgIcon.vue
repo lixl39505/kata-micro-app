@@ -1,5 +1,5 @@
 <template>
-  <svg class="svgicon" aria-hidden="true" :fill="fill" :width="size" :height="size">
+  <svg class="svgicon" aria-hidden="true" :fill="color" :width="size" :height="size">
     <title>{{ title }}</title>
     <use :xlink:href="symbolId"></use>
   </svg>
@@ -19,9 +19,8 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    fill: {
+    color: {
       type: String,
-      default: 'currentColor',
     },
     title: {
       type: String,
@@ -40,6 +39,7 @@ export default defineComponent({
 </script>
 <style lang="scss">
 .svgicon {
+  fill: currentColor;
   vertical-align: middle;
 }
 </style>

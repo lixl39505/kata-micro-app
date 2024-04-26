@@ -4,7 +4,7 @@
       <!-- 顶部Logo -->
       <div :class="['aside__head', { collapse: isCollapse }]">
         <SvgIcon class="aside__logo" name="logo"></SvgIcon>
-        <span v-show="!isCollapse">ElementUI Admin</span>
+        <span v-show="!isCollapse">Element UI</span>
       </div>
       <!-- 路由菜单 -->
       <ElMenu router class="aside__menu" :default-active="route.path" :collapse="isCollapse">
