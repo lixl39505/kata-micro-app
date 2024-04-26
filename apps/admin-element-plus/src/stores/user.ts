@@ -1,5 +1,6 @@
 import { defineStore, type Pinia } from 'pinia'
 import type { RouteLocationNormalized, Router } from 'vue-router'
+import Cookies from 'js-cookie'
 
 const LOGIN_PAGE_NAME = 'login'
 
@@ -108,6 +109,7 @@ export const useUserStore = defineStore('user', {
         lang: 'zh',
       })
       Object.assign(this.userInfo, userInfo)
+      Cookies.set('passport', JSON.stringify(userInfo))
     },
     // 登出
     logout() {
@@ -123,7 +125,7 @@ export const useUserStore = defineStore('user', {
 export function applyUserEffect({ pinia, router }: { pinia: Pinia; router: Router }) {
   // 登录验证
   router.beforeEach((to, from, next) => {
-    const user = useUserStore(pinia)
+    const passport = Cookies.get('passport')
     const refer = useSS('refer', '')
     // 无需登录
     if (to.meta?.auth === false) return next()
@@ -140,16 +142,15 @@ export function applyUserEffect({ pinia, router }: { pinia: Pinia; router: Route
         name: LOGIN_PAGE_NAME,
       })
     }
-    let passport = user.userInfo.id // 是否登录
     // 未登录
-    if (!passport) denied()
-    // 已登录、进入登录页
-    else if (passport && to.name === LOGIN_PAGE_NAME) next('/')
-    // 已登录、进入非登录页
-    else {
-      // [Optional] 获取用户权限...
-      next()
-    }
+    if (!passport) return denied()
+    // 已登录，还原用户信息
+    const user = useUserStore(pinia)
+    user.userInfo = JSON.parse(passport)
+    // 进入登录页
+    if (passport && to.name === LOGIN_PAGE_NAME) next('/')
+    // 进入非登录页
+    else next()
   })
 
   // visited 访问记录维护
