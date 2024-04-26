@@ -155,13 +155,11 @@ export function applyUserEffect({ pinia, router }: { pinia: Pinia; router: VueRo
   })
 
   // visited 访问记录维护
-  router.beforeEach((to, from, next) => {
+  router.afterEach((to, from) => {
     const user = useUserStore(pinia)
 
-    if (to.matched.length > 1 && to.matched[0].name === 'main') {
+    if (to.matched.length > 1 && (to.matched[0].components.default as any).name === 'MainView') {
       user.addVisitedRoute(to)
     }
-
-    next()
   })
 }
