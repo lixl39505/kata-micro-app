@@ -9,7 +9,7 @@ export default [
     children: [
       {
         path: 'index',
-        name: 'Home',
+        name: 'home',
         meta: {
           title: '首页',
           icon: 'home',
@@ -18,19 +18,19 @@ export default [
         component: () => import('~/views/Home.vue'),
       },
       {
-        path: 'curd',
+        path: 'form',
         meta: {
-          title: 'CURD',
+          title: '表单',
           icon: 'table',
           auth: true,
           keepAlive: true,
         },
-        name: 'CURD',
-        component: () => import(`~/views/CURD.vue`),
+        name: 'form',
+        component: () => import(`~/views/Form.vue`),
       },
       {
         path: 'users',
-        name: 'AdminUser',
+        name: 'users',
         meta: {
           title: '用户管理',
           icon: 'admin-user',
@@ -41,7 +41,7 @@ export default [
       },
       {
         path: 'roles',
-        name: 'AdminRole',
+        name: 'roles',
         meta: {
           title: '权限管理',
           auth: true,
@@ -98,17 +98,17 @@ export default [
         path: 'index',
         name: 'v2Index',
         meta: {
-          title: 'v2-首页',
+          title: 'v2 首页',
           icon: 'home',
           auth: true,
         },
         component: () => import('~/views/SubAppV2.vue'),
       },
       {
-        path: 'curd',
-        name: 'v2CURD',
+        path: 'form',
+        name: 'v2Form',
         meta: {
-          title: 'v2CURD',
+          title: 'v2 表单',
           icon: 'table',
           auth: true,
           keepAlive: true,

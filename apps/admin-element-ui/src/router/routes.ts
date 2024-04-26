@@ -106,17 +106,17 @@ export default [
         path: 'index',
         name: 'v3Index',
         meta: {
-          title: 'v3-首页',
+          title: 'v3 首页',
           icon: 'home',
           auth: true,
         },
         component: () => import('~/views/SubAppV3.vue'),
       },
       {
-        path: 'curd',
-        name: 'v3CURD',
+        path: 'form',
+        name: 'v3Form',
         meta: {
-          title: 'v3CURD',
+          title: 'v3 表单',
           icon: 'table',
           auth: true,
           keepAlive: true,
