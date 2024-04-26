@@ -1,6 +1,6 @@
 <template>
   <ElContainer class="main">
-    <ElAside :class="['aside', { collapse: isCollapse }]">
+    <ElAside v-if="!isSubApp" :class="['aside', { collapse: isCollapse }]">
       <!-- 顶部Logo -->
       <div :class="['aside__head', { collapse: isCollapse }]">
         <SvgIcon class="aside__logo" name="logo"></SvgIcon>
@@ -8,50 +8,67 @@
       </div>
       <!-- 路由菜单 -->
       <ElMenu router class="aside__menu" :default-active="route.path" :collapse="isCollapse">
-        <SideMenu v-for="config in menuItems" :key="config.path" :config="config" popperClass="aside__menu-popper"></SideMenu>
+        <SideMenu
+          v-for="config in menuItems"
+          :key="config.path"
+          :config="config"
+          popperClass="aside__menu-popper"
+        ></SideMenu>
       </ElMenu>
     </ElAside>
     <ElContainer direction="vertical">
-      <!-- 顶部功能栏 -->
-      <ElHeader class="header">
-        <!-- 菜单缩进 -->
-        <SvgIcon class="header__icon" :name="isCollapse ? 'indent-left' : 'indent'" @click.native="onIndent"></SvgIcon>
-        <!-- 右侧功能区 -->
-        <div v-if="userInfo.id" class="header__action-bar">
-          <!-- 全屏 -->
-          <SvgIcon class="header__icon" title="全屏" name="fullscreen" @click.native="onFullscreen"></SvgIcon>
-          <!-- 多语言 -->
-          <ElDropdown class="header__lang" @command="onLangChange">
-            <span><SvgIcon class="header__icon" name="lang"></SvgIcon>{{ curLang.text }}</span>
-            <template #dropdown>
-              <ElDropdownMenu>
-                <ElDropdownItem v-for="lang in app.langs" :key="lang.id" :command="lang">{{ lang.text }}</ElDropdownItem>
-              </ElDropdownMenu>
-            </template>
-          </ElDropdown>
-          <!-- 当前用户 -->
-          <ElDropdown class="header__user" @command="onUserAction">
-            <span
-              ><ElAvatar size="small" class="header__user-avatar" :src="userInfo.avatar"
-                ><SvgIcon class="header__user-icon" name="noimg"></SvgIcon></ElAvatar
-              >{{ userInfo.nickname
-              }}<SvgIcon class="header__user-icon" style="padding-left: 2px; vertical-align: -2px" name="arrowdown"></SvgIcon
-            ></span>
-            <template #dropdown>
-              <ElDropdownMenu>
-                <ElDropdownItem v-for="act in app.userActions" :key="act.id" :command="act" :divided="act.divided">{{
-                  act.text
-                }}</ElDropdownItem>
-              </ElDropdownMenu>
-            </template>
-          </ElDropdown>
-        </div>
-      </ElHeader>
-      <div class="header__bottom"></div>
-      <!-- 访问栏 -->
-      <VisitedBar></VisitedBar>
+      <template v-if="!isSubApp">
+        <!-- 顶部功能栏 -->
+        <ElHeader class="header">
+          <!-- 菜单缩进 -->
+          <SvgIcon
+            class="header__icon"
+            :name="isCollapse ? 'indent-left' : 'indent'"
+            @click.native="onIndent"
+          ></SvgIcon>
+          <!-- 右侧功能区 -->
+          <div v-if="userInfo.id" class="header__action-bar">
+            <!-- 全屏 -->
+            <SvgIcon class="header__icon" title="全屏" name="fullscreen" @click.native="onFullscreen"></SvgIcon>
+            <!-- 多语言 -->
+            <ElDropdown class="header__lang" @command="onLangChange">
+              <span><SvgIcon class="header__icon" name="lang"></SvgIcon>{{ curLang.text }}</span>
+              <template #dropdown>
+                <ElDropdownMenu>
+                  <ElDropdownItem v-for="lang in app.langs" :key="lang.id" :command="lang">{{
+                    lang.text
+                  }}</ElDropdownItem>
+                </ElDropdownMenu>
+              </template>
+            </ElDropdown>
+            <!-- 当前用户 -->
+            <ElDropdown class="header__user" @command="onUserAction">
+              <span
+                ><ElAvatar size="small" class="header__user-avatar" :src="userInfo.avatar"
+                  ><SvgIcon class="header__user-icon" name="noimg"></SvgIcon></ElAvatar
+                >{{ userInfo.nickname
+                }}<SvgIcon
+                  class="header__user-icon"
+                  style="padding-left: 2px; vertical-align: -2px"
+                  name="arrowdown"
+                ></SvgIcon
+              ></span>
+              <template #dropdown>
+                <ElDropdownMenu>
+                  <ElDropdownItem v-for="act in app.userActions" :key="act.id" :command="act" :divided="act.divided">{{
+                    act.text
+                  }}</ElDropdownItem>
+                </ElDropdownMenu>
+              </template>
+            </ElDropdown>
+          </div>
+        </ElHeader>
+        <div class="header__bottom"></div>
+        <!-- 访问栏 -->
+        <VisitedBar></VisitedBar>
+      </template>
       <!-- 内容区 -->
-      <ElMain>
+      <ElMain :class="{ 'no-wrap': isSubApp }">
         <RouterView :key="route.fullPath" />
       </ElMain>
     </ElContainer>
@@ -79,6 +96,7 @@ const curLang = ref<Lang>(app.langs[0])
 const router = useRouter()
 const route = useRoute()
 const menuItems = shallowRef<MenuConfig[]>([])
+const isSubApp = ref(!!window?.__POWERED_BY_WUJIE__)
 
 type Lang = Cmd<typeof app.langs>
 type UserAction = Cmd<typeof app.userActions>
@@ -121,7 +139,7 @@ watchEffect(() => {
           path: v.path,
           meta: v.meta,
           children: [],
-        })
+        }),
       )
       return acc
     }, [])
@@ -264,5 +282,8 @@ $color-menu-bg: #545c64;
     width: 100%;
     background-color: $border-color-light;
   }
+}
+.no-wrap {
+  padding: 0;
 }
 </style>
