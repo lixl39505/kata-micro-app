@@ -1,8 +1,6 @@
 import { defineStore, type Pinia } from 'pinia'
 import type { Route } from 'vue-router'
 import type VueRouter from 'vue-router'
-// @ts-ignore
-import { useSessionStorage } from '@vueuse/core'
 
 const LOGIN_PAGE_NAME = 'login'
 
@@ -15,14 +13,14 @@ export interface MenuConfig {
 
 export const useUserStore = defineStore('user', {
   state: () => {
-    const userInfo = useSessionStorage('userInfo', {
+    const userInfo = useSS('userInfo', {
       id: '', // 用户id
       nickname: '', // 昵称
       avatar: '', // 头像
       role: '', // 角色
       lang: 'zh', // 语言设置
     })
-    const visited = useSessionStorage('visited', [] as Route[])
+    const visited = useSS('visited', [] as Route[])
 
     return {
       userInfo,
@@ -126,7 +124,7 @@ export function applyUserEffect({ pinia, router }: { pinia: Pinia; router: VueRo
   // 登录验证
   router.beforeEach((to, from, next) => {
     const user = useUserStore(pinia)
-    const refer = useSessionStorage('refer', '')
+    const refer = useSS('refer', '')
     // 无需登录
     if (to.meta?.auth === false) return next()
     // 拒绝登录

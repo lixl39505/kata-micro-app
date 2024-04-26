@@ -18,7 +18,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useSessionStorage } from '@vueuse/core'
 import type { Form as ElForm } from 'element-ui'
 import { useUserStore } from '~/stores/user'
 
@@ -57,7 +56,7 @@ const rules = reactive({
 })
 // 登录逻辑
 const user = useUserStore()
-const refer = useSessionStorage('refer', '')
+const refer = useSS('refer', '')
 const router = useRouter()
 function onSubmit() {
   form.value

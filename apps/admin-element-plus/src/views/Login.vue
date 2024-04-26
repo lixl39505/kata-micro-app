@@ -19,7 +19,6 @@
 
 <script lang="ts" setup>
 import { type FormItemRule } from 'element-plus'
-import { useSessionStorage } from '@vueuse/core'
 import { useUserStore } from '~/stores/user'
 
 // 表单数据
@@ -57,7 +56,7 @@ const rules = reactive({
 })
 // 登录逻辑
 const user = useUserStore()
-const refer = useSessionStorage('refer', '')
+const refer = useSS('refer', '')
 const router = useRouter()
 function onSubmit() {
   form.value
