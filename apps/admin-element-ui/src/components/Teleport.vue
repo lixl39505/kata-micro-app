@@ -11,8 +11,12 @@ export default {
     disabled: Boolean,
   },
   data() {
-    // non-reactive
-    return new TeleportData()
+    let nonReactive = {
+      original: undefined as HTMLElement | undefined,
+      originalIndex: 0,
+    }
+    Object.preventExtensions(nonReactive)
+    return nonReactive
   },
   mounted() {
     let children = this.$slots.default || []
