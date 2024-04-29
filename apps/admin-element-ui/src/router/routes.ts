@@ -125,4 +125,9 @@ export default [
       },
     ],
   },
+  {
+    path: '/test',
+    meta: { auth: false },
+    component: () => import('~/views/Test.vue'),
+  },
 ] as RouteConfig[]

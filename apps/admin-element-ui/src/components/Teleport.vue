@@ -1,4 +1,6 @@
 <script lang="ts">
+let findIndex = Array.prototype.findIndex
+
 export default {
   abstract: true,
   props: {
@@ -7,46 +9,41 @@ export default {
   },
   data() {
     let nonReactive = {
-      original: undefined,
-      dumb: undefined,
       el: undefined,
-      originalIndex: 0,
     } as {
-      original?: HTMLElement
-      dumb?: Node
       el?: Node
-      originalIndex: number
     }
     Object.preventExtensions(nonReactive)
     return nonReactive
   },
   mounted() {
     let children = this.$slots.default || []
-    let el = children[0].elm
-    let { original, originalIndex } = this.$data
-    if (!el) return
-    this.el = el
+    let rootEl = children[0].elm,
+      originalEl = rootEl?.parentElement,
+      dumb = document.createComment(' teleport ')
+
+    if (!rootEl || !originalEl) return
+
+    let originalIdx = () => findIndex.call(originalEl.childNodes, (v) => v === this.el)
+    this.el = rootEl
     this.$watch(
       () => [this.to, this.disabled],
       () => {
+        let targetEl = typeof this.to === 'string' ? document.querySelector(this.to) : this.to
+        if (!targetEl) return
+
         if (this.disabled) {
           // restore
-          original?.insertBefore(el, original.childNodes[originalIndex])
-          this.dumb?.parentNode?.removeChild(this.dumb)
-          return
+          originalEl.insertBefore(rootEl, originalEl.childNodes[originalIdx()])
+          dumb.parentNode?.removeChild(dumb)
+          this.el = rootEl
+          this.$vnode.elm = this.el
         } else {
-          // preserve
-          if (!original) {
-            original = el?.parentElement || undefined
-            if (original) originalIndex = Array.prototype.findIndex.call(original.childNodes, (v) => v === el)
-          }
-          if (!original) return
-          let targetEl = typeof this.to === 'string' ? document.querySelector(this.to) : this.to
-          if (!targetEl) return
           // teleport
-          this.dumb = document.createComment(' teleport ')
-          original.insertBefore(this.dumb, original.childNodes[originalIndex])
-          targetEl.append(el)
+          originalEl.insertBefore(dumb, originalEl.childNodes[originalIdx()])
+          targetEl.append(rootEl)
+          this.el = dumb
+          this.$vnode.elm = this.el
         }
       },
       {
