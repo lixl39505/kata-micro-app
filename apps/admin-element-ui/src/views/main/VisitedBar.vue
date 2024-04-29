@@ -13,27 +13,34 @@
       <i class="visited-bar__item-close el-icon-circle-close" @click.stop="onItemClose(item, i)"></i>
     </div>
     <!-- Route Card -->
-    <div
-      v-show="overCard.show"
-      class="visited-over"
-      :style="{
-        left: overCard.left,
-        right: overCard.right,
-      }"
-    >
-      <div class="visited-over__bridge"></div>
-      <div class="visited-over__title">{{ overCard.title }}</div>
-      <div class="visited-over__title">{{ overCard.fullpath }}</div>
-    </div>
-    <!-- 右键菜单 -->
-    <div v-show="ctxMenu.show" class="visited-ctx">
-      <div class="visited-ctx__menu" :style="{ left: ctxMenu.left, top: ctxMenu.top }" @click="onCtxMenuClick">
-        <div class="visited-ctx__menu-item" data-action="closeRight">关闭右侧</div>
-        <div class="visited-ctx__menu-item" data-action="closeOther">关闭其它</div>
-        <div class="visited-ctx__menu-item" data-action="closeLeft">关闭左侧</div>
-        <div class="visited-ctx__menu-item" data-action="closeAll">关闭全部</div>
+    <Teleport to="body">
+      <div
+        v-show="overCard.show"
+        class="visited-over"
+        :style="{
+          top: overCard.top,
+          left: overCard.left,
+          right: overCard.right,
+        }"
+      >
+        <div class="visited-over__title">{{ overCard.title }}</div>
+        <div class="visited-over__title">{{ overCard.fullpath }}</div>
       </div>
-    </div>
+    </Teleport>
+    <!-- 右键菜单 -->
+    <Teleport to="body">
+      <div
+        v-show="ctxMenu.show"
+        class="visited-ctx"
+        :style="{ left: ctxMenu.left, top: ctxMenu.top }"
+        @click="onCtxMenuClick"
+      >
+        <div class="visited-ctx__item" data-action="closeRight">关闭右侧</div>
+        <div class="visited-ctx__item" data-action="closeOther">关闭其它</div>
+        <div class="visited-ctx__item" data-action="closeLeft">关闭左侧</div>
+        <div class="visited-ctx__item" data-action="closeAll">关闭全部</div>
+      </div>
+    </Teleport>
   </div>
 </template>
 <script lang="ts" setup>
@@ -45,6 +52,7 @@ const route = useRoute()
 const user = useUserStore()
 const overCard = reactive({
   show: false,
+  top: 'auto',
   left: 'auto',
   right: 'auto',
   title: '',
@@ -82,13 +90,13 @@ function onItemLeave() {
   overTimer = 0
 }
 function onItemEnter(e: Event, item: Route, index: number) {
-  let barWidth = $bar.value?.offsetWidth || 0,
+  let rect = $bar.value?.getBoundingClientRect() as DOMRect,
     itemWidth = (e.currentTarget as HTMLElement).offsetWidth,
-    remain = barWidth - index * itemWidth,
+    remain = rect.width - index * itemWidth,
     popWidth = 100 * 1.5
 
   // 延迟提示路由信息
-  if (!overTimer && overCard.disabled === false) {
+  if (overCard.show === false && overCard.disabled === false) {
     overTimer = setTimeout(() => {
       overCard.show = true
     }, 800)
@@ -98,9 +106,10 @@ function onItemEnter(e: Event, item: Route, index: number) {
     overCard.left = 'auto'
     overCard.right = '4px'
   } else {
-    overCard.left = index * itemWidth + 'px'
+    overCard.left = rect.left + index * itemWidth + 'px'
     overCard.right = 'auto'
   }
+  overCard.top = rect.top + rect.height + 6 + 'px'
   overCard.title = item.meta?.title || ''
   overCard.fullpath = item.fullPath
 }
@@ -184,23 +193,17 @@ $bar-item-width: 100px;
 }
 
 .visited-over {
-  position: absolute;
+  position: fixed;
   box-sizing: border-box;
   padding: 6px 16px;
   line-height: 24px;
-  top: $bar-line-height + 6px;
+  font-size: 12px;
   background-color: #fff;
   width: $bar-item-width * 1.5;
   border: 1px solid $--border-color-base;
   border-radius: 4px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  &__bridge {
-    position: absolute;
-    height: 10px;
-    left: 0;
-    top: -10px;
-    width: 100%;
-  }
+
   &__title {
     white-space: nowrap;
     overflow: hidden;
@@ -210,29 +213,22 @@ $bar-item-width: 100px;
 
 .visited-ctx {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 8px 0;
+  border: 1px solid $--border-color-base;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 
-  &__menu {
-    position: fixed;
-    box-sizing: border-box;
-    display: inline-block;
-    padding: 8px 0;
-    border: 1px solid $--border-color-base;
-    border-radius: 4px;
-    background: #fff;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    &-item {
-      padding: 0 16px;
+  &__item {
+    padding: 0 16px;
 
-      line-height: 28px;
-      font-size: 12px;
-      cursor: pointer;
-      &:hover {
-        background: mix($--color-primary, #fff, 50%);
-      }
+    line-height: 28px;
+    font-size: 12px;
+    cursor: pointer;
+    &:hover {
+      background: mix($--color-primary, #fff, 50%);
     }
   }
 }

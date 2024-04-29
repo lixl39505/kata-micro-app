@@ -91,9 +91,8 @@ function onItemLeave() {
 }
 function onItemEnter(e: Event, item: RouteLocationNormalizedLoaded, index: number) {
   let rect = $bar.value?.getBoundingClientRect() as DOMRect,
-    barWidth = rect.width,
     itemWidth = (e.currentTarget as HTMLElement).offsetWidth,
-    remain = barWidth - index * itemWidth,
+    remain = rect.width - index * itemWidth,
     popWidth = 100 * 1.5
 
   // 延迟提示路由信息
