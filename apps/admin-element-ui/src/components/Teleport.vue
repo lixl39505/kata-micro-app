@@ -1,9 +1,4 @@
 <script lang="ts">
-class TeleportData {
-  original: HTMLElement | undefined
-  originalIndex: number = 0
-}
-
 export default {
   abstract: true,
   props: {
