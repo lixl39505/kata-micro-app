@@ -28,6 +28,7 @@
     "js-cookie": "^3.0.5",
     "pinia": "^2.1.7",
     "screenfull": "^6.0.2",
+    "teleport-vue2": "^1.0.2",
     "vue": "^2.7.14",
     "vue-router": "^3.6.5",
     "wujie-vue2": "^1.0.22"

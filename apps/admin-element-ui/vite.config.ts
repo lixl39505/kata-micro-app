@@ -59,8 +59,11 @@ export default defineConfig(({ command, mode }) => {
       Components({
         resolvers: [
           ElementUiResolver({
-            importStyle: 'sass',
+            importStyle: 'sass', // https://github.com/unplugin/unplugin-vue-components
           }),
+          (cname) => {
+            if (cname === 'Teleport') return { name: cname, from: 'teleport-vue2' }
+          },
         ],
       }),
       createSvgIconsPlugin({
