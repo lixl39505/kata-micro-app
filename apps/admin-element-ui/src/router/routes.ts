@@ -126,8 +126,8 @@ export default [
     ],
   },
   {
-    path: '/test',
+    path: '/teleport',
     meta: { auth: false },
-    component: () => import('~/views/Test.vue'),
+    component: () => import('~/views/TestTeleport.vue'),
   },
 ] as RouteConfig[]
