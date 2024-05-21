@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { StrictMode, useState } from 'react'
 import { ConfigProvider, DatePicker, message } from 'antd'
 import dayjs from 'dayjs'
 // 由于 antd 组件的默认文案是英文，所以需要修改为中文
 import zhCN from 'antd/locale/zh_CN'
 import 'dayjs/locale/zh-cn'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './router'
 
 dayjs.locale('zh-cn')
 
@@ -16,13 +18,16 @@ const App = () => {
     setDate(value)
   }
   return (
-    <ConfigProvider locale={zhCN}>
-      <div style={{ width: 400, margin: '100px auto' }}>
-        <DatePicker onChange={handleChange} />
-        <div style={{ marginTop: 16 }}>当前日期：{date ? date.format('YYYY年MM月DD日') : '未选择'}</div>
-      </div>
-      {contextHolder}
-    </ConfigProvider>
+    <StrictMode>
+      <ConfigProvider locale={zhCN}>
+        <RouterProvider router={router} />
+        {/* <div style={{ width: 400, margin: '100px auto' }}>
+          <DatePicker onChange={handleChange} />
+          <div style={{ marginTop: 16 }}>当前日期：{date ? date.format('YYYY年MM月DD日') : '未选择'}</div>
+        </div> */}
+        {contextHolder}
+      </ConfigProvider>
+    </StrictMode>
   )
 }
 
