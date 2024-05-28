@@ -1,0 +1,3 @@
+export function VisitedBar() {
+  return
+}
