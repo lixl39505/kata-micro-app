@@ -12,4 +12,11 @@ export default [
       },
     ],
   },
+  {
+    path: '/login',
+    handle: {
+      auth: false,
+    },
+    lazy: () => import(`~/views/Login`),
+  },
 ] as RouteObject[]
