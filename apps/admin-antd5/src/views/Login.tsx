@@ -1,1 +1,3 @@
-export function Login() {}
+export function Component() {}
+
+Component.displayName = 'Login'

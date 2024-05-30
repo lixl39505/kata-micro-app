@@ -1,22 +1,14 @@
 import type { RouteObject } from 'react-router-dom'
 
-const MainView = import('~/views/main/MainView')
+const loadMain = () => import('~/views/main/MainView')
 
 export default [
   {
-    async lazy() {
-      let { Main } = await MainView
-
-      return { Component: Main }
-    },
+    lazy: loadMain,
     children: [
       {
         path: '/',
-        async lazy() {
-          let { Home } = await import('~/views/Home')
-
-          return { Component: Home }
-        },
+        lazy: () => import('~/views/Home'),
       },
     ],
   },
@@ -25,10 +17,6 @@ export default [
     handle: {
       auth: false,
     },
-    async lazy() {
-      let { Login } = await import('~/views/Login')
-
-      return { Component: Login }
-    },
+    lazy: () => import('~/views/Login'),
   },
 ] as RouteObject[]
