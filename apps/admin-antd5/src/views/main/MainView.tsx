@@ -1,7 +1,5 @@
 import { Outlet } from 'react-router-dom'
 
-export function Component() {
+export function Main() {
   return <Outlet></Outlet>
 }
-
-Component.displayName = 'Main'

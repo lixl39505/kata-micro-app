@@ -30,9 +30,8 @@ export const useUserStore = defineStore('user', {
     const visited = useSS('visited', [] as RouteLocationNormalized[])
 
     return {
-      userInfo,
-      // 最近访问的路由
-      visited,
+      userInfo, // 用户信息
+      visited, // 最近访问的路由
     }
   },
   getters: {},
@@ -99,7 +98,7 @@ export const useUserStore = defineStore('user', {
     backHome() {
       if (this.visited.findIndex((v) => isHomeRoute(v)) < 0) {
         let current = this.router.currentRoute.value
-        // 特殊场景: visited为空，主页 -> 主页
+        // 特殊场景: visited 为空，主页 -> 主页
         if (isHomeRoute(current)) {
           return this.addVisitedRoute(current)
         }

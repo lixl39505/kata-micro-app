@@ -1,5 +1,3 @@
-export function Component() {
+export function Home() {
   return <div>Hello world!</div>
 }
-
-Component.displayName = 'Home'
