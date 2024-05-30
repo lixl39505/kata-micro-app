@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { Path } from 'react-router-dom'
+import { Path } from 'react-router-dom'
 
 // import { client } from '../../api/client'
 export interface UserState {
@@ -28,7 +28,6 @@ const userSlice = createSlice({
     setUserInfo(state, action: PayloadAction<UserState['userInfo']>) {
       let info = action.payload
       state.userInfo = info
-      // Cookies.set('passport', JSON.stringify(info))
     },
   },
 })
@@ -41,6 +40,7 @@ const _u = {
     }
   },
 }
-
-export const { addVisitedRoute, setUserInfo } = userSlice.actions
 export default userSlice.reducer
+export const { addVisitedRoute, setUserInfo } = userSlice.actions
+export const selectUserInfo = (state: UserState) => state.userInfo || null
+export const selectVisited = (state: UserState) => state.visited
