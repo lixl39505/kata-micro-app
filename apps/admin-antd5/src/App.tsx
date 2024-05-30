@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './router'
 // Redux
 import { Provider as ReduxProvider } from 'react-redux'
-import { store } from './stores/index'
+import { store } from './store'
 // Andesign
 import { ConfigProvider } from 'antd'
 import dayjs from 'dayjs'

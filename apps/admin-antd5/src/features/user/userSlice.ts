@@ -1,17 +1,14 @@
-import { createSlice, UnknownAction, createSelector, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { Path } from 'react-router-dom'
-import { router } from '~/router/index'
-import { isHomeRoute } from '~/utils/helper'
 
 // import { client } from '../../api/client'
 export interface UserState {
   // 用户信息
-  userInfo: {
+  userInfo?: {
     id: string
     nickname: string
     avatar: string
     role: string[]
-    lang: string
   }
   // 最近访问的路由
   visited: Path[]
@@ -20,7 +17,6 @@ export interface UserState {
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    userInfo: { id: '', nickname: '', avatar: '', role: [], lang: 'Zh' },
     visited: [],
   } as UserState,
   reducers: {
