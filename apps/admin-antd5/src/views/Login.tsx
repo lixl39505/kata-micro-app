@@ -9,20 +9,22 @@ type FieldType = {
   password?: string
   remember?: string
 }
+type OnFinish = Exclude<FormProps<FieldType>['onFinish'], undefined>
+type OnFinishFailed = Exclude<FormProps<FieldType>['onFinishFailed'], undefined>
 
 export function Component() {
   const login = useUserLogin()
   const navigate = useNavigate()
   const location = useLocation()
 
-  const onFinish = useCallback<Exclude<FormProps<FieldType>['onFinish'], undefined>>(async (values) => {
+  const onFinish = useCallback<OnFinish>(async (values) => {
     console.log('Success:', values)
     await login(values.username!, values.password!)
 
     let to: string = location.state?.from?.pathname ?? '/'
     navigate(to)
   }, [])
-  const onFinishFailed = useCallback<Exclude<FormProps<FieldType>['onFinishFailed'], undefined>>((errorInfo) => {
+  const onFinishFailed = useCallback<OnFinishFailed>((errorInfo) => {
     console.log('Failed:', errorInfo)
   }, [])
 
