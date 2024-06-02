@@ -1,3 +1,3 @@
 export function SideMenu() {
-  return
+  return null
 }

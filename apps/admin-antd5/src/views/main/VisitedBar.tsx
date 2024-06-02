@@ -1,3 +1,3 @@
 export function VisitedBar() {
-  return
+  return null
 }
