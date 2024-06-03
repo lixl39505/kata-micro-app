@@ -10,6 +10,7 @@ import { ConfigProvider } from 'antd'
 import dayjs from 'dayjs'
 import zhCN from 'antd/locale/zh_CN'
 import 'dayjs/locale/zh-cn'
+import light from './themes/light'
 
 // 由于 antd 组件的默认文案是英文，所以需要修改为中文
 dayjs.locale('zh-cn')
@@ -17,7 +18,7 @@ dayjs.locale('zh-cn')
 const App = () => {
   return (
     <StrictMode>
-      <ConfigProvider locale={zhCN}>
+      <ConfigProvider locale={zhCN} theme={light}>
         <ReduxProvider store={store}>
           <RouterProvider router={router} />
         </ReduxProvider>
