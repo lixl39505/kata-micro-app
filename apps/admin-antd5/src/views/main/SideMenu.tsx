@@ -39,19 +39,8 @@ const items: MenuItem[] = [
   },
 ]
 
-const SideMenu: React.FC<{
-  collapsed: boolean
-}> = ({ collapsed = false }) => {
-  return (
-    <Menu
-      defaultSelectedKeys={['1']}
-      defaultOpenKeys={['sub1']}
-      mode="inline"
-      theme="dark"
-      inlineCollapsed={collapsed}
-      items={items}
-    />
-  )
+const SideMenu: React.FC = () => {
+  return <Menu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline" theme="dark" items={items} />
 }
 
 export default SideMenu

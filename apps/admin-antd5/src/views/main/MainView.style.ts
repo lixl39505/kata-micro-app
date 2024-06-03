@@ -16,6 +16,7 @@ export default createStyles(({ token, css }) => ({
     height: 48,
   },
   content: css`
+    overflow: auto;
     padding: 16px;
   `,
 }))

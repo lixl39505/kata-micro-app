@@ -20,7 +20,7 @@ export const Component = withUserAuth(() => {
           <img src={antdSvg} width="28" height="28" style={{ verticalAlign: 'middle', marginRight: '10px' }} />
           {collapsed === false && 'Ant Design'}
         </div>
-        <SideMenu collapsed={collapsed}></SideMenu>
+        <SideMenu></SideMenu>
       </Layout.Sider>
       <Layout>
         {/* 顶部导航 */}
