@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Button, Flex, Layout } from 'antd'
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
+// import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import withUserAuth from '~/features/user/withUserAuth'
 import useStyles from './MainView.style'
 import { VisitedBar } from './VisitedBar'
 import SideMenu from './SideMenu'
 import antdSvg from '~/assets/antd.svg'
+import AppIcon from '~/components/AppIcon'
 
 export const Component = withUserAuth(() => {
   const { styles } = useStyles()
@@ -29,14 +30,14 @@ export const Component = withUserAuth(() => {
             <Button
               className={styles.iconLarge}
               type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              icon={collapsed ? <AppIcon name="MenuUnfoldOutlined" /> : <AppIcon name="MenuFoldOutlined" />}
               onClick={() => setCollapsed(!collapsed)}
             />
             <Flex justify="flex-end" style={{ flex: 'auto' }}>
               <Button
                 className={styles.iconLarge}
                 type="text"
-                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                icon={collapsed ? <AppIcon name="MenuUnfoldOutlined" /> : <AppIcon name="MenuFoldOutlined" />}
                 onClick={() => setCollapsed(!collapsed)}
               />
             </Flex>

@@ -2,6 +2,7 @@ import path, { resolve } from 'node:path'
 import fs from 'node:fs'
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
+import svgr from 'vite-plugin-svgr'
 
 const pathSrc = resolve(__dirname, 'src')
 const pkgJson = JSON.parse(fs.readFileSync('./package.json', { encoding: 'utf-8' }))
@@ -32,6 +33,13 @@ export default defineConfig(({ command, mode }) => {
         '~/': `${pathSrc}/`,
       },
     },
-    plugins: [react()],
+    plugins: [
+      react(),
+      svgr({
+        svgrOptions: {
+          plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx'],
+        },
+      }),
+    ],
   }
 })
