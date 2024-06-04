@@ -1,6 +1,6 @@
 import type { RouteObject } from 'react-router-dom'
 
-const loadMain = () => import('~/views/main/MainView')
+const loadMain = () => import('~/views/main/MainView.route')
 
 export default [
   {
@@ -8,7 +8,7 @@ export default [
     children: [
       {
         path: '/',
-        lazy: () => import('~/views/Home'),
+        lazy: () => import('~/views/Home.route'),
       },
     ],
   },
@@ -17,6 +17,6 @@ export default [
     handle: {
       auth: false,
     },
-    lazy: () => import('~/views/Login'),
+    lazy: () => import('~/views/Login.route'),
   },
 ] as RouteObject[]

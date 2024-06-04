@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Path } from 'react-router-dom'
+import type { Path } from 'react-router-dom'
+import type { AppState } from '~/store'
 
 // import { client } from '../../api/client'
 export interface UserState {
@@ -42,5 +43,5 @@ const _u = {
 }
 export default userSlice.reducer
 export const { addVisitedRoute, setUserInfo } = userSlice.actions
-export const selectUserInfo = (state: UserState) => state.userInfo || null
-export const selectVisited = (state: UserState) => state.visited
+export const selectUserInfo = (state: AppState) => state.user.userInfo || null
+export const selectVisited = (state: AppState) => state.user.visited
