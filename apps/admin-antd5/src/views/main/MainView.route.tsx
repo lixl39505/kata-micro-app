@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { Button, Flex, Layout } from 'antd'
 // import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import withUserAuth from '~/features/user/withUserAuth'
@@ -11,6 +11,7 @@ import AppIcon from '~/components/AppIcon'
 
 export const Component = withUserAuth(() => {
   const { styles } = useStyles()
+  const navigate = useNavigate()
   const [collapsed, setCollapsed] = useState(false)
 
   return (
@@ -38,7 +39,7 @@ export const Component = withUserAuth(() => {
                 className={styles.iconLarge}
                 type="text"
                 icon={collapsed ? <AppIcon name="MenuUnfoldOutlined" /> : <AppIcon name="MenuFoldOutlined" />}
-                onClick={() => setCollapsed(!collapsed)}
+                onClick={() => navigate('/login')}
               />
             </Flex>
           </Flex>
