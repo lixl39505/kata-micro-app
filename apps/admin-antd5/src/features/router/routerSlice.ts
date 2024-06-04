@@ -3,32 +3,13 @@ import type { LazyRouteFunction, RouteObject } from 'react-router-dom'
 import { AppState } from '~/store'
 import App from '~/App'
 
-// const initialState: RouteInfo[] = [
-//   {
-//     lazy: loadMain,
-//     children: [
-//       {
-//         path: '/',
-//         lazy: () => import('~/views/Home'),
-//       },
-//     ],
-//   },
-//   {
-//     path: '/login',
-//     handle: {
-//       auth: false,
-//     },
-//     lazy: () => import('~/views/Login'),
-//   },
-// ]
-
 interface RouteInfo<Hanndle = { auth?: boolean }> {
   componentName: string
   path?: string
   handle?: Hanndle
   children?: RouteInfo<Hanndle>[]
 }
-
+// 默认路由
 const initialState: RouteInfo[] = [
   {
     componentName: 'main/MainView',
@@ -95,10 +76,10 @@ export const selectRoutes = createSelector([selectRouteInfos], (routeInfos) => {
     } else {
       routes.push(route)
     }
-    if (current.children) current.children.every((v) => iterate(v, route))
+    if (current.children) current.children.forEach((v) => iterate(v, route))
   }
 
-  routeInfos.every((v) => iterate(v))
+  routeInfos.forEach((v) => iterate(v))
 
   return [
     {
