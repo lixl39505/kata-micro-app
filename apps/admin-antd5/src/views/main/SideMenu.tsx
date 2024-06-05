@@ -14,6 +14,7 @@ import {
   selectSitePathRecords,
 } from '~/features/sitemap/sitemapSlice'
 import AppIcon from '~/components/AppIcon'
+import useMainMenu from '~/features/sitemap/useMainMenu'
 
 // type MenuItem = Required<MenuProps>['items'][number]
 
@@ -51,51 +52,17 @@ import AppIcon from '~/components/AppIcon'
 //   },
 // ]
 
-// 兼容 Antd 的 MenuItem
-type MenuItem = { key: string; label?: string | React.JSX.Element; icon?: React.JSX.Element; children?: MenuItem[] }
-
 const SideMenu: React.FC = () => {
-  const routeInfoTree = useAppSelector(selectSitePathTree)
   const matches = useMatches()
-  const menus = useMemo(() => {
-    let items: MenuItem[] = [],
-      underMain = false
+  const [menus, matchMenus] = useMainMenu()
 
-    let walk = (cur: SitePath, parent?: MenuItem) => {
-      let t: MenuItem,
-        reset: (() => void) | null = null
+  let loc = matches[matches.length - 1]
+  let defaultKeys = [(loc?.handle as Handle).id]
+  let defaultOpens = matchMenus(defaultKeys[0]).map((v) => v.key)
 
-      // 菜单需包含在 MainView 中
-      if (underMain) {
-        t = { key: cur.id }
-        if (cur.path) t.label = <Link to={cur.path}>{cur.title ?? ''}</Link>
-        else t.label = cur.title ?? ''
-
-        if (cur.icon) t.icon = <AppIcon name={cur.icon ?? ''} />
-
-        if (parent) {
-          if (!parent.children) parent.children = []
-          parent.children.push(t)
-        } else items.push(t)
-      }
-
-      if (cur.tagName === 'MainView') {
-        underMain = true
-        reset = () => (underMain = false)
-      }
-      if (cur.children) cur.children.forEach((v) => walk(v, t))
-      if (reset) reset()
-    }
-
-    routeInfoTree.forEach((v) => walk(v))
-
-    return items
-  }, [routeInfoTree])
-
-  let loc = matches[matches.length - 1],
-    defaultKeys = [(loc?.handle as Handle).id]
-
-  return <Menu defaultSelectedKeys={defaultKeys} mode="inline" theme="dark" items={menus} />
+  return (
+    <Menu defaultSelectedKeys={defaultKeys} defaultOpenKeys={defaultOpens} mode="inline" theme="dark" items={menus} />
+  )
 }
 
 export default SideMenu

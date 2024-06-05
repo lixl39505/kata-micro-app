@@ -7,13 +7,13 @@ import App from '~/App'
 export interface Handle {
   id: string
   pid: string
+  tagName?: string
   icon?: string
   title?: string
   hideInMenu?: boolean
 }
 export interface SitePath extends Handle {
   path?: string
-  tagName?: string
   lazy?: boolean
   children?: SitePath[]
 }
@@ -26,6 +26,9 @@ const staticalPaths: SitePath[] = [
   { id: '01', pid: '', tagName: 'MainView' },
   { id: '02', pid: '01', path: '/', tagName: 'Home', title: '首页' },
   { id: '03', pid: '01', path: '/form', tagName: 'Form', title: '表单' },
+  { id: '20', pid: '01', title: '一级目录' },
+  { id: '21', pid: '20', title: '二级目录' },
+  { id: '22', pid: '21', path: '/level3', tagName: 'Level3', title: '三级菜单' },
   { id: '50', pid: '', path: '/login', tagName: 'Login', title: '登录' },
 ]
 // helpers
@@ -131,30 +134,32 @@ export const selectRoutes = createSelector([selectSitePathTree], (sitePathTree) 
   let routes: RouteObject[] = []
 
   function iterate(current: SitePath, parent?: RouteObject) {
-    // skip placeholder site path
-    if (!current.tagName) return
+    if (current.tagName) {
+      let route: RouteObject = {
+        path: current.path,
+        handle: {
+          id: current.id,
+          pid: current.pid,
+          tagName: current.tagName,
+          icon: current.icon,
+          title: current.title,
+          hideInMenu: current.hideInMenu,
+        },
+      }
+      // 默认懒加载
+      if (current.lazy === false) route.Component = staticRouteComponents[current.tagName]
+      else route.lazy = lazyRouteModules[current.tagName]
 
-    let route: RouteObject = {
-      path: current.path,
-      handle: {
-        id: current.id,
-        pid: current.pid,
-        icon: current.icon,
-        title: current.title,
-        hideInMenu: current.hideInMenu,
-      },
+      if (parent) {
+        if (!parent.children) parent.children = []
+        parent.children.push(route)
+      } else {
+        routes.push(route)
+      }
+      // 新的父路由
+      parent = route
     }
-    // 路由组件默认懒加载
-    if (current.lazy === false) route.Component = staticRouteComponents[current.tagName]
-    else route.lazy = lazyRouteModules[current.tagName]
-
-    if (parent) {
-      if (!parent.children) parent.children = []
-      parent.children.push(route)
-    } else {
-      routes.push(route)
-    }
-    if (current.children) current.children.forEach((v) => iterate(v, route))
+    if (current.children) current.children.forEach((v) => iterate(v, parent))
   }
 
   sitePathTree.forEach((v) => iterate(v))
