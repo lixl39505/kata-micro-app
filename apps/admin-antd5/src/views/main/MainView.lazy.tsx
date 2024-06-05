@@ -3,11 +3,13 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import { Button, Flex, Layout } from 'antd'
 // import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import withUserAuth from '~/features/user/withUserAuth'
-import useStyles from './MainView.style'
-import { VisitedBar } from './VisitedBar'
-import SideMenu from './SideMenu'
 import antdSvg from '~/assets/antd.svg'
 import AppIcon from '~/components/AppIcon'
+import useStyles from './MainView.style'
+import VisitedBar from './VisitedBar'
+import SideMenu from './SideMenu'
+import SelectLang from './SelectLang'
+import UserAction from './UserAction'
 
 export const Component = withUserAuth(() => {
   const { styles } = useStyles()
@@ -28,6 +30,7 @@ export const Component = withUserAuth(() => {
         {/* 顶部导航 */}
         <Layout.Header>
           <Flex>
+            {/* 菜单折叠 */}
             <Button
               className={styles.iconLarge}
               type="text"
@@ -35,12 +38,17 @@ export const Component = withUserAuth(() => {
               onClick={() => setCollapsed(!collapsed)}
             />
             <Flex justify="flex-end" style={{ flex: 'auto' }}>
+              {/* 全屏 */}
               <Button
                 className={styles.iconLarge}
                 type="text"
-                icon={collapsed ? <AppIcon name="MenuUnfoldOutlined" /> : <AppIcon name="MenuFoldOutlined" />}
+                icon={<AppIcon name="fullscreen" style={{ fontSize: '20px' }} />}
                 onClick={() => navigate('/login')}
               />
+              {/* 多语言切换 */}
+              <SelectLang />
+              {/* 当前用户 */}
+              <UserAction />
             </Flex>
           </Flex>
         </Layout.Header>

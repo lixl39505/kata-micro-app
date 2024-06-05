@@ -2,8 +2,9 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
 import userReducer from '~/features/user/userSlice'
 import sitemapSlice from '~/features/sitemap/sitemapSlice'
+import systemSlice from '~/features/system/systemSlice'
 
-const rootReducer = combineReducers({ user: userReducer, sitemap: sitemapSlice })
+const rootReducer = combineReducers({ user: userReducer, sitemap: sitemapSlice, system: systemSlice })
 
 export const store = configureStore({
   reducer: rootReducer,
