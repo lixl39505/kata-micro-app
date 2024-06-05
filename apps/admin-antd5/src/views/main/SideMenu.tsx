@@ -7,12 +7,12 @@ import { Link, UIMatch, matchPath, useLocation, useMatch, useMatches } from 'rea
 import { useAppSelector } from '~/store'
 import {
   Handle,
-  RouteInfo,
-  selectAllRouteIds,
-  selectAllRouteInfos,
-  selectRouteInfoTree,
-  selectRouteRecords,
-} from '~/features/router/routerSlice'
+  SitePath,
+  selectAllSitePathIds,
+  selectAllSitePaths,
+  selectSitePathTree,
+  selectSitePathRecords,
+} from '~/features/sitemap/sitemapSlice'
 import AppIcon from '~/components/AppIcon'
 
 // type MenuItem = Required<MenuProps>['items'][number]
@@ -55,23 +55,23 @@ import AppIcon from '~/components/AppIcon'
 type MenuItem = { key: string; label?: string | React.JSX.Element; icon?: React.JSX.Element; children?: MenuItem[] }
 
 const SideMenu: React.FC = () => {
-  const routeInfoTree = useAppSelector(selectRouteInfoTree)
+  const routeInfoTree = useAppSelector(selectSitePathTree)
   const matches = useMatches()
   const menus = useMemo(() => {
     let items: MenuItem[] = [],
       underMain = false
 
-    let walk = (cur: RouteInfo, parent?: MenuItem) => {
+    let walk = (cur: SitePath, parent?: MenuItem) => {
       let t: MenuItem,
         reset: (() => void) | null = null
 
       // 菜单需包含在 MainView 中
       if (underMain) {
         t = { key: cur.id }
-        if (cur.path) t.label = <Link to={cur.path}>{cur.handle?.title ?? ''}</Link>
-        else t.label = cur.handle?.title ?? ''
+        if (cur.path) t.label = <Link to={cur.path}>{cur.title ?? ''}</Link>
+        else t.label = cur.title ?? ''
 
-        if (cur.handle?.icon) t.icon = <AppIcon name={cur.handle?.icon ?? ''} />
+        if (cur.icon) t.icon = <AppIcon name={cur.icon ?? ''} />
 
         if (parent) {
           if (!parent.children) parent.children = []
@@ -79,7 +79,7 @@ const SideMenu: React.FC = () => {
         } else items.push(t)
       }
 
-      if (cur.id === 'MainView') {
+      if (cur.tagName === 'MainView') {
         underMain = true
         reset = () => (underMain = false)
       }

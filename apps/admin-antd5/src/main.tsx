@@ -5,7 +5,7 @@ import './index.css'
 import { Provider as ReduxProvider } from 'react-redux'
 import { store } from './store'
 // Router
-import AppRouter from './features/router/AppRouter'
+import AppRouter from './features/sitemap/AppRouter'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

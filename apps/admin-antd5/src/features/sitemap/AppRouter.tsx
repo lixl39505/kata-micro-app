@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { selectRoutes } from './routerSlice'
+import { selectRoutes } from './sitemapSlice'
 import { useAppSelector } from '~/store'
 
 const AppRouter: React.FC = () => {
