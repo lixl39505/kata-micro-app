@@ -26,6 +26,7 @@ export interface RouterState {
 const staticalRoutes: RouteInfo[] = [
   { id: 'MainView', pid: '', children: [] },
   { id: 'Home', pid: 'MainView', path: '/', handle: { title: '首页' } },
+  { id: 'Form', pid: 'MainView', path: '/form', handle: { title: '表单' } },
   { id: 'Login', pid: '', path: '/login', handle: { title: '登录' } },
 ]
 // helpers

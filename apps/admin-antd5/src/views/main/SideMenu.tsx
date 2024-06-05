@@ -52,24 +52,24 @@ import AppIcon from '~/components/AppIcon'
 // ]
 
 // 兼容 Antd 的 MenuItem
-type MenuItem = { key: string; label: string | React.JSX.Element; icon?: React.JSX.Element; children?: MenuItem[] }
+type MenuItem = { key: string; label?: string | React.JSX.Element; icon?: React.JSX.Element; children?: MenuItem[] }
 
 const SideMenu: React.FC = () => {
   const routeInfoTree = useAppSelector(selectRouteInfoTree)
   const matches = useMatches()
   const menus = useMemo(() => {
     let items: MenuItem[] = [],
-      isMain = false
+      underMain = false
 
     let walk = (cur: RouteInfo, parent?: MenuItem) => {
-      let t: MenuItem
-      if (cur.id === 'MainView') isMain = true
-      // skip layout route && out of MainView
-      if (cur.path && isMain) {
-        t = {
-          key: cur.id,
-          label: <Link to={cur.path}>{cur.handle?.title ?? ''}</Link>,
-        }
+      let t: MenuItem,
+        reset: (() => void) | null = null
+
+      // 菜单需包含在 MainView 中
+      if (underMain) {
+        t = { key: cur.id }
+        if (cur.path) t.label = <Link to={cur.path}>{cur.handle?.title ?? ''}</Link>
+        else t.label = cur.handle?.title ?? ''
 
         if (cur.handle?.icon) t.icon = <AppIcon name={cur.handle?.icon ?? ''} />
 
@@ -79,8 +79,12 @@ const SideMenu: React.FC = () => {
         } else items.push(t)
       }
 
+      if (cur.id === 'MainView') {
+        underMain = true
+        reset = () => (underMain = false)
+      }
       if (cur.children) cur.children.forEach((v) => walk(v, t))
-      isMain = false
+      if (reset) reset()
     }
 
     routeInfoTree.forEach((v) => walk(v))
