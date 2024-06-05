@@ -29,20 +29,24 @@ export const Component = withUserAuth(() => {
       <Layout>
         {/* 顶部导航 */}
         <Layout.Header>
-          <Flex>
+          <Flex align="center">
             {/* 菜单折叠 */}
             <Button
-              className={styles.iconLarge}
               type="text"
-              icon={collapsed ? <AppIcon name="MenuUnfoldOutlined" /> : <AppIcon name="MenuFoldOutlined" />}
+              icon={
+                collapsed ? (
+                  <AppIcon name="MenuUnfoldOutlined" className={styles.iconLarge} />
+                ) : (
+                  <AppIcon name="MenuFoldOutlined" className={styles.iconLarge} />
+                )
+              }
               onClick={() => setCollapsed(!collapsed)}
             />
-            <Flex justify="flex-end" style={{ flex: 'auto' }}>
+            <Flex justify="flex-end" align="center" style={{ flex: 'auto' }}>
               {/* 全屏 */}
               <Button
-                className={styles.iconLarge}
                 type="text"
-                icon={<AppIcon name="fullscreen" style={{ fontSize: '20px' }} />}
+                icon={<AppIcon name="fullscreen" className={styles.iconLarge} />}
                 onClick={() => navigate('/login')}
               />
               {/* 多语言切换 */}

@@ -14,9 +14,7 @@ export default createStyles(({ token, css }) => ({
     text-align: center;
   `,
   iconLarge: {
-    fontSize: '16px',
-    width: 48,
-    height: 48,
+    fontSize: '40px',
   },
   content: css`
     overflow: auto;
