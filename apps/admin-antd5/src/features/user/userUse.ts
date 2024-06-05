@@ -6,6 +6,7 @@ import { selectUserInfo, setUserInfo } from './userSlice'
 // 用户登录检查
 export function useUserAuth() {
   let [passport] = useCookie('passport')
+  let dispatch = useAppDispatch()
 
   // 未登录
   if (!passport) {
@@ -13,7 +14,6 @@ export function useUserAuth() {
   }
 
   let userInfo = useSelector(selectUserInfo)
-  let dispatch = useAppDispatch()
   // 还原用户信息
   if (!userInfo) {
     dispatch(setUserInfo(JSON.parse(passport)))
@@ -51,4 +51,24 @@ export function useUserLogin() {
 }
 
 // 登出
-export function useUserLogout() {}
+export function useUserLogout() {
+  let dispatch = useAppDispatch(),
+    [, , deletePassport] = useCookie('passport')
+
+  async function logout() {
+    return await new Promise<void>((resolve, reject) => {
+      setTimeout(() => {
+        try {
+          dispatch(setUserInfo(undefined))
+          deletePassport()
+
+          resolve()
+        } catch (err) {
+          reject(err)
+        }
+      }, 20)
+    })
+  }
+
+  return logout
+}
