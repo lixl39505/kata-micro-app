@@ -15,7 +15,7 @@ let localIcons = import.meta.glob<GetProps<typeof Icon>['component']>('~/assets/
 
 localIcons = Object.keys(localIcons).reduce(
   (acc, path) => {
-    acc[path.split('/').slice(-1)[0].replace('.svg', '')] = acc[path]
+    acc[path.split('/').slice(-1)[0].replace('.svg', '')] = localIcons[path]
     return acc
   },
   {} as typeof localIcons,

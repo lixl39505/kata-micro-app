@@ -19,8 +19,8 @@ export const Component = withUserAuth(() => {
       {/* 左侧导航 */}
       <Layout.Sider trigger={null} collapsible collapsed={collapsed}>
         <div className={styles.logo}>
-          <img src={antdSvg} width="28" height="28" style={{ verticalAlign: 'middle', marginRight: '10px' }} />
-          {collapsed === false && 'Ant Design'}
+          <img src={antdSvg} width="28" height="28" style={{ verticalAlign: 'middle' }} />
+          {collapsed === false && <span style={{ marginLeft: '10px' }}>Ant Design</span>}
         </div>
         <SideMenu></SideMenu>
       </Layout.Sider>
