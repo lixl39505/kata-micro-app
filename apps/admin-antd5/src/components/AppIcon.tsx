@@ -1,4 +1,10 @@
-import Icon, { MenuUnfoldOutlined, MenuFoldOutlined, HomeOutlined, DownOutlined } from '@ant-design/icons'
+import Icon, {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  HomeOutlined,
+  DownOutlined,
+  CloseCircleOutlined,
+} from '@ant-design/icons'
 import type { IconBaseProps } from '@ant-design/icons/lib/components/Icon'
 import { GetProps } from 'antd'
 
@@ -7,6 +13,7 @@ let antDesignIcons: Record<string, typeof Icon | undefined> = {
   MenuFoldOutlined,
   HomeOutlined,
   DownOutlined,
+  CloseCircleOutlined,
 }
 let localIcons = import.meta.glob<GetProps<typeof Icon>['component']>('~/assets/icons/*.svg', {
   import: 'default',

@@ -7,7 +7,7 @@ import AppIcon from '~/components/AppIcon'
 // 兼容 Antd 的 MenuItem
 type AppMenuItem = {
   key: string
-  parentKey: string
+  parentkey: string
   label?: string | React.JSX.Element
   icon?: React.JSX.Element
   children?: AppMenuItem[]
@@ -27,7 +27,7 @@ export default function useMainMenu() {
 
       // 菜单需包含在 MainView 中
       if (underMain) {
-        t = { key: cur.id, parentKey: '' }
+        t = { key: cur.id, parentkey: '' }
         // 内容
         if (cur.path) t.label = <Link to={cur.path}>{cur.title ?? ''}</Link>
         else t.label = cur.title ?? ''
@@ -38,7 +38,7 @@ export default function useMainMenu() {
         if (parent) {
           if (!parent.children) parent.children = []
           parent.children.push(t)
-          t.parentKey = parent.key
+          t.parentkey = parent.key
         } else items.push(t)
       }
 
@@ -62,7 +62,7 @@ export default function useMainMenu() {
 
       while (item) {
         result.unshift(item)
-        item = menuMap[item.parentKey]
+        item = menuMap[item.parentkey]
       }
 
       return result

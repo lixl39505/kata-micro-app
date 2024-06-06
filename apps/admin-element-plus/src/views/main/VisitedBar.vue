@@ -184,7 +184,6 @@ $bar-item-width: 100px;
     &-close {
       flex: 0 0 24px;
       font-size: 12px;
-      text-align: center;
       &:hover {
         transform: scale(1.4);
       }

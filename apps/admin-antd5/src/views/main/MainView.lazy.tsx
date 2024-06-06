@@ -10,6 +10,7 @@ import VisitedBar from './VisitedBar'
 import SideMenu from './SideMenu'
 import SelectLang from './SelectLang'
 import UserAction from './UserAction'
+import Content from './Content'
 
 export const Component = withUserAuth(() => {
   const { styles } = useStyles()
@@ -56,8 +57,7 @@ export const Component = withUserAuth(() => {
         <VisitedBar></VisitedBar>
         {/* 内容 */}
         <Layout.Content className={styles.content}>
-          <div style={{ background: 'red', height: '2000px' }}></div>
-          <Outlet></Outlet>
+          <Content></Content>
         </Layout.Content>
       </Layout>
     </Layout>
