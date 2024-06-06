@@ -18,8 +18,8 @@ const SelectLang: React.FC = () => {
 
   return (
     <Dropdown menu={{ items, onClick }}>
-      <Space>
-        <AppIcon name="lang" />
+      <Space size={2} style={{ marginRight: '16px' }}>
+        <AppIcon name="lang" size={18} style={{ verticalAlign: '-3px' }} />
         <span>{currentLabel}</span>
       </Space>
     </Dropdown>

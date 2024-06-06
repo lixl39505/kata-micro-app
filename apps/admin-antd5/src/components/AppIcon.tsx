@@ -22,12 +22,19 @@ localIcons = Object.keys(localIcons).reduce(
   {} as typeof localIcons,
 )
 
-const AppIcon: React.FC<{ name: string } & IconBaseProps> = ({ name, ...props }) => {
-  let A = antDesignIcons[name]
-  if (A) return <A {...props}></A>
+const AppIcon: React.FC<{ name: string; size?: number } & IconBaseProps> = ({ name, size, ...props }) => {
+  let A = antDesignIcons[name],
+    iconProps = { ...props }
+
+  if (size) {
+    if (iconProps.style) iconProps.style.fontSize = size + 'px'
+    else iconProps.style = { fontSize: size + 'px' }
+  }
+
+  if (A) return <A {...iconProps}></A>
 
   let B = localIcons[name]
-  if (B) return <Icon component={B} {...props}></Icon>
+  if (B) return <Icon component={B} {...iconProps}></Icon>
 
   return <span style={{ color: 'red' }}>noIcon {`<${name}>`}</span>
 }

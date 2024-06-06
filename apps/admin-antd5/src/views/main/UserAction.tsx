@@ -30,9 +30,9 @@ const UserAction: React.FC = () => {
   }
   return (
     <Dropdown menu={{ items, onClick }}>
-      <Space>
+      <Space style={{ marginRight: '16px' }}>
         <Avatar size={24} icon={<AppIcon name="noimg" />} />
-        <AppIcon name="DownOutlined" />
+        <AppIcon name="DownOutlined" size={10} />
       </Space>
     </Dropdown>
   )
