@@ -30,18 +30,51 @@ const userSlice = createSlice({
       let i = state.visited.findIndex((v) => v === id)
       if (i < 0) state.visited.push(action.payload)
     },
-    removeVisited(state, action: PayloadAction<string>) {
+    // 关闭标签页
+    close(state, action: PayloadAction<string>) {
       let id = action.payload
       let i = state.visited.findIndex((v) => v === id)
-      if (i >= 0) state.visited.splice(i, 1)
+      if (i >= 0) {
+        // 特殊场景，只剩1个首页时，阻止关闭
+        if (state.visited.length === 1 && state.visited[0] === 'home') return
+        state.visited.splice(i, 1)
+      }
     },
-    clearVisited(state) {
+    // 关闭右侧标签
+    closeRight(state, action: PayloadAction<string>) {
+      let id = action.payload
+      let i = state.visited.findIndex((v) => v === id)
+
+      if (i >= 0) {
+        state.visited.splice(i + 1, state.visited.length - i - 1)
+      }
+    },
+    // 关闭其它标签
+    closeOther(state, action: PayloadAction<string>) {
+      let id = action.payload
+      let i = state.visited.findIndex((v) => v === id)
+
+      if (i >= 0) {
+        state.visited = [id]
+      }
+    },
+    // 关闭左侧标签
+    closeLeft(state, action: PayloadAction<string>) {
+      let id = action.payload
+      let i = state.visited.findIndex((v) => v === id)
+
+      if (i >= 0) {
+        state.visited.splice(0, i)
+      }
+    },
+    // 关闭所有标签
+    closeAll(state) {
       state.visited = []
     },
   },
 })
 
 export default userSlice.reducer
-export const { setUserInfo, addVisited, removeVisited, clearVisited } = userSlice.actions
+export const { setUserInfo, addVisited, close, closeAll } = userSlice.actions
 export const selectUserInfo = (state: AppState) => state.user.userInfo || null
 export const selectVisited = (state: AppState) => state.user.visited

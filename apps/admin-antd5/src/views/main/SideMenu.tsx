@@ -8,12 +8,10 @@ const SideMenu: React.FC = () => {
   const [menus, matchMenus] = useMainMenu()
 
   let loc = matches[matches.length - 1]
-  let defaultKeys = [(loc?.handle as Handle).id]
-  let defaultOpens = matchMenus(defaultKeys[0]).map((v) => v.key)
+  let selectedKeys = [(loc?.handle as Handle).id]
+  let defaultOpens = matchMenus(selectedKeys[0]).map((v) => v.key)
 
-  return (
-    <Menu defaultSelectedKeys={defaultKeys} defaultOpenKeys={defaultOpens} mode="inline" theme="dark" items={menus} />
-  )
+  return <Menu selectedKeys={selectedKeys} defaultOpenKeys={defaultOpens} mode="inline" theme="dark" items={menus} />
 }
 
 export default SideMenu

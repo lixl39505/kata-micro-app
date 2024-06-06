@@ -24,8 +24,8 @@ export interface SitemapState {
 // 静态路由
 const staticalPaths: SitePath[] = [
   { id: '01', pid: '', tagName: 'MainView' },
-  { id: '02', pid: '01', path: '/', tagName: 'Home', title: '首页', icon: 'home' },
-  { id: '03', pid: '01', path: '/form', tagName: 'Form', title: '表单', icon: 'table' },
+  { id: 'home', pid: '01', path: '/', tagName: 'Home', title: '首页', icon: 'home' },
+  { id: '02', pid: '01', path: '/form', tagName: 'Form', title: '表单', icon: 'table' },
   { id: '20', pid: '01', title: '一级目录', icon: 'dir' },
   { id: '21', pid: '20', title: '二级目录' },
   { id: '22', pid: '21', path: '/level3', tagName: 'Level3', title: '三级菜单' },
