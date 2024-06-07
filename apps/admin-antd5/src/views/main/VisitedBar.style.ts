@@ -47,6 +47,23 @@ const useStyles = createStyles(({ token, css }) => {
         transform: scale(1.2);
       }
     `,
+    overCard: css`
+      position: fixed;
+      box-sizing: border-box;
+      font-size: 12px;
+      padding: 6px 16px;
+      line-height: 24px;
+      background-color: #fff;
+      width: ${itemWidth * 1.5};
+      border: 1px solid ${token.colorBorder};
+      border-radius: 4px;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    `,
+    overCardTitle: css`
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    `,
   }
 })
 

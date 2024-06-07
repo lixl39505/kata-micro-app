@@ -48,6 +48,9 @@ importers:
       react-use:
         specifier: ^17.5.0
         version: 17.5.0(react-dom@18.3.1)(react@18.3.1)
+      use-immer:
+        specifier: ^0.9.0
+        version: 0.9.0(immer@10.1.1)(react@18.3.1)
     devDependencies:
       '@svgr/plugin-jsx':
         specifier: ^8.1.0
@@ -8417,6 +8420,16 @@ packages:
       querystringify: 2.2.0
       requires-port: 1.0.0
     dev: true
+
+  /use-immer@0.9.0(immer@10.1.1)(react@18.3.1):
+    resolution: {integrity: sha512-/L+enLi0nvuZ6j4WlyK0US9/ECUtV5v9RUbtxnn5+WbtaXYUaOBoKHDNL9I5AETdurQ4rIFIj/s+Z5X80ATyKw==}
+    peerDependencies:
+      immer: '>=2.0.0'
+      react: ^16.8.0 || ^17.0.1 || ^18.0.0
+    dependencies:
+      immer: 10.1.1
+      react: 18.3.1
+    dev: false
 
   /use-merge-value@1.2.0(react@18.3.1):
     resolution: {integrity: sha512-DXgG0kkgJN45TcyoXL49vJnn55LehnrmoHc7MbKi+QDBvr8dsesqws8UlyIWGHMR+JXgxc1nvY+jDGMlycsUcw==}
