@@ -50,7 +50,7 @@ const userSlice = createSlice({
       }
     },
     // 关闭其它标签
-    closeOther(state, action: PayloadAction<string>) {
+    closeOthers(state, action: PayloadAction<string>) {
       let id = action.payload
       let i = state.visited.findIndex((v) => v === id)
 
@@ -67,14 +67,14 @@ const userSlice = createSlice({
         state.visited.splice(0, i)
       }
     },
-    // 关闭所有标签
+    // 关闭所有标签(首页除外)
     closeAll(state) {
-      state.visited = []
+      state.visited = ['home']
     },
   },
 })
 
 export default userSlice.reducer
-export const { setUserInfo, addVisited, close, closeAll } = userSlice.actions
+export const { setUserInfo, addVisited, close, closeRight, closeOthers, closeLeft, closeAll } = userSlice.actions
 export const selectUserInfo = (state: AppState) => state.user.userInfo || null
 export const selectVisited = (state: AppState) => state.user.visited
