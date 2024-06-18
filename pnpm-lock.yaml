@@ -51,6 +51,9 @@ importers:
       use-immer:
         specifier: ^0.9.0
         version: 0.9.0(immer@10.1.1)(react@18.3.1)
+      wujie-react:
+        specifier: ^1.0.22
+        version: 1.0.22(react@18.3.1)
     devDependencies:
       '@svgr/plugin-jsx':
         specifier: ^8.1.0
@@ -6517,6 +6520,14 @@ packages:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
     dev: false
 
+  /prop-types@15.8.1:
+    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react-is: 16.13.1
+    dev: false
+
   /proxy-from-env@1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
     dev: false
@@ -8823,6 +8834,16 @@ packages:
       utf-8-validate:
         optional: true
     dev: true
+
+  /wujie-react@1.0.22(react@18.3.1):
+    resolution: {integrity: sha512-ZJZRHXEfC26wakxiuVSApD1W688wRVD8tfU/KXj4QNmBYPl5xfucTNJuesub4xiLos99HqlRzAjjSAeBXch4rA==}
+    peerDependencies:
+      react: '>=16.0.0'
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.3.1
+      wujie: 1.0.22
+    dev: false
 
   /wujie-vue2@1.0.22(vue@2.7.16):
     resolution: {integrity: sha512-G+5B4y4C6NwYy31QL9pR5m+1BvQWSmgbQzFQdLEAJhFydS9dizQAgNK1VPfCBxSXM3jz2xfQz75WpE4aX4Jqdw==}

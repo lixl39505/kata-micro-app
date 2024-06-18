@@ -23,13 +23,19 @@ export interface SitemapState {
 }
 // 静态路由
 const staticalPaths: SitePath[] = [
-  { id: '01', pid: '', tagName: 'MainView' },
-  { id: 'home', pid: '01', path: '/', tagName: 'Home', title: '首页', icon: 'home' },
-  { id: '02', pid: '01', path: '/form', tagName: 'Form', title: '表单', icon: 'table' },
-  { id: '20', pid: '01', title: '一级目录', icon: 'dir' },
-  { id: '21', pid: '20', title: '二级目录' },
-  { id: '22', pid: '21', path: '/level3', tagName: 'Level3', title: '三级菜单' },
-  { id: '50', pid: '', path: '/login', tagName: 'Login', title: '登录' },
+  { id: 'main', pid: '', tagName: 'MainView' },
+  { id: 'home', pid: 'main', path: '/', tagName: 'Home', title: '首页', icon: 'home' },
+  { id: 'form', pid: 'main', path: '/form', tagName: 'Form', title: '表单', icon: 'table' },
+  { id: 'lv1', pid: 'main', title: '一级目录', icon: 'dir' },
+  { id: 'lv2', pid: 'lv1', title: '二级目录' },
+  { id: 'lv3', pid: 'lv2', path: '/level3', tagName: 'Level3', title: '三级菜单' },
+  { id: 'v3', pid: 'main', title: 'Vue3子应用' },
+  { id: 'v3Home', pid: 'v3', path: '/v3/', tagName: 'SubAppV3', title: '首页' },
+  { id: 'v3Form', pid: 'v3', path: '/v3/form', tagName: 'SubAppV3', title: '表单' },
+  { id: 'v2', pid: 'main', title: 'Vue2子应用' },
+  { id: 'v2Home', pid: 'v2', path: '/v2/', tagName: 'SubAppV2', title: '首页' },
+  { id: 'v2Form', pid: 'v2', path: '/v2/form', tagName: 'SubAppV2', title: '表单' },
+  { id: 'login', pid: '', path: '/login', tagName: 'Login', title: '登录' },
 ]
 // helpers
 const u = {

@@ -127,7 +127,7 @@ export default [
         component: () => import(`~/views/ParentView.vue`),
         children: [
           {
-            path: 'index',
+            path: '',
             name: 'rc18Index',
             meta: {
               title: '首页',

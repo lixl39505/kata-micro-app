@@ -125,8 +125,8 @@ const VisitedBar: React.FC = () => {
     if (overTimer.current) clearTimeout(overTimer.current)
   })
 
-  console.log(overCard)
-  console.log(overTimer.current)
+  // console.log(overCard)
+  // console.log(overTimer.current)
 
   return (
     <div ref={$bar} className={styles.container} onMouseLeave={onBarLeave}>

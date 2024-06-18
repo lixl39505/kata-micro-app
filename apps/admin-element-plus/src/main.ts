@@ -20,7 +20,7 @@ app.use(pinia)
 app.use(WujieVue)
 app.mount('#app')
 
-// 微服务通信
+// 微服务通信，保活模式下切换路由
 let name = 'v3'
 window.$wujie?.bus.$on(`${name}:routeChange`, (path: string) => router.replace({ path }))
 
