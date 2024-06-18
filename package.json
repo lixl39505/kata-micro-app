@@ -2,7 +2,7 @@
     "name": "root",
     "packageManager": "pnpm@8.15.8",
     "scripts": {
-        "dev:admin": "pnpm run -F=admin-* dev"
+        "dev": "pnpm run -F=admin-* dev"
     },
     "pnpm": {
         "patchedDependencies": {

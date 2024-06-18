@@ -118,6 +118,37 @@ export default [
           },
         ],
       },
+      {
+        path: 'rc18',
+        meta: {
+          title: 'React18 子应用',
+          icon: 'dir',
+        },
+        component: () => import(`~/views/ParentView.vue`),
+        children: [
+          {
+            path: '',
+            name: 'rc18Index',
+            meta: {
+              title: 'rc首页',
+              icon: 'home',
+              auth: true,
+            },
+            component: () => import('~/views/SubAppRc18.vue'),
+          },
+          {
+            path: 'form',
+            name: 'rc18Form',
+            meta: {
+              title: 'rc表单',
+              icon: 'table',
+              auth: true,
+              keepAlive: true,
+            },
+            component: () => import('~/views/SubAppRc18.vue'),
+          },
+        ],
+      },
     ],
   },
   {

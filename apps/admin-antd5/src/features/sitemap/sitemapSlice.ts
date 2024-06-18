@@ -30,11 +30,11 @@ const staticalPaths: SitePath[] = [
   { id: 'lv2', pid: 'lv1', title: '二级目录' },
   { id: 'lv3', pid: 'lv2', path: '/level3', tagName: 'Level3', title: '三级菜单' },
   { id: 'v3', pid: 'main', title: 'Vue3子应用' },
-  { id: 'v3Home', pid: 'v3', path: '/v3/', tagName: 'SubAppV3', title: '首页' },
-  { id: 'v3Form', pid: 'v3', path: '/v3/form', tagName: 'SubAppV3', title: '表单' },
+  { id: 'v3Home', pid: 'v3', path: '/v3/', tagName: 'SubAppV3', title: 'v3首页' },
+  { id: 'v3Form', pid: 'v3', path: '/v3/form', tagName: 'SubAppV3', title: 'v3表单' },
   { id: 'v2', pid: 'main', title: 'Vue2子应用' },
-  { id: 'v2Home', pid: 'v2', path: '/v2/', tagName: 'SubAppV2', title: '首页' },
-  { id: 'v2Form', pid: 'v2', path: '/v2/form', tagName: 'SubAppV2', title: '表单' },
+  { id: 'v2Home', pid: 'v2', path: '/v2/', tagName: 'SubAppV2', title: 'v2首页' },
+  { id: 'v2Form', pid: 'v2', path: '/v2/form', tagName: 'SubAppV2', title: 'v2表单' },
   { id: 'login', pid: '', path: '/login', tagName: 'Login', title: '登录' },
 ]
 // helpers

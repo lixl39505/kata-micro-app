@@ -99,7 +99,7 @@ export default [
             path: 'index',
             name: 'v2Index',
             meta: {
-              title: '首页',
+              title: 'v2首页',
               icon: 'home',
               auth: true,
             },
@@ -109,7 +109,7 @@ export default [
             path: 'form',
             name: 'v2Form',
             meta: {
-              title: '表单',
+              title: 'v2表单',
               icon: 'table',
               auth: true,
               keepAlive: true,
@@ -130,7 +130,7 @@ export default [
             path: '',
             name: 'rc18Index',
             meta: {
-              title: '首页',
+              title: 'rc首页',
               icon: 'home',
               auth: true,
             },
@@ -140,7 +140,7 @@ export default [
             path: 'form',
             name: 'rc18Form',
             meta: {
-              title: '表单',
+              title: 'rc表单',
               icon: 'table',
               auth: true,
               keepAlive: true,
