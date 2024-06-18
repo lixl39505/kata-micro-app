@@ -1,20 +1,18 @@
 <template>
-  <div class="login">
-    <ElForm :model="m" status-icon :rules="rules" ref="form" label-width="100px" class="demo-m">
-      <ElFormItem label="用户名" prop="username">
-        <ElInput v-model="m.username" autocomplete="off"></ElInput>
-      </ElFormItem>
-      <ElFormItem label="密码" prop="pwd">
-        <ElInput type="password" v-model="m.pwd" autocomplete="off"></ElInput>
-      </ElFormItem>
-      <ElFormItem label="确认密码" prop="pwd2">
-        <ElInput type="password" v-model="m.pwd2" autocomplete="off"></ElInput>
-      </ElFormItem>
-      <ElFormItem>
-        <ElButton type="primary" @click="onSubmit">提交</ElButton>
-      </ElFormItem>
-    </ElForm>
-  </div>
+  <ElForm :model="m" status-icon :rules="rules" ref="form" label-width="100px" class="login">
+    <ElFormItem label="用户名" prop="username">
+      <ElInput v-model="m.username" autocomplete="off"></ElInput>
+    </ElFormItem>
+    <ElFormItem label="密码" prop="pwd">
+      <ElInput type="password" v-model="m.pwd" autocomplete="off"></ElInput>
+    </ElFormItem>
+    <ElFormItem label="确认密码" prop="pwd2">
+      <ElInput type="password" v-model="m.pwd2" autocomplete="off"></ElInput>
+    </ElFormItem>
+    <ElFormItem>
+      <ElButton type="primary" @click="onSubmit">提交</ElButton>
+    </ElFormItem>
+  </ElForm>
 </template>
 
 <script lang="ts" setup>
@@ -72,4 +70,10 @@ function onSubmit() {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.login {
+  width: 300px;
+  margin: auto;
+  margin-top: 200px;
+}
+</style>
