@@ -87,6 +87,37 @@ export default [
           },
         ],
       },
+      {
+        path: '/v3',
+        meta: {
+          title: 'Vue3 子应用',
+          icon: 'dir',
+        },
+        component: () => import('~/views/ParentView.vue'),
+        children: [
+          {
+            path: 'index',
+            name: 'v3Index',
+            meta: {
+              title: 'v3 首页',
+              icon: 'home',
+              auth: true,
+            },
+            component: () => import('~/views/SubAppV3.vue'),
+          },
+          {
+            path: 'form',
+            name: 'v3Form',
+            meta: {
+              title: 'v3 表单',
+              icon: 'table',
+              auth: true,
+              keepAlive: true,
+            },
+            component: () => import('~/views/SubAppV3.vue'),
+          },
+        ],
+      },
     ],
   },
   {
@@ -96,34 +127,6 @@ export default [
       auth: false,
     },
     component: () => import(`~/views/Login.vue`),
-  },
-  {
-    path: '/v3',
-    name: 'v3',
-    component: () => import('~/views/main/MainView.vue'),
-    children: [
-      {
-        path: 'index',
-        name: 'v3Index',
-        meta: {
-          title: 'v3 首页',
-          icon: 'home',
-          auth: true,
-        },
-        component: () => import('~/views/SubAppV3.vue'),
-      },
-      {
-        path: 'form',
-        name: 'v3Form',
-        meta: {
-          title: 'v3 表单',
-          icon: 'table',
-          auth: true,
-          keepAlive: true,
-        },
-        component: () => import('~/views/SubAppV3.vue'),
-      },
-    ],
   },
   {
     path: '/teleport',

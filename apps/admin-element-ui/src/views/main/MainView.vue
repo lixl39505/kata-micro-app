@@ -135,7 +135,7 @@ watchEffect(() => {
   })
   // 筛选
   menuItems.value = Object.values(routesMap)
-    .filter((v) => v.name === 'main' || v.name === 'v3')
+    .filter((v) => v.name === 'main')
     .reduce((acc: MenuConfig[], v) => acc.concat(v.children), [])
 })
 
