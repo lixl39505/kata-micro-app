@@ -22,7 +22,7 @@
     "react-router-dom": "^6.23.1",
     "react-use": "^17.5.0",
     "use-immer": "^0.9.0",
-    "wujie-react": "^1.0.22"
+    "wujie": "^1.0.22"
   },
   "devDependencies": {
     "@svgr/plugin-jsx": "^8.1.0",
