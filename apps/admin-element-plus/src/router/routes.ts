@@ -87,33 +87,67 @@ export default [
           },
         ],
       },
-    ],
-  },
-  {
-    path: '/v2',
-    name: 'v2',
-    component: () => import('~/views/main/MainView.vue'),
-    children: [
       {
-        path: 'index',
-        name: 'v2Index',
+        path: 'v2',
         meta: {
-          title: 'v2 首页',
-          icon: 'home',
-          auth: true,
+          title: 'Vue2 子应用',
+          icon: 'dir',
         },
-        component: () => import('~/views/SubAppV2.vue'),
+        component: () => import(`~/views/ParentView.vue`),
+        children: [
+          {
+            path: 'index',
+            name: 'v2Index',
+            meta: {
+              title: '首页',
+              icon: 'home',
+              auth: true,
+            },
+            component: () => import('~/views/SubAppV2.vue'),
+          },
+          {
+            path: 'form',
+            name: 'v2Form',
+            meta: {
+              title: '表单',
+              icon: 'table',
+              auth: true,
+              keepAlive: true,
+            },
+            component: () => import('~/views/SubAppV2.vue'),
+          },
+        ],
       },
       {
-        path: 'form',
-        name: 'v2Form',
+        path: 'rc18',
         meta: {
-          title: 'v2 表单',
-          icon: 'table',
-          auth: true,
-          keepAlive: true,
+          title: 'React18 子应用',
+          icon: 'dir',
         },
-        component: () => import('~/views/SubAppV2.vue'),
+        component: () => import(`~/views/ParentView.vue`),
+        children: [
+          {
+            path: 'index',
+            name: 'rc18Index',
+            meta: {
+              title: '首页',
+              icon: 'home',
+              auth: true,
+            },
+            component: () => import('~/views/SubAppRc18.vue'),
+          },
+          {
+            path: 'form',
+            name: 'rc18Form',
+            meta: {
+              title: '表单',
+              icon: 'table',
+              auth: true,
+              keepAlive: true,
+            },
+            component: () => import('~/views/SubAppRc18.vue'),
+          },
+        ],
       },
     ],
   },

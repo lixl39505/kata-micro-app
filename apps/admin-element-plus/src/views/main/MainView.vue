@@ -132,7 +132,7 @@ watchEffect(() => {
   }
 
   menuItems.value = routes
-    .filter((v) => v.name === 'main' || v.name === 'v2')
+    .filter((v) => v.name === 'main')
     .reduce((acc: MenuConfig[], v) => {
       acc.push(
         ...buildMenus(v.children, {
