@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, useNavigate } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { selectRoutes } from './sitemapSlice'
 import { useAppSelector } from '~/store'
 
